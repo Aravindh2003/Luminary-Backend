@@ -20,8 +20,6 @@ A production-ready Node.js backend for the Luminary coaching platform, built wit
 
 - Node.js 18+ and npm 8+
 - PostgreSQL 12+
-- AWS S3 account (for file uploads)
-- SMTP email service (Gmail/Outlook)
 - Stripe account (for payments)
 
 ## 🛠️ Installation
