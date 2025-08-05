@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "F:\\Luminary\\Luminary-backend\\logs\\.640861cb17b6266b4e0efbff32f5927d3a2e0a62-audit.json",
+    "files": [
+        {
+            "date": 1754385858828,
+            "name": "F:\\Luminary\\Luminary-backend\\logs\\application-2025-08-05.log",
+            "hash": "a80363bf953cdbe7bbd7239e8cd43e91e50920edefd465b240908389ff04ba62"
+        }
+    ],
+    "hashType": "sha256"
+}

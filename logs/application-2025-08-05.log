@@ -1,0 +1,912 @@
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 10:37:52"}
+{"level":"info","message":"GET /api-docs/ - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:40:36"}
+{"level":"info","message":"GET /api-docs/swagger-ui.css - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:40:37"}
+{"level":"info","message":"GET /api-docs/swagger-ui-bundle.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:40:37"}
+{"level":"info","message":"GET /api-docs/swagger-ui-standalone-preset.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:40:37"}
+{"level":"info","message":"GET /api-docs/swagger-ui-init.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:40:37"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:41:11"}
+{"level":"info","message":"Admin logged in: admin@luminary.com","service":"luminary-backend","timestamp":"2025-08-05 10:41:12"}
+{"level":"info","message":"GET /api/v1/auth/profile - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:41:12"}
+{"level":"info","message":"GET /api/v1/admin/dashboard - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:41:12"}
+{"level":"info","message":"GET /api/v1/admin/coaches - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:41:12"}
+{"level":"info","message":"GET /api/v1/courses - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:41:12"}
+{"level":"info","message":"GET /api/v1/courses - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:41:12"}
+{"level":"info","message":"GET /api/v1/auth/profile - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:41:12"}
+{"level":"info","message":"GET /api/v1/admin/coaches - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:41:12"}
+{"level":"info","message":"GET /api/v1/admin/dashboard - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:41:12"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:02"}
+{"level":"info","message":"Admin logged in: admin@luminary.com","service":"luminary-backend","timestamp":"2025-08-05 10:45:02"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:06"}
+{"level":"info","message":"Admin logged in: admin@luminary.com","service":"luminary-backend","timestamp":"2025-08-05 10:45:06"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:11"}
+{"level":"info","message":"Admin logged in: admin@luminary.com","service":"luminary-backend","timestamp":"2025-08-05 10:45:11"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:15"}
+{"error":"Invalid admin credentials","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Invalid admin credentials\n    at file:///F:/Luminary/backend/src/controllers/authController.js:376:11","timestamp":"2025-08-05 10:45:16","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:17"}
+{"error":"Invalid admin credentials","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Invalid admin credentials\n    at file:///F:/Luminary/backend/src/controllers/authController.js:376:11","timestamp":"2025-08-05 10:45:18","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:19"}
+{"error":"Invalid admin credentials","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Invalid admin credentials\n    at file:///F:/Luminary/backend/src/controllers/authController.js:376:11","timestamp":"2025-08-05 10:45:19","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:20"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:20","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:21"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:21","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:21"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:21","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:21"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:21","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:22"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:22","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:22"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:22","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:22"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:22","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:22"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:22","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:22"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:22","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:22"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:22","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:22"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:22","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:22"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:22","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:22"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:22","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:23"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:23","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:23"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:23","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:23"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:23","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:23"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:23","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:23"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:23","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:23"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:23","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:23"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:23","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:23"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:23","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:23"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:23","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:24"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:24","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:24"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:24","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:24"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:24","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:24"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:24","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:24"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:24","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:24"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:24","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:24"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:24","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:24"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:24","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:24"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:24","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:24"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:24","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:25"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:25","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:25"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:25","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:25"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:25","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:25"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:25","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:25"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:25","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:25"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:25","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:25"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:25","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:25"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:25","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:25"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:25","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:25"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:25","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:26"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:26","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:26"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:26","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:26"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:26","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:26"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:26","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:26"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:26","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:26"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:26","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:26"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:26","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:26"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:26","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:26"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:26","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:26"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:26","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:26"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:26","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:27"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:27","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:27"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:27","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:27"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:27","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:27"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:27","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:27"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:27","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:27"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:27","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:27"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:27","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:27"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:27","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:27"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:27","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:27"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:27","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:27"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:27","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 10:45:28"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/backend/src/controllers/authController.js:354:11","timestamp":"2025-08-05 10:45:28","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 10:57:58"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 10:58:00"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 10:59:53"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 10:59:55"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 11:10:49"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 11:11:04"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 11:11:29"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 11:11:39"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 11:12:03"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 11:12:24"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"GET /api-docs/ - ::ffff:127.0.0.1","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"GET /api-docs/swagger-ui.css - ::ffff:127.0.0.1","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"GET /api-docs/swagger-ui-standalone-preset.js - ::ffff:127.0.0.1","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"GET /api-docs/swagger-ui-init.js - ::ffff:127.0.0.1","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"GET /api-docs/swagger-ui-bundle.js - ::ffff:127.0.0.1","service":"luminary-backend","timestamp":"2025-08-05 11:12:49"}
+{"level":"info","message":"GET /api-docs/favicon-32x32.png - ::ffff:127.0.0.1","service":"luminary-backend","timestamp":"2025-08-05 11:12:50"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 11:14:06"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 11:14:06"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:14:06"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 11:14:06"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 11:14:06"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 11:14:06"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 11:14:06"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:14:06"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 11:14:06"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 11:14:06"}
+{"address":"::","code":"EADDRINUSE","errno":-4091,"level":"error","message":"Uncaught Exception: listen EADDRINUSE: address already in use :::5000","port":5000,"service":"luminary-backend","stack":"Error: listen EADDRINUSE: address already in use :::5000\n    at Server.setupListenHandle [as _listen2] (node:net:1939:16)\n    at listenInCluster (node:net:1996:12)\n    at Server.listen (node:net:2101:7)\n    at Function.listen (F:\\Luminary\\backend\\node_modules\\express\\lib\\application.js:635:24)\n    at startServer (file:///F:/Luminary/backend/src/server.js:204:18)","syscall":"listen","timestamp":"2025-08-05 11:14:06"}
+{"level":"info","message":"Received SIGTERM. Starting graceful shutdown...","service":"luminary-backend","timestamp":"2025-08-05 11:14:06"}
+{"level":"info","message":"HTTP server closed","service":"luminary-backend","timestamp":"2025-08-05 11:14:06"}
+{"level":"info","message":"Database connection closed","service":"luminary-backend","timestamp":"2025-08-05 11:14:06"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 11:14:24"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 11:24:50"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 11:24:55"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 11:26:49"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 11:26:53"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 11:50:06"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 11:50:28"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 11:50:28"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:50:28"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 11:50:28"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 11:50:28"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 11:50:28"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 11:50:28"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:50:28"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 11:50:28"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 11:50:28"}
+{"address":"::","code":"EADDRINUSE","errno":-4091,"level":"error","message":"Uncaught Exception: listen EADDRINUSE: address already in use :::5000","port":5000,"service":"luminary-backend","stack":"Error: listen EADDRINUSE: address already in use :::5000\n    at Server.setupListenHandle [as _listen2] (node:net:1939:16)\n    at listenInCluster (node:net:1996:12)\n    at Server.listen (node:net:2101:7)\n    at Function.listen (F:\\Luminary\\backend\\node_modules\\express\\lib\\application.js:635:24)\n    at startServer (file:///F:/Luminary/backend/src/server.js:206:18)","syscall":"listen","timestamp":"2025-08-05 11:50:28"}
+{"level":"info","message":"Received SIGTERM. Starting graceful shutdown...","service":"luminary-backend","timestamp":"2025-08-05 11:50:28"}
+{"level":"info","message":"HTTP server closed","service":"luminary-backend","timestamp":"2025-08-05 11:50:28"}
+{"level":"info","message":"Database connection closed","service":"luminary-backend","timestamp":"2025-08-05 11:50:28"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 11:50:41"}
+{"level":"info","message":"GET /api-docs/ - ::1","service":"luminary-backend","timestamp":"2025-08-05 11:51:09"}
+{"level":"info","message":"GET /api-docs/swagger-ui.css - ::1","service":"luminary-backend","timestamp":"2025-08-05 11:51:09"}
+{"level":"info","message":"GET /api-docs/swagger-ui-bundle.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 11:51:09"}
+{"level":"info","message":"GET /api-docs/swagger-ui-standalone-preset.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 11:51:09"}
+{"level":"info","message":"GET /api-docs/swagger-ui-init.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 11:51:09"}
+{"level":"info","message":"GET /api-docs/favicon-32x32.png - ::1","service":"luminary-backend","timestamp":"2025-08-05 11:51:09"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:01:27"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:01:32"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:15:19"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:15:19"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:15:20"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:15:20"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:15:20"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:15:20"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:15:20"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:15:20"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:15:20"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:15:20"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:15:20"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:15:20"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:15:20"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:15:20"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:15:20"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:15:20"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:15:20"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:16:26"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:16:36"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:16:46"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:17:25"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:17:25"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:17:25"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:17:25"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:17:25"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:17:25"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:17:25"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:17:25"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:17:25"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:17:25"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:17:26"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:17:26"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:17:26"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:17:26"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:17:26"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:17:26"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:17:26"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:18:32"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:18:32"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:18:33"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:18:33"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:18:33"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:18:33"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:18:33"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:18:33"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:18:33"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:18:33"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:18:33"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:18:33"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:18:33"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:18:33"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:18:33"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:18:33"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:18:33"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:21:13"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:21:17"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:21:26"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:21:28"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:21:34"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:21:36"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:21:38"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:21:44"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:22:44"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:23:56"}
+{"level":"info","message":"Shutting down Prisma client...","service":"luminary-backend","timestamp":"2025-08-05 12:25:01"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 12:25:17"}
+{"level":"info","message":"GET /api-docs/ - ::1","service":"luminary-backend","timestamp":"2025-08-05 12:25:21"}
+{"level":"info","message":"GET /api-docs/swagger-ui.css - ::1","service":"luminary-backend","timestamp":"2025-08-05 12:25:21"}
+{"level":"info","message":"GET /api-docs/swagger-ui-bundle.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 12:25:21"}
+{"level":"info","message":"GET /api-docs/swagger-ui-standalone-preset.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 12:25:21"}
+{"level":"info","message":"GET /api-docs/swagger-ui-init.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 12:25:21"}
+{"level":"info","message":"Shutting down Prisma client...","service":"luminary-backend","timestamp":"2025-08-05 12:39:15"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 14:54:19"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 14:57:40"}
+{"level":"info","message":"Admin logged in: admin@luminary.com","service":"luminary-backend","timestamp":"2025-08-05 14:57:41"}
+{"level":"info","message":"GET /api/v1/auth/profile - ::1","service":"luminary-backend","timestamp":"2025-08-05 14:57:41"}
+{"level":"info","message":"GET /api/v1/admin/coaches - ::1","service":"luminary-backend","timestamp":"2025-08-05 14:57:41"}
+{"level":"info","message":"GET /api/v1/admin/dashboard - ::1","service":"luminary-backend","timestamp":"2025-08-05 14:57:41"}
+{"level":"info","message":"GET /api/v1/courses - ::1","service":"luminary-backend","timestamp":"2025-08-05 14:57:41"}
+{"level":"info","message":"GET /api/v1/auth/profile - ::1","service":"luminary-backend","timestamp":"2025-08-05 14:57:41"}
+{"level":"info","message":"GET /api/v1/courses - ::1","service":"luminary-backend","timestamp":"2025-08-05 14:57:41"}
+{"level":"info","message":"GET /api/v1/admin/coaches - ::1","service":"luminary-backend","timestamp":"2025-08-05 14:57:41"}
+{"level":"info","message":"GET /api/v1/admin/dashboard - ::1","service":"luminary-backend","timestamp":"2025-08-05 14:57:41"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 15:39:26"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
+{"level":"info","message":"Shutting down Prisma client...","service":"luminary-backend","timestamp":"2025-08-05 15:39:58"}

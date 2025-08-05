@@ -1,0 +1,30 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "F:\\Luminary\\backend\\logs\\.a6a4367b14609a54db8e5a35a48c64118822b90b-audit.json",
+    "files": [
+        {
+            "date": 1754115778544,
+            "name": "F:\\Luminary\\backend\\logs\\application-2025-08-02.log",
+            "hash": "da549853a8b0fbf689e5e20e1bb974632f2191d9befa445e0cd05b808bf39b0f"
+        },
+        {
+            "date": 1754227619828,
+            "name": "F:\\Luminary\\backend\\logs\\application-2025-08-03.log",
+            "hash": "718c20b019f11653fb62c2300fdc76bf9dddd731cef216684c2af76227a97df1"
+        },
+        {
+            "date": 1754285333978,
+            "name": "F:\\Luminary\\backend\\logs\\application-2025-08-04.log",
+            "hash": "712e8b9b0bb45e1652049f4ca928a1ae214ff4545c495d15a280ec532aafcfb0"
+        },
+        {
+            "date": 1754370471517,
+            "name": "F:\\Luminary\\backend\\logs\\application-2025-08-05.log",
+            "hash": "bdfb6ee9e9b80553dfa20a144b7a3253b48fedd7991adc4ae1d583adafde95c4"
+        }
+    ],
+    "hashType": "sha256"
+}
