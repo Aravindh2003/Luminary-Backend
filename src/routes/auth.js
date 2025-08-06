@@ -104,7 +104,25 @@ const coachRegistrationValidation = [
     .notEmpty()
     .withMessage('Address is required'),
   body('languages')
-    .isArray({ min: 1 })
+    .custom((value) => {
+      // Handle both array and JSON string formats
+      let languages;
+      if (typeof value === 'string') {
+        try {
+          languages = JSON.parse(value);
+        } catch (error) {
+          throw new Error('Invalid languages format');
+        }
+      } else {
+        languages = value;
+      }
+      
+      if (!Array.isArray(languages) || languages.length === 0) {
+        throw new Error('At least one language is required');
+      }
+      
+      return true;
+    })
     .withMessage('At least one language is required')
 ];
 

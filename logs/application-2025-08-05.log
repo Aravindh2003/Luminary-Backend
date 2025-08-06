@@ -910,3 +910,770 @@
 {"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
 {"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 15:39:56"}
 {"level":"info","message":"Shutting down Prisma client...","service":"luminary-backend","timestamp":"2025-08-05 15:39:58"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 15:44:24"}
+{"level":"info","message":"GET /api-docs/ - ::1","service":"luminary-backend","timestamp":"2025-08-05 15:44:44"}
+{"level":"info","message":"GET /api-docs/swagger-ui-bundle.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 15:44:44"}
+{"level":"info","message":"GET /api-docs/swagger-ui.css - ::1","service":"luminary-backend","timestamp":"2025-08-05 15:44:44"}
+{"level":"info","message":"GET /api-docs/swagger-ui-init.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 15:44:44"}
+{"level":"info","message":"GET /api-docs/swagger-ui-standalone-preset.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 15:44:44"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 15:59:37"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:00:31"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:00:33"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:00:34"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:02:19"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:02:42"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 16:03:17"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 16:28:14"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:28:18"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:29:42"}
+{"level":"info","message":"Admin logged in: admin@luminary.com","service":"luminary-backend","timestamp":"2025-08-05 16:29:43"}
+{"level":"info","message":"GET /api-docs/ - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:31:14"}
+{"level":"info","message":"GET /api-docs/swagger-ui.css - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:31:14"}
+{"level":"info","message":"GET /api-docs/swagger-ui-bundle.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:31:14"}
+{"level":"info","message":"GET /api-docs/swagger-ui-standalone-preset.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:31:14"}
+{"level":"info","message":"GET /api-docs/swagger-ui-init.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:31:14"}
+{"level":"info","message":"GET /api/v1/admin/dashboard - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:32:10"}
+{"error":"Access token is required","level":"error","message":"Error Handler:","method":"GET","service":"luminary-backend","stack":"Error: Access token is required\n    at file:///F:/Luminary/Luminary-backend/src/middleware/auth.js:45:13\n    at file:///F:/Luminary/Luminary-backend/src/utils/asyncHandler.js:2:19\n    at newFn (F:\\Luminary\\Luminary-backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at Function.process_params (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at Function.handle (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:175:3)\n    at router (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:47:12)","timestamp":"2025-08-05 16:32:10","url":"/api/v1/admin/dashboard"}
+{"level":"info","message":"GET /api/v1/admin/dashboard - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:32:26"}
+{"error":"Access token is required","level":"error","message":"Error Handler:","method":"GET","service":"luminary-backend","stack":"Error: Access token is required\n    at file:///F:/Luminary/Luminary-backend/src/middleware/auth.js:45:13\n    at file:///F:/Luminary/Luminary-backend/src/utils/asyncHandler.js:2:19\n    at newFn (F:\\Luminary\\Luminary-backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at Function.process_params (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at Function.handle (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:175:3)\n    at router (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:47:12)","timestamp":"2025-08-05 16:32:26","url":"/api/v1/admin/dashboard"}
+{"level":"info","message":"GET /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:33:19"}
+{"level":"info","message":"GET /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:33:25"}
+{"level":"info","message":"GET /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:34:18"}
+{"level":"info","message":"GET /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:34:21"}
+{"level":"info","message":"GET /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:34:22"}
+{"level":"info","message":"GET /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:34:34"}
+{"level":"info","message":"GET /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:34:52"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:34:59"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:35:42"}
+{"level":"info","message":"Admin logged in: admin@luminary.com","service":"luminary-backend","timestamp":"2025-08-05 16:35:43"}
+{"level":"info","message":"GET /api/v1/admin/dashboard - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:36:03"}
+{"error":"Access token is required","level":"error","message":"Error Handler:","method":"GET","service":"luminary-backend","stack":"Error: Access token is required\n    at file:///F:/Luminary/Luminary-backend/src/middleware/auth.js:45:13\n    at file:///F:/Luminary/Luminary-backend/src/utils/asyncHandler.js:2:19\n    at newFn (F:\\Luminary\\Luminary-backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at Function.process_params (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at Function.handle (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:175:3)\n    at router (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:47:12)","timestamp":"2025-08-05 16:36:03","url":"/api/v1/admin/dashboard"}
+{"level":"info","message":"GET /api/v1/admin/dashboard - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:36:21"}
+{"error":"Invalid access token","level":"error","message":"Error Handler:","method":"GET","service":"luminary-backend","stack":"Error: Invalid access token\n    at verifyToken (file:///F:/Luminary/Luminary-backend/src/middleware/auth.js:28:11)\n    at file:///F:/Luminary/Luminary-backend/src/middleware/auth.js:48:21\n    at file:///F:/Luminary/Luminary-backend/src/utils/asyncHandler.js:2:19\n    at newFn (F:\\Luminary\\Luminary-backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at Function.process_params (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at Function.handle (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:175:3)","timestamp":"2025-08-05 16:36:21","url":"/api/v1/admin/dashboard"}
+{"level":"info","message":"GET /api/v1/admin/dashboard - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:36:36"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:37:37"}
+{"level":"info","message":"Admin logged in: admin@luminary.com","service":"luminary-backend","timestamp":"2025-08-05 16:37:37"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:37:48"}
+{"level":"info","message":"Admin logged in: admin@luminary.com","service":"luminary-backend","timestamp":"2025-08-05 16:37:48"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:37:51"}
+{"level":"info","message":"Admin logged in: admin@luminary.com","service":"luminary-backend","timestamp":"2025-08-05 16:37:52"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:37:53"}
+{"level":"info","message":"Admin logged in: admin@luminary.com","service":"luminary-backend","timestamp":"2025-08-05 16:37:53"}
+{"level":"info","message":"GET /api/v1/admin/dashboard - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:38:15"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:38:38"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 16:38:39"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 16:38:39"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:39:03"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:40:43"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 16:40:44"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 16:40:44"}
+{"level":"info","message":"POST /api/v1/auth/register/coach - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:41:50"}
+{"level":"info","message":"POST /api/v1/auth/register/coach - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:42:06"}
+{"level":"info","message":"POST /api/v1/auth/register/coach - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:43:46"}
+{"level":"error","message":"Failed to send coach application notification: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendCoachApplicationNotification (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:320:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:185:24","timestamp":"2025-08-05 16:43:47"}
+{"level":"error","message":"Failed to send coach application notification: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendCoachApplicationNotification (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:320:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:185:24","timestamp":"2025-08-05 16:43:47"}
+{"level":"info","message":"POST /api/v1/auth/register/coach - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:44:41"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:45:15"}
+{"error":"Invalid email or password","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Invalid email or password\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:236:11","timestamp":"2025-08-05 16:45:15","url":"/api/v1/auth/login"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:45:36"}
+{"level":"info","message":"User logged in: admin@luminary.com (ADMIN)","service":"luminary-backend","timestamp":"2025-08-05 16:45:37"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:47:24"}
+{"error":"Your coach application is still pending approval.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Your coach application is still pending approval.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:278:11","timestamp":"2025-08-05 16:47:25","url":"/api/v1/auth/login"}
+{"level":"info","message":"POST /api/v1/admin/coaches/550e8400-e29b-41d4-a716-446655440000/approve - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:50:09"}
+{"error":"Access token is required","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Access token is required\n    at file:///F:/Luminary/Luminary-backend/src/middleware/auth.js:45:13\n    at file:///F:/Luminary/Luminary-backend/src/utils/asyncHandler.js:2:19\n    at newFn (F:\\Luminary\\Luminary-backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at Function.process_params (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at Function.handle (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:175:3)\n    at router (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:47:12)","timestamp":"2025-08-05 16:50:09","url":"/api/v1/admin/coaches/550e8400-e29b-41d4-a716-446655440000/approve"}
+{"level":"info","message":"POST /api/v1/admin/coaches/550e8400-e29b-41d4-a716-446655440000/approve - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:50:22"}
+{"error":"Access token is required","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Access token is required\n    at file:///F:/Luminary/Luminary-backend/src/middleware/auth.js:45:13\n    at file:///F:/Luminary/Luminary-backend/src/utils/asyncHandler.js:2:19\n    at newFn (F:\\Luminary\\Luminary-backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at Function.process_params (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at Function.handle (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:175:3)\n    at router (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:47:12)","timestamp":"2025-08-05 16:50:22","url":"/api/v1/admin/coaches/550e8400-e29b-41d4-a716-446655440000/approve"}
+{"level":"info","message":"POST /api/v1/admin/coaches/550e8400-e29b-41d4-a716-446655440000/approve - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:50:24"}
+{"error":"Access token is required","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Access token is required\n    at file:///F:/Luminary/Luminary-backend/src/middleware/auth.js:45:13\n    at file:///F:/Luminary/Luminary-backend/src/utils/asyncHandler.js:2:19\n    at newFn (F:\\Luminary\\Luminary-backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:328:13)\n    at F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:286:9\n    at Function.process_params (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:346:12)\n    at next (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:280:10)\n    at Function.handle (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:175:3)\n    at router (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:47:12)","timestamp":"2025-08-05 16:50:24","url":"/api/v1/admin/coaches/550e8400-e29b-41d4-a716-446655440000/approve"}
+{"level":"info","message":"POST /api/v1/admin/coaches/550e8400-e29b-41d4-a716-446655440000/approve - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:51:13"}
+{"level":"info","message":"POST /api/v1/admin/coaches/550e8400-e29b-41d4-a716-446655440000/approve - ::1","service":"luminary-backend","timestamp":"2025-08-05 16:51:20"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 20:07:26"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 20:54:37"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 20:54:37"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 20:54:37"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 20:54:37"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 20:54:37"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 20:54:37"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 20:54:37"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 20:54:37"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 20:54:37"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 20:54:37"}
+{"address":"::","code":"EADDRINUSE","errno":-4091,"level":"error","message":"Uncaught Exception: listen EADDRINUSE: address already in use :::5000","port":5000,"service":"luminary-backend","stack":"Error: listen EADDRINUSE: address already in use :::5000\n    at Server.setupListenHandle [as _listen2] (node:net:1939:16)\n    at listenInCluster (node:net:1996:12)\n    at Server.listen (node:net:2101:7)\n    at Function.listen (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\application.js:635:24)\n    at startServer (file:///F:/Luminary/Luminary-backend/src/server.js:206:18)","syscall":"listen","timestamp":"2025-08-05 20:54:37"}
+{"level":"info","message":"Received SIGTERM. Starting graceful shutdown...","service":"luminary-backend","timestamp":"2025-08-05 20:54:37"}
+{"level":"info","message":"HTTP server closed","service":"luminary-backend","timestamp":"2025-08-05 20:54:37"}
+{"level":"info","message":"Database connection closed","service":"luminary-backend","timestamp":"2025-08-05 20:54:37"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 20:56:35"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 20:56:35","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 20:56:37"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 20:56:37","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 20:56:39"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 20:56:39","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 20:56:43"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 20:56:43"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 20:56:43"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 20:56:45"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 20:56:45","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 20:56:46"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 20:56:46","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 20:56:48"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 20:56:48","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 20:56:49"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 20:56:49","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 20:56:51"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 20:56:51","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 20:56:51"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 20:56:51","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 20:57:00"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 20:57:00","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 20:57:03"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 20:57:03","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:07:44"}
+{"error":"Invalid email or password","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Invalid email or password\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:264:11","timestamp":"2025-08-05 21:07:45","url":"/api/v1/auth/login"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:08:38"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:08:38"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:08:38"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:08:40"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:08:40","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:08:42"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:08:42","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:08:44"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:08:44","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:08:45"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:08:45","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:08:45"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:08:45","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:08:45"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:08:46","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:08:46"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:08:46","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:08:46"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:08:46","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:08:47"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:08:47","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:08:53"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:08:53","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:09:08"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:09:09"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:09:09"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:09:17"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:09:17","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:09:47"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:09:47"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:09:49"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:09:50"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:09:51"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:09:51"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:09:58"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:09:59"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:10:14"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:10:15"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:10:20"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:10:21"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:10:24"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:10:25"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:11:28"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:11:28","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:11:31"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:11:31","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:11:40"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:11:41"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:11:41"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:11:41"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:11:41","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:11:46"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:11:46","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:11:59"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:11:59","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"Shutting down Prisma client...","service":"luminary-backend","timestamp":"2025-08-05 21:14:48"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 21:14:56"}
+{"level":"info","message":"GET /api-docs/ - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:14:59"}
+{"level":"info","message":"GET /api-docs/swagger-ui.css - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:14:59"}
+{"level":"info","message":"GET /api-docs/swagger-ui-bundle.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:14:59"}
+{"level":"info","message":"GET /api-docs/swagger-ui-standalone-preset.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:14:59"}
+{"level":"info","message":"GET /api-docs/swagger-ui-init.js - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:14:59"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:16:44"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:16:45"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:22:33"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:22:34"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:22:45"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:22:45"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:23:09"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:23:09"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:23:17"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:23:17"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:23:20"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:23:21"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:23:24"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:23:25"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:23:29"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:23:30"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:23:30"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:23:31"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:24:17"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:24:17"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:26:15"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:26:15"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:29:08"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:29:09"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:30:16"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:30:17"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:30:20"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:30:21"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:30:31"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:30:31"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:33:31"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 21:33:32"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:35:02"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:35:03"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:35:03"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:35:05"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:35:05","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:40:07"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:40:08"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:40:08"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:44:33"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:44:33"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:44:33"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:47:30"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:47:31"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:47:31"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:51:14"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:51:14"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:51:14"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:51:29"}
+{"error":"User with this email already exists","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: User with this email already exists\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:22:11","timestamp":"2025-08-05 21:51:29","url":"/api/v1/auth/register/parent"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 21:55:59"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:56:00"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 21:56:00"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:00:24"}
+{"level":"info","message":"User logged in: aravindhs@gmail.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 22:00:25"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:03:10"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 22:03:10"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 22:03:10"}
+{"level":"info","message":"POST /api/v1/auth/register/coach - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:07:35"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 22:11:40"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 22:11:53"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 22:12:03"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 22:12:38"}
+{"level":"info","message":"POST /api/v1/auth/register/coach - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:13:44"}
+{"level":"error","message":"Failed to send coach application notification: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendCoachApplicationNotification (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:320:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:195:24","timestamp":"2025-08-05 22:13:45"}
+{"level":"error","message":"Failed to send coach application notification: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendCoachApplicationNotification (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:320:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:195:24","timestamp":"2025-08-05 22:13:45"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:43:55"}
+{"error":"Your coach application is still pending approval.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Your coach application is still pending approval.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:288:11","timestamp":"2025-08-05 22:43:56","url":"/api/v1/auth/login"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:44:24"}
+{"error":"Your coach application is still pending approval.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Your coach application is still pending approval.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:288:11","timestamp":"2025-08-05 22:44:25","url":"/api/v1/auth/login"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:44:44"}
+{"error":"Your coach application is still pending approval.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Your coach application is still pending approval.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:288:11","timestamp":"2025-08-05 22:44:44","url":"/api/v1/auth/login"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:45:01"}
+{"error":"Invalid email or password","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Invalid email or password\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:274:11","timestamp":"2025-08-05 22:45:01","url":"/api/v1/auth/login"}
+{"level":"info","message":"POST /api/v1/auth/refresh - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:45:01"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:45:53"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 22:45:53"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:46:20"}
+{"error":"Invalid admin credentials","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Invalid admin credentials\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:386:11","timestamp":"2025-08-05 22:46:21","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/refresh - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:46:21"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:46:26"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:364:11","timestamp":"2025-08-05 22:46:26","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:46:33"}
+{"error":"Account is locked. Try again in 60 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 60 minutes.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:364:11","timestamp":"2025-08-05 22:46:33","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"GET /api/v1/health - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:50:33"}
+{"level":"info","message":"GET /health - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:50:46"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 22:50:46"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 22:50:46"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:51:39"}
+{"error":"Account is locked. Try again in 55 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 55 minutes.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:252:11","timestamp":"2025-08-05 22:51:39","url":"/api/v1/auth/login"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:51:56"}
+{"error":"Your coach application is still pending approval.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Your coach application is still pending approval.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:288:11","timestamp":"2025-08-05 22:51:56","url":"/api/v1/auth/login"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:52:08"}
+{"error":"Your coach application is still pending approval.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Your coach application is still pending approval.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:288:11","timestamp":"2025-08-05 22:52:09","url":"/api/v1/auth/login"}
+{"level":"info","message":"GET /health - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:53:10"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 22:53:10"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 22:53:10"}
+{"level":"info","message":"GET /api-docs.json - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:53:10"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:53:10"}
+{"level":"info","message":"POST /api/v1/auth/register/coach - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:53:10"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:53:10"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:53:10"}
+{"level":"info","message":"POST /api/v1/auth/logout - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:53:10"}
+{"error":"Access token is required","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Access token is required\n    at file:///F:/Luminary/Luminary-backend/src/middleware/auth.js:45:13\n    at file:///F:/Luminary/Luminary-backend/src/utils/asyncHandler.js:2:19\n    at newFn (F:\\Luminary\\Luminary-backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at Route.dispatch (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\route.js:119:3)\n    at newFn (F:\\Luminary\\Luminary-backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:284:15\n    at Function.process_params (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:346:12)","timestamp":"2025-08-05 22:53:10","url":"/api/v1/auth/logout"}
+{"level":"info","message":"POST /api/v1/auth/refresh - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:53:10"}
+{"error":"Refresh token is required","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Refresh token is required\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:455:11\n    at file:///F:/Luminary/Luminary-backend/src/utils/asyncHandler.js:2:19\n    at file:///F:/Luminary/Luminary-backend/src/utils/asyncHandler.js:2:19\n    at newFn (F:\\Luminary\\Luminary-backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at next (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\route.js:149:13)\n    at Route.dispatch (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\route.js:119:3)\n    at newFn (F:\\Luminary\\Luminary-backend\\node_modules\\express-async-errors\\index.js:16:20)\n    at Layer.handle [as handle_request] (F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at F:\\Luminary\\Luminary-backend\\node_modules\\express\\lib\\router\\index.js:284:15","timestamp":"2025-08-05 22:53:10","url":"/api/v1/auth/refresh"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:53:33"}
+{"error":"Your coach application is still pending approval.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Your coach application is still pending approval.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:288:11","timestamp":"2025-08-05 22:53:34","url":"/api/v1/auth/login"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 22:53:49"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 22:53:50"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:04:34"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 23:04:34"}
+{"level":"info","message":"POST /api/v1/auth/register/parent - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:04:47"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 23:04:48"}
+{"level":"error","message":"Failed to send welcome email: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendWelcomeEmail (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:298:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:49:24","timestamp":"2025-08-05 23:04:48"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:04:48"}
+{"level":"info","message":"User logged in: testparent@example.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 23:04:49"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:05:36"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 23:05:37"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:11:48"}
+{"level":"info","message":"User logged in: parent1@email.com (PARENT)","service":"luminary-backend","timestamp":"2025-08-05 23:11:49"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:12:56"}
+{"error":"Account is locked. Try again in 34 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 34 minutes.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:364:11","timestamp":"2025-08-05 23:12:56","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:12:59"}
+{"error":"Account is locked. Try again in 34 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 34 minutes.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:364:11","timestamp":"2025-08-05 23:12:59","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:13:23"}
+{"error":"Your coach application is still pending approval.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Your coach application is still pending approval.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:288:11","timestamp":"2025-08-05 23:13:24","url":"/api/v1/auth/login"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:13:36"}
+{"error":"Your coach application is still pending approval.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Your coach application is still pending approval.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:288:11","timestamp":"2025-08-05 23:13:37","url":"/api/v1/auth/login"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:14:24"}
+{"level":"info","message":"User logged in: abc@gmail.com (COACH)","service":"luminary-backend","timestamp":"2025-08-05 23:14:25"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:15:15"}
+{"error":"Account is locked. Try again in 32 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 32 minutes.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:364:11","timestamp":"2025-08-05 23:15:15","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/register/coach - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:16:31"}
+{"level":"error","message":"Failed to send coach application notification: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendCoachApplicationNotification (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:320:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:195:24","timestamp":"2025-08-05 23:16:31"}
+{"level":"error","message":"Failed to send coach application notification: nodemailer.createTransporter is not a function","service":"luminary-backend","stack":"TypeError: nodemailer.createTransporter is not a function\n    at createTransporter (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:16:21)\n    at Object.sendCoachApplicationNotification (file:///F:/Luminary/Luminary-backend/src/services/emailService.js:320:27)\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:195:24","timestamp":"2025-08-05 23:16:31"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:17:00"}
+{"error":"Your coach application is still pending approval.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Your coach application is still pending approval.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:288:11","timestamp":"2025-08-05 23:17:00","url":"/api/v1/auth/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:17:20"}
+{"error":"Account is locked. Try again in 30 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 30 minutes.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:364:11","timestamp":"2025-08-05 23:17:20","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:17:23"}
+{"error":"Account is locked. Try again in 29 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 29 minutes.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:364:11","timestamp":"2025-08-05 23:17:23","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:18:27"}
+{"error":"Account is locked. Try again in 28 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 28 minutes.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:364:11","timestamp":"2025-08-05 23:18:27","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"🌱 Starting database seeding...","service":"luminary-backend","timestamp":"2025-08-05 23:19:33"}
+{"level":"info","message":"ℹ️ Admin user already exists: admin@luminary.com","service":"luminary-backend","timestamp":"2025-08-05 23:19:33"}
+{"level":"info","message":"✅ Sample coach created: coach2@example.com (APPROVED)","service":"luminary-backend","timestamp":"2025-08-05 23:19:34"}
+{"level":"info","message":"✅ Sample coach created: coach3@example.com (PENDING)","service":"luminary-backend","timestamp":"2025-08-05 23:19:34"}
+{"level":"info","message":"✅ Sample course created: Python Programming for Beginners by Michael Chen","service":"luminary-backend","timestamp":"2025-08-05 23:19:34"}
+{"level":"info","message":"✅ Sample course created: Advanced JavaScript Concepts by Michael Chen","service":"luminary-backend","timestamp":"2025-08-05 23:19:34"}
+{"level":"info","message":"🎉 Database seeding completed successfully!","service":"luminary-backend","timestamp":"2025-08-05 23:19:34"}
+{"level":"info","message":"\n📋 Seeded Data Summary:","service":"luminary-backend","timestamp":"2025-08-05 23:19:34"}
+{"level":"info","message":"👨‍💼 Admin User: admin@luminary.com / AdminPassword123!","service":"luminary-backend","timestamp":"2025-08-05 23:19:34"}
+{"level":"info","message":"👨‍👩‍👧‍👦 Sample Parents: parent1@example.com, parent2@example.com","service":"luminary-backend","timestamp":"2025-08-05 23:19:34"}
+{"level":"info","message":"👨‍🏫 Sample Coaches: coach1@example.com (PENDING), coach2@example.com (APPROVED), coach3@example.com (PENDING), coach4@example.com (REJECTED)","service":"luminary-backend","timestamp":"2025-08-05 23:19:34"}
+{"level":"info","message":"📚 Sample Courses: Created for approved coaches","service":"luminary-backend","timestamp":"2025-08-05 23:19:34"}
+{"level":"info","message":"\n🔑 All sample users have password: Password123!","service":"luminary-backend","timestamp":"2025-08-05 23:19:34"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 23:19:44"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 23:19:46"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 23:19:58"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:20:09"}
+{"error":"Account is locked. Try again in 27 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 27 minutes.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:364:11","timestamp":"2025-08-05 23:20:09","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 23:20:18"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:20:29"}
+{"error":"Account is locked. Try again in 26 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 26 minutes.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:364:11","timestamp":"2025-08-05 23:20:29","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:20:35"}
+{"error":"Account is locked. Try again in 26 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 26 minutes.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:364:11","timestamp":"2025-08-05 23:20:35","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:20:38"}
+{"error":"Account is locked. Try again in 26 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 26 minutes.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:364:11","timestamp":"2025-08-05 23:20:39","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"Shutting down Prisma client...","service":"luminary-backend","timestamp":"2025-08-05 23:20:58"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 23:21:01"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 23:21:02"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:21:02"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 23:21:02"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 23:21:02"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 23:21:02"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 23:21:02"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:21:02"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 23:21:02"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 23:21:02"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 23:21:02"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 23:21:02"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 23:21:02"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 23:21:02"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 23:21:02"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 23:21:02"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 23:21:02"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:21:04"}
+{"error":"Account is locked. Try again in 26 minutes.","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Account is locked. Try again in 26 minutes.\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:364:11","timestamp":"2025-08-05 23:21:04","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 23:21:56"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 23:21:56"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:21:57"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 23:21:57"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 23:21:57"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 23:21:57"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 23:21:57"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:21:57"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 23:21:57"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 23:21:57"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 23:21:57"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 23:21:57"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 23:21:57"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 23:21:57"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 23:21:57"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 23:21:57"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 23:21:57"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 23:22:00"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 23:22:00"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:22:01"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 23:22:01"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 23:22:01"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 23:22:01"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 23:22:01"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:22:01"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 23:22:01"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 23:22:01"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 23:22:01"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 23:22:01"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 23:22:01"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 23:22:01"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 23:22:01"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 23:22:01"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 23:22:01"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:22:05"}
+{"error":"Invalid admin credentials","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Invalid admin credentials\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:386:11","timestamp":"2025-08-05 23:22:05","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/refresh - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:22:05"}
+{"level":"info","message":"POST /api/v1/auth/admin/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:22:10"}
+{"error":"Invalid admin credentials","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Invalid admin credentials\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:386:11","timestamp":"2025-08-05 23:22:11","url":"/api/v1/auth/admin/login"}
+{"level":"info","message":"POST /api/v1/auth/refresh - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:22:11"}
+{"error":"Invalid refresh token","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Invalid refresh token\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:470:11","timestamp":"2025-08-05 23:22:11","url":"/api/v1/auth/refresh"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:22:14"}
+{"error":"Invalid email or password","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Invalid email or password\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:274:11","timestamp":"2025-08-05 23:22:15","url":"/api/v1/auth/login"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 23:22:48"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 23:23:03"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:23:30"}
+{"error":"Invalid email or password","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Invalid email or password\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:274:11","timestamp":"2025-08-05 23:23:32","url":"/api/v1/auth/login"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:23:41"}
+{"level":"info","message":"User logged in: admin@luminary.com (ADMIN)","service":"luminary-backend","timestamp":"2025-08-05 23:23:41"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:24:27"}
+{"error":"Invalid email or password","level":"error","message":"Error Handler:","method":"POST","service":"luminary-backend","stack":"Error: Invalid email or password\n    at file:///F:/Luminary/Luminary-backend/src/controllers/authController.js:274:11","timestamp":"2025-08-05 23:24:27","url":"/api/v1/auth/login"}
+{"level":"info","message":"POST /api/v1/auth/refresh - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:24:27"}
+{"level":"info","message":"POST /api/v1/auth/login - ::1","service":"luminary-backend","timestamp":"2025-08-05 23:24:33"}
+{"level":"info","message":"User logged in: admin@luminary.com (ADMIN)","service":"luminary-backend","timestamp":"2025-08-05 23:24:34"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 23:25:17"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 23:25:36"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 23:25:36"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:25:37"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 23:25:37"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 23:25:37"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 23:25:37"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 23:25:37"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:25:37"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 23:25:37"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 23:25:37"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 23:25:37"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 23:25:37"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 23:25:37"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 23:25:37"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 23:25:37"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 23:25:37"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 23:25:37"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 23:25:39"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 23:26:13"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 23:26:16"}
+{"level":"info","message":"🔄 Starting server initialization...","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}
+{"level":"info","message":"🔄 Testing database connection...","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}
+{"level":"info","message":"✅ Database connection established successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}
+{"level":"info","message":"✅ Database query test successful.","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}
+{"level":"info","message":"✅ Database connection successful","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}
+{"level":"info","message":"🔄 Initializing database...","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}
+{"level":"info","message":"🔄 Syncing database schema...","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}
+{"level":"info","message":"✅ Database initialized successfully.","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}
+{"level":"info","message":"✅ Database initialized","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}
+{"level":"info","message":"🔄 Starting HTTP server...","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}
+{"level":"info","message":"🚀 Server running on port 5000","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}
+{"level":"info","message":"📊 Environment: development","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}
+{"level":"info","message":"🔗 API Version: v1","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}
+{"level":"info","message":"📚 API Documentation: http://localhost:5000/api-docs","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}
+{"level":"info","message":"💚 Health Check: http://localhost:5000/health","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}
+{"level":"info","message":"🔐 Authentication: /api/v1/auth","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}
+{"level":"info","message":"👨‍💼 Admin Panel: /api/v1/admin","service":"luminary-backend","timestamp":"2025-08-05 23:26:25"}

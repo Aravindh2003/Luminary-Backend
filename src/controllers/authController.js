@@ -89,7 +89,7 @@ export const registerCoach = asyncHandler(async (req, res) => {
     domain,
     experience, // This is experienceDescription from frontend
     address,
-    languages // Array of languages from frontend
+    languages // Array of languages from frontend (sent as JSON string)
   } = req.body;
 
   // Validate required fields exactly as frontend does
@@ -97,7 +97,17 @@ export const registerCoach = asyncHandler(async (req, res) => {
     throw new ApiError(400, 'All required fields must be provided');
   }
 
-  if (!languages || !Array.isArray(languages) || languages.length === 0) {
+  // Parse languages from JSON string if needed
+  let parsedLanguages = languages;
+  if (typeof languages === 'string') {
+    try {
+      parsedLanguages = JSON.parse(languages);
+    } catch (error) {
+      throw new ApiError(400, 'Invalid languages format');
+    }
+  }
+
+  if (!parsedLanguages || !Array.isArray(parsedLanguages) || parsedLanguages.length === 0) {
     throw new ApiError(400, 'At least one language is required');
   }
 
@@ -165,7 +175,7 @@ export const registerCoach = asyncHandler(async (req, res) => {
         domain,
         experienceDescription: experience, // Map frontend 'experience' to 'experienceDescription'
         address,
-        languages: languages, // Array of languages
+        languages: parsedLanguages, // Use parsed languages array
         licenseFileUrl,
         resumeFileUrl,
         introVideoUrl,
