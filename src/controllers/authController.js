@@ -372,9 +372,9 @@ export const adminLogin = asyncHandler(async (req, res) => {
     const loginAttempts = user.loginAttempts + 1;
     const updateData = { loginAttempts };
 
-    // Lock admin account after 3 failed attempts for 60 minutes
+    // Lock admin account after 3 failed attempts for 1 minute
     if (loginAttempts >= 3) {
-      updateData.lockedUntil = new Date(Date.now() + 60 * 60 * 1000); // 60 minutes
+      updateData.lockedUntil = new Date(Date.now() + 1 * 60 * 1000); // 1 minute
       updateData.loginAttempts = 0;
     }
 

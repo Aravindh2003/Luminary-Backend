@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id                        String   @id @default(cuid())
+  id                        Int      @id @default(autoincrement())
   email                     String   @unique
   password                  String
   firstName                 String   @map("first_name")
@@ -66,8 +66,8 @@ model User {
 }
 
 model Coach {
-  id                    String   @id @default(cuid())
-  userId                String   @unique @map("user_id")
+  id                    Int      @id @default(autoincrement())
+  userId                Int      @unique @map("user_id")
   
   // Professional Information (from frontend registration)
   domain                String   // Teaching domain (e.g., Mathematics, Science)
@@ -92,9 +92,9 @@ model Coach {
   status                CoachStatus @default(PENDING)
   adminNotes            String?  @map("admin_notes") // Admin notes for approval/rejection
   approvedAt            DateTime? @map("approved_at")
-  approvedBy            String?  @map("approved_by") // Admin user ID who approved
+  approvedBy            Int?     @map("approved_by") // Admin user ID who approved
   rejectedAt            DateTime? @map("rejected_at")
-  rejectedBy            String?  @map("rejected_by") // Admin user ID who rejected
+  rejectedBy            Int?     @map("rejected_by") // Admin user ID who rejected
   rejectionReason       String?  @map("rejection_reason")
   
   // Performance Metrics
@@ -129,13 +129,15 @@ model Coach {
 }
 
 model Course {
-  id          String   @id @default(cuid())
-  coachId     String   @map("coach_id")
+  id          Int      @id @default(autoincrement())
+  coachId     Int      @map("coach_id")
   title       String
   description String?
+  benefits    String?
   category    String
   level       CourseLevel
   duration    Int      // in minutes
+  courseDuration String? @map("course_duration") // human-readable duration label (e.g., "12 weeks")
   price       Decimal  @db.Decimal(10, 2) // Legacy field for backward compatibility
   currency    String   @default("USD")
   creditCost  Decimal  @default(0) @map("credit_cost") @db.Decimal(10, 2) // Credits required for enrollment
@@ -143,6 +145,9 @@ model Course {
   thumbnail   String?
   videoUrl    String?  @map("video_url")
   materials   Json     @default("[]") // Array of course materials
+  program     String?  // 'morning' | 'afternoon' | 'evening'
+  timezone    String?  @default("UTC")
+  weeklySchedule Json? @default("[]") @map("weekly_schedule") // Frontend weekly schedule structure
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
@@ -159,10 +164,10 @@ model Course {
 }
 
 model Session {
-  id          String        @id @default(cuid())
-  courseId    String        @map("course_id")
-  coachId     String        @map("coach_id")
-  studentId   String        @map("student_id")
+  id          Int           @id @default(autoincrement())
+  courseId    Int           @map("course_id")
+  coachId     Int           @map("coach_id")
+  studentId   Int           @map("student_id")
   title       String
   description String?
   startTime   DateTime      @map("start_time")
@@ -190,9 +195,9 @@ model Session {
 }
 
 model Payment {
-  id              String        @id @default(cuid())
-  sessionId       String?       @unique @map("session_id")
-  userId          String        @map("user_id")
+  id              Int           @id @default(autoincrement())
+  sessionId       Int?          @unique @map("session_id")
+  userId          Int           @map("user_id")
   stripePaymentId String        @map("stripe_payment_id")
   amount          Decimal       @db.Decimal(10, 2)
   currency        String        @default("USD")
@@ -219,10 +224,10 @@ model Payment {
 }
 
 model Review {
-  id        String   @id @default(cuid())
-  coachId   String   @map("coach_id")
-  reviewerId String  @map("reviewer_id")
-  sessionId String?  @map("session_id")
+  id        Int      @id @default(autoincrement())
+  coachId   Int      @map("coach_id")
+  reviewerId Int     @map("reviewer_id")
+  sessionId Int?     @map("session_id")
   rating    Int
   comment   String?
   isPublic  Boolean  @default(true) @map("is_public")
@@ -241,8 +246,8 @@ model Review {
 }
 
 model Notification {
-  id        String           @id @default(cuid())
-  userId    String           @map("user_id")
+  id        Int              @id @default(autoincrement())
+  userId    Int              @map("user_id")
   type      NotificationType
   title     String
   message   String
@@ -263,8 +268,8 @@ model Notification {
 
 // File Upload Model for tracking uploaded files
 model FileUpload {
-  id          String   @id @default(cuid())
-  userId      String   @map("user_id")
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
   fileName    String   @map("file_name")
   originalName String  @map("original_name")
   fileType    String   @map("file_type") // resume, license, video, etc.
@@ -289,8 +294,8 @@ model FileUpload {
 // New models for Availability & Scheduling
 
 model CoachAvailability {
-  id          String   @id @default(cuid())
-  coachId     String   @map("coach_id")
+  id          Int      @id @default(autoincrement())
+  coachId     Int      @map("coach_id")
   dayOfWeek   Int      @map("day_of_week") // 0=Sunday, 1=Monday, etc.
   isActive    Boolean  @default(true) @map("is_active")
   createdAt   DateTime @default(now()) @map("created_at")
@@ -307,8 +312,8 @@ model CoachAvailability {
 }
 
 model TimeSlot {
-  id                    String   @id @default(cuid())
-  availabilityId        String   @map("availability_id")
+  id                    Int      @id @default(autoincrement())
+  availabilityId        Int      @map("availability_id")
   startTime             String   @map("start_time") // Format: "HH:MM"
   endTime               String   @map("end_time") // Format: "HH:MM"
   isAvailable           Boolean  @default(true) @map("is_available")
@@ -330,11 +335,11 @@ model TimeSlot {
 }
 
 model ScheduledSession {
-  id          String   @id @default(cuid())
-  timeSlotId  String   @map("time_slot_id")
-  coachId     String   @map("coach_id")
-  studentId   String   @map("student_id")
-  courseId    String?  @map("course_id")
+  id          Int      @id @default(autoincrement())
+  timeSlotId  Int      @map("time_slot_id")
+  coachId     Int      @map("coach_id")
+  studentId   Int      @map("student_id")
+  courseId    Int?     @map("course_id")
   sessionDate DateTime @map("session_date")
   title       String
   description String?
@@ -346,11 +351,11 @@ model ScheduledSession {
   notes       String?
   adminNotes  String?  @map("admin_notes")
   approvedAt  DateTime? @map("approved_at")
-  approvedBy  String?  @map("approved_by")
+  approvedBy  Int?     @map("approved_by")
   rejectedAt  DateTime? @map("rejected_at")
-  rejectedBy  String?  @map("rejected_by")
+  rejectedBy  Int?     @map("rejected_by")
   rejectionReason String? @map("rejection_reason")
-  paymentId   String?  @map("payment_id")
+  paymentId   Int?     @map("payment_id")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
@@ -373,9 +378,9 @@ model ScheduledSession {
 }
 
 model ScheduleNotification {
-  id          String   @id @default(cuid())
-  userId      String   @map("user_id")
-  sessionId   String   @map("session_id")
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  sessionId   Int      @map("session_id")
   type        ScheduleNotificationType
   title       String
   message     String
@@ -398,8 +403,8 @@ model ScheduleNotification {
 
 // Credit System Models
 model CreditBalance {
-  id          String   @id @default(cuid())
-  userId      String   @unique @map("user_id")
+  id          Int      @id @default(autoincrement())
+  userId      Int      @unique @map("user_id")
   balance     Decimal  @default(0) @db.Decimal(12, 2)
   totalEarned Decimal  @default(0) @map("total_earned") @db.Decimal(12, 2)
   totalSpent  Decimal  @default(0) @map("total_spent") @db.Decimal(12, 2)
@@ -415,8 +420,8 @@ model CreditBalance {
 }
 
 model CreditTransaction {
-  id          String   @id @default(cuid())
-  userId      String   @map("user_id")
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
   type        CreditTransactionType
   amount      Decimal  @db.Decimal(12, 2)
   balance     Decimal  @db.Decimal(12, 2) // Balance after transaction
@@ -437,14 +442,14 @@ model CreditTransaction {
 }
 
 model CreditPurchase {
-  id          String   @id @default(cuid())
-  userId      String   @map("user_id")
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
   packageId   String   @map("package_id")
   packageName String   @map("package_name")
   credits     Decimal  @db.Decimal(12, 2)
   amount      Decimal  @db.Decimal(10, 2) // Amount paid in currency
   currency    String   @default("USD")
-  paymentId   String?  @map("payment_id")
+  paymentId   Int?     @map("payment_id")
   status      CreditPurchaseStatus @default(PENDING)
   purchasedAt DateTime @default(now()) @map("purchased_at")
   expiresAt   DateTime? @map("expires_at")

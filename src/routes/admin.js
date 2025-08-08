@@ -15,7 +15,7 @@ router.use(requireAdmin);
 
 // Validation rules
 const coachIdValidation = [
-  param('coachId').isString().isLength({ min: 20, max: 30 }).withMessage('Invalid coach ID format')
+  param('coachId').isInt({ min: 1 }).toInt().withMessage('Invalid coach ID format')
 ];
 
 const approveCoachValidation = [
@@ -42,7 +42,7 @@ const updateNotesValidation = [
 
 // Course approval validation rules
 const courseIdValidation = [
-  param('courseId').isString().isLength({ min: 20, max: 30 }).withMessage('Invalid course ID format')
+  param('courseId').isInt({ min: 1 }).toInt().withMessage('Invalid course ID format')
 ];
 
 const approveCourseValidation = [

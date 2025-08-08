@@ -114,14 +114,19 @@ export const getCourses = asyncHandler(async (req, res) => {
     id: course.id,
     title: course.title,
     description: course.description,
+    benefits: course.benefits,
     category: course.category,
     level: course.level,
     duration: course.duration,
+    courseDuration: course.courseDuration,
     price: course.price,
     currency: course.currency,
     thumbnail: course.thumbnail,
     videoUrl: course.videoUrl,
     materials: course.materials,
+    program: course.program,
+    timezone: course.timezone,
+    weeklySchedule: course.weeklySchedule,
     isActive: course.isActive,
     createdAt: course.createdAt,
     updatedAt: course.updatedAt,
@@ -205,14 +210,19 @@ export const getCourseById = asyncHandler(async (req, res) => {
     id: course.id,
     title: course.title,
     description: course.description,
+    benefits: course.benefits,
     category: course.category,
     level: course.level,
     duration: course.duration,
+    courseDuration: course.courseDuration,
     price: course.price,
     currency: course.currency,
     thumbnail: course.thumbnail,
     videoUrl: course.videoUrl,
     materials: course.materials,
+    program: course.program,
+    timezone: course.timezone,
+    weeklySchedule: course.weeklySchedule,
     isActive: course.isActive,
     createdAt: course.createdAt,
     updatedAt: course.updatedAt,
@@ -240,12 +250,18 @@ export const createCourse = asyncHandler(async (req, res) => {
   const {
     title,
     description,
+    benefits,
     category,
     level,
-    duration,
+    duration, // minutes (legacy)
+    courseDuration, // string label
     price,
     currency = 'USD',
-    materials = []
+    materials = [],
+    program,
+    timezone = 'UTC',
+    weeklySchedule,
+    credits
   } = req.body;
 
   const coachId = req.user.id;
@@ -260,9 +276,10 @@ export const createCourse = asyncHandler(async (req, res) => {
         thumbnailUrl = `http://localhost:5000/uploads/course-thumbnail-${Date.now()}.jpg`;
         logger.info(`Course thumbnail uploaded: ${req.files.thumbnail[0].originalname}`);
       }
-      if (req.files.video) {
+      if (req.files.video || req.files.introVideo) {
         videoUrl = `http://localhost:5000/uploads/course-video-${Date.now()}.mp4`;
-        logger.info(`Course video uploaded: ${req.files.video[0].originalname}`);
+        const uploaded = req.files.video?.[0] || req.files.introVideo?.[0];
+        if (uploaded) logger.info(`Course video uploaded: ${uploaded.originalname}`);
       }
     } catch (error) {
       logger.error('File upload error:', error);
@@ -271,19 +288,34 @@ export const createCourse = asyncHandler(async (req, res) => {
   }
 
   // Create course
+  const parsedWeekly = (() => {
+    try {
+      if (!weeklySchedule) return [];
+      return typeof weeklySchedule === 'string' ? JSON.parse(weeklySchedule) : weeklySchedule;
+    } catch (e) {
+      return [];
+    }
+  })();
+
   const course = await prisma.course.create({
     data: {
       coachId,
       title,
       description,
+      benefits: benefits || null,
       category,
-      level,
-      duration: parseInt(duration),
-      price: parseFloat(price),
+      level: level || 'BEGINNER',
+      duration: duration ? parseInt(duration) : 0,
+      courseDuration: courseDuration || null,
+      price: price != null ? parseFloat(price) : 0,
       currency,
       thumbnail: thumbnailUrl,
       videoUrl,
       materials: Array.isArray(materials) ? materials : [],
+      program: program || null,
+      timezone,
+      weeklySchedule: parsedWeekly,
+      creditCost: credits != null ? parseFloat(credits) : 0,
       isActive: true
     },
     include: {
@@ -327,12 +359,18 @@ export const updateCourse = asyncHandler(async (req, res) => {
   const {
     title,
     description,
+    benefits,
     category,
     level,
     duration,
+    courseDuration,
     price,
     currency,
-    materials
+    materials,
+    program,
+    timezone,
+    weeklySchedule,
+    credits
   } = req.body;
 
   // Handle file uploads
@@ -345,9 +383,10 @@ export const updateCourse = asyncHandler(async (req, res) => {
         thumbnailUrl = `http://localhost:5000/uploads/course-thumbnail-${Date.now()}.jpg`;
         logger.info(`Course thumbnail updated: ${req.files.thumbnail[0].originalname}`);
       }
-      if (req.files.video) {
+      if (req.files.video || req.files.introVideo) {
         videoUrl = `http://localhost:5000/uploads/course-video-${Date.now()}.mp4`;
-        logger.info(`Course video updated: ${req.files.video[0].originalname}`);
+        const uploaded = req.files.video?.[0] || req.files.introVideo?.[0];
+        if (uploaded) logger.info(`Course video updated: ${uploaded.originalname}`);
       }
     } catch (error) {
       logger.error('File upload error:', error);
@@ -356,19 +395,34 @@ export const updateCourse = asyncHandler(async (req, res) => {
   }
 
   // Update course
+  const parsedWeekly = (() => {
+    try {
+      if (!weeklySchedule) return existingCourse.weeklySchedule;
+      return typeof weeklySchedule === 'string' ? JSON.parse(weeklySchedule) : weeklySchedule;
+    } catch (e) {
+      return existingCourse.weeklySchedule;
+    }
+  })();
+
   const updatedCourse = await prisma.course.update({
     where: { id: courseId },
     data: {
       title: title || existingCourse.title,
       description: description || existingCourse.description,
+      benefits: benefits ?? existingCourse.benefits,
       category: category || existingCourse.category,
       level: level || existingCourse.level,
       duration: duration ? parseInt(duration) : existingCourse.duration,
-      price: price ? parseFloat(price) : existingCourse.price,
+      courseDuration: courseDuration ?? existingCourse.courseDuration,
+      price: price != null ? parseFloat(price) : existingCourse.price,
       currency: currency || existingCourse.currency,
       thumbnail: thumbnailUrl,
       videoUrl,
-      materials: materials ? (Array.isArray(materials) ? materials : []) : existingCourse.materials
+      materials: materials ? (Array.isArray(materials) ? materials : []) : existingCourse.materials,
+      program: program ?? existingCourse.program,
+      timezone: timezone ?? existingCourse.timezone,
+      weeklySchedule: parsedWeekly,
+      creditCost: credits != null ? parseFloat(credits) : existingCourse.creditCost
     }
   });
 

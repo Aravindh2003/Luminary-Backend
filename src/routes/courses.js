@@ -9,12 +9,12 @@ import fileUploadService from '../services/fileUploadService.js';
 
 const router = express.Router();
 
-// Configure multer for course thumbnail and video uploads
+// Configure multer for course media uploads (thumbnail, video/introVideo)
 const courseUpload = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: 50 * 1024 * 1024, // 50MB max file size
-    files: 2 // Maximum 2 files (thumbnail, video)
+    fileSize: 50 * 1024 * 1024, // 50MB max per file
+    files: 3 // Maximum 3 files (thumbnail, video or introVideo)
   },
   fileFilter: (req, file, cb) => {
     if (file.fieldname === 'thumbnail') {
@@ -24,7 +24,7 @@ const courseUpload = multer({
       } else {
         cb(new Error('Thumbnail must be JPEG, PNG, or WebP format'), false);
       }
-    } else if (file.fieldname === 'video') {
+    } else if (file.fieldname === 'video' || file.fieldname === 'introVideo') {
       if (file.mimetype.startsWith('video/')) {
         cb(null, true);
       } else {
@@ -46,17 +46,51 @@ const createCourseValidation = [
     .trim()
     .isLength({ min: 10, max: 2000 })
     .withMessage('Description must be between 10 and 2000 characters'),
+  body('benefits')
+    .optional()
+    .isString()
+    .isLength({ max: 2000 })
+    .withMessage('Benefits must be less than 2000 characters'),
   body('category')
     .trim()
     .notEmpty()
     .withMessage('Category is required'),
+  body('program')
+    .optional()
+    .isIn(['morning', 'afternoon', 'evening'])
+    .withMessage('Program must be morning, afternoon, or evening'),
+  body('credits')
+    .optional()
+    .isFloat({ min: 0 })
+    .withMessage('Credits must be a positive number'),
+  body('timezone')
+    .optional()
+    .isString()
+    .withMessage('Timezone must be a string'),
+  body('weeklySchedule')
+    .optional()
+    .custom((value) => {
+      // Accept array or JSON string
+      const parsed = typeof value === 'string' ? JSON.parse(value) : value;
+      if (!Array.isArray(parsed)) throw new Error('weeklySchedule must be an array');
+      return true;
+    }),
+  body('courseDuration')
+    .optional()
+    .isString()
+    .isLength({ max: 100 })
+    .withMessage('courseDuration must be a short string'),
+  // Legacy/optional fields maintained for backward compatibility
   body('level')
+    .optional()
     .isIn(['BEGINNER', 'INTERMEDIATE', 'ADVANCED'])
     .withMessage('Level must be BEGINNER, INTERMEDIATE, or ADVANCED'),
   body('duration')
-    .isInt({ min: 15, max: 480 })
-    .withMessage('Duration must be between 15 and 480 minutes'),
+    .optional()
+    .isInt({ min: 1, max: 10000 })
+    .withMessage('Duration must be a positive integer (minutes)'),
   body('price')
+    .optional()
     .isFloat({ min: 0, max: 10000 })
     .withMessage('Price must be between 0 and 10000'),
   body('currency')
@@ -247,9 +281,8 @@ router.get('/:courseId',
  *               - title
  *               - description
  *               - category
- *               - level
- *               - duration
- *               - price
+ *               - program
+ *               - credits
  *             properties:
  *               title:
  *                 type: string
@@ -261,27 +294,40 @@ router.get('/:courseId',
  *                 minLength: 10
  *                 maxLength: 2000
  *                 example: "Comprehensive calculus course covering derivatives, integrals, and applications"
+ *               benefits:
+ *                 type: string
+ *                 maxLength: 2000
+ *                 example: "Critical thinking, problem solving, exam readiness"
  *               category:
  *                 type: string
  *                 example: "Mathematics"
- *               level:
+ *               program:
  *                 type: string
- *                 enum: [BEGINNER, INTERMEDIATE, ADVANCED]
- *                 example: "ADVANCED"
- *               duration:
- *                 type: integer
- *                 minimum: 15
- *                 maximum: 480
- *                 example: 60
- *               price:
+ *                 enum: [morning, afternoon, evening]
+ *                 example: "morning"
+ *               credits:
  *                 type: number
  *                 minimum: 0
- *                 maximum: 10000
- *                 example: 89.99
+ *                 example: 5
  *               currency:
  *                 type: string
  *                 enum: [USD, EUR, GBP, CAD]
  *                 default: "USD"
+ *               timezone:
+ *                 type: string
+ *                 example: "UTC"
+ *               courseDuration:
+ *                 type: string
+ *                 example: "12 weeks"
+ *               level:
+ *                 type: string
+ *                 enum: [BEGINNER, INTERMEDIATE, ADVANCED]
+ *               duration:
+ *                 type: integer
+ *                 description: Legacy duration in minutes (optional)
+ *               price:
+ *                 type: number
+ *                 description: Legacy currency price (optional)
  *               materials:
  *                 type: array
  *                 items:
@@ -294,6 +340,15 @@ router.get('/:courseId',
  *                 type: string
  *                 format: binary
  *                 description: Course introduction video (video format - max 50MB)
+ *               introVideo:
+ *                 type: string
+ *                 format: binary
+ *                 description: Alias for course introduction video (video format - max 50MB)
+ *               weeklySchedule:
+ *                 type: array
+ *                 description: Weekly availability schedule
+ *                 items:
+ *                   type: object
  *     responses:
  *       201:
  *         description: Course created successfully
@@ -320,7 +375,8 @@ router.post('/',
   authorize('COACH'),
   courseUpload.fields([
     { name: 'thumbnail', maxCount: 1 },
-    { name: 'video', maxCount: 1 }
+    { name: 'video', maxCount: 1 },
+    { name: 'introVideo', maxCount: 1 }
   ]),
   createCourseValidation,
   validate,
@@ -400,7 +456,8 @@ router.put('/:courseId',
   authorize('COACH'),
   courseUpload.fields([
     { name: 'thumbnail', maxCount: 1 },
-    { name: 'video', maxCount: 1 }
+    { name: 'video', maxCount: 1 },
+    { name: 'introVideo', maxCount: 1 }
   ]),
   updateCourseValidation,
   validate,
