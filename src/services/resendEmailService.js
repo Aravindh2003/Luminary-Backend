@@ -1,7 +1,13 @@
 import { Resend } from 'resend';
 import logger from '../utils/logger.js';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const apiKey = process.env.RESEND_API_KEY;
+let resend = null;
+if (apiKey) {
+  resend = new Resend(apiKey);
+} else {
+  logger.warn('RESEND_API_KEY not set; Resend emails will be skipped.');
+}
 
 const {
   FROM_EMAIL = 'noreply@luminary.com',
@@ -278,6 +284,10 @@ const getEmailTemplate = (type, data) => {
 const resendEmailService = {
   // Send coach approval notification using Resend
   async sendCoachApprovalNotification(user, adminNotes = null) {
+    if (!resend) {
+      logger.warn(`Resend disabled; skipping approval email to ${user.email}`);
+      return { skipped: true };
+    }
     try {
       const template = getEmailTemplate('coach_approved', { ...user, adminNotes });
       
@@ -305,6 +315,10 @@ const resendEmailService = {
 
   // Send coach rejection notification using Resend
   async sendCoachRejectionNotification(user, rejectionReason = null) {
+    if (!resend) {
+      logger.warn(`Resend disabled; skipping rejection email to ${user.email}`);
+      return { skipped: true };
+    }
     try {
       const template = getEmailTemplate('coach_rejected', { ...user, rejectionReason });
       
@@ -332,6 +346,10 @@ const resendEmailService = {
 
   // Send coach application notification using Resend
   async sendCoachApplicationNotification(user) {
+    if (!resend) {
+      logger.warn(`Resend disabled; skipping application email to ${user.email}`);
+      return { skipped: true };
+    }
     try {
       const template = getEmailTemplate('coach_application', user);
       
@@ -359,6 +377,10 @@ const resendEmailService = {
 
   // Send welcome email using Resend
   async sendWelcomeEmail(user) {
+    if (!resend) {
+      logger.warn(`Resend disabled; skipping welcome email to ${user.email}`);
+      return { skipped: true };
+    }
     try {
       const template = getEmailTemplate('welcome_parent', user);
       
@@ -386,6 +408,10 @@ const resendEmailService = {
 
   // Test Resend configuration
   async testResendConfiguration() {
+    if (!resend) {
+      logger.warn('Resend disabled; skipping test configuration send');
+      return false;
+    }
     try {
       const { data, error } = await resend.emails.send({
         from: `${FROM_NAME} <${FROM_EMAIL}>`,
@@ -409,6 +435,10 @@ const resendEmailService = {
 
   // Generic sendEmail function for custom emails
   async sendEmail({ to, subject, html, from = null }) {
+    if (!resend) {
+      logger.warn(`Resend disabled; skipping sendEmail to ${to}`);
+      return { skipped: true };
+    }
     try {
       const { data, error } = await resend.emails.send({
         from: from || `${FROM_NAME} <${FROM_EMAIL}>`,

@@ -2,7 +2,7 @@ import { prisma } from '../config/database.js';
 import ApiError from '../utils/ApiError.js';
 import ApiResponse from '../utils/ApiResponse.js';
 import asyncHandler from '../utils/asyncHandler.js';
-import resendEmailService from '../services/resendEmailService.js';
+import emailService from '../services/emailService.js';
 import logger from '../utils/logger.js';
 
 // Get admin dashboard statistics - matches frontend AdminDashboard stats
@@ -472,7 +472,7 @@ export const approveCoach = asyncHandler(async (req, res) => {
 
   // Send approval notification email using Resend
   try {
-    await resendEmailService.sendCoachApprovalNotification(updatedCoach.user, adminNotes);
+    await emailService.sendCoachApprovalNotification(updatedCoach.user, adminNotes);
     logger.info(`Coach approval notification sent to ${updatedCoach.user.email} via Resend`);
   } catch (error) {
     logger.error('Failed to send coach approval notification via Resend:', error);
@@ -547,7 +547,7 @@ export const rejectCoach = asyncHandler(async (req, res) => {
 
   // Send rejection notification email using Resend
   try {
-    await resendEmailService.sendCoachRejectionNotification(updatedCoach.user, rejectionReason);
+    await emailService.sendCoachRejectionNotification(updatedCoach.user, rejectionReason);
     logger.info(`Coach rejection notification sent to ${updatedCoach.user.email} via Resend`);
   } catch (error) {
     logger.error('Failed to send coach rejection notification via Resend:', error);
@@ -1014,7 +1014,7 @@ export const approveCourse = asyncHandler(async (req, res) => {
 
   // Send approval email to coach
   try {
-    await resendEmailService.sendCourseApprovalEmail({
+    await emailService.sendCourseApprovalEmail({
       email: course.coach.user.email,
       firstName: course.coach.user.firstName,
       courseTitle: course.title
@@ -1088,7 +1088,7 @@ export const rejectCourse = asyncHandler(async (req, res) => {
 
   // Send rejection email to coach
   try {
-    await resendEmailService.sendCourseRejectionEmail({
+    await emailService.sendCourseRejectionEmail({
       email: course.coach.user.email,
       firstName: course.coach.user.firstName,
       courseTitle: course.title,

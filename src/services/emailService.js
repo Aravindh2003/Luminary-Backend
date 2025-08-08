@@ -11,9 +11,9 @@ const {
   FRONTEND_URL
 } = process.env;
 
-// Create transporter using free email service (Gmail, Outlook, etc.)
+// Create transporter using SMTP
 const createTransporter = () => {
-  return nodemailer.createTransporter({
+  return nodemailer.createTransport({
     host: SMTP_HOST || 'smtp.gmail.com',
     port: parseInt(SMTP_PORT) || 587,
     secure: false, // true for 465, false for other ports
