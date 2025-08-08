@@ -212,6 +212,42 @@ const getEmailTemplate = (type, data) => {
         `
       };
 
+    case 'course_approved':
+      return {
+        subject: `Your course has been approved: ${data.courseTitle} 🎉`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8fafc;">
+            <div style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); padding: 30px; border-radius: 10px; text-align: center; margin-bottom: 30px;">
+              <h1 style="color: white; margin: 0; font-size: 24px;">Course Approved 🎉</h1>
+            </div>
+            <div style="background: white; padding: 24px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+              <p style="color: #2d3748;">Hi ${data.firstName},</p>
+              <p style="color: #4a5568;">Great news! Your course <strong>${data.courseTitle}</strong> has been approved and is now live.</p>
+              ${data.adminNotes ? `<p style="color:#4a5568;"><em>Admin notes:</em> ${data.adminNotes}</p>` : ''}
+              <p style="color:#4a5568;">You can manage your course from your dashboard.</p>
+            </div>
+          </div>
+        `
+      };
+
+    case 'course_rejected':
+      return {
+        subject: `Your course was rejected: ${data.courseTitle}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8fafc;">
+            <div style="background: linear-gradient(135deg, #ed8936 0%, #dd6b20 100%); padding: 30px; border-radius: 10px; text-align: center; margin-bottom: 30px;">
+              <h1 style="color: white; margin: 0; font-size: 24px;">Course Rejected</h1>
+            </div>
+            <div style="background: white; padding: 24px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+              <p style="color: #2d3748;">Hi ${data.firstName},</p>
+              <p style="color: #4a5568;">Your course <strong>${data.courseTitle}</strong> was not approved at this time.</p>
+              ${data.rejectionReason ? `<p style=\"color:#4a5568;\"><em>Reason:</em> ${data.rejectionReason}</p>` : ''}
+              ${data.adminNotes ? `<p style=\"color:#4a5568;\"><em>Admin notes:</em> ${data.adminNotes}</p>` : ''}
+            </div>
+          </div>
+        `
+      };
+
     case 'password_reset':
       return {
         subject: 'Reset Your Luminary Password 🔐',
@@ -376,6 +412,46 @@ const emailService = {
       return result;
     } catch (error) {
       logger.error('Failed to send coach rejection notification:', error);
+      throw error;
+    }
+  },
+
+  // Send course approval email
+  async sendCourseApprovalEmail(data) {
+    try {
+      const transporter = createTransporter();
+      const template = getEmailTemplate('course_approved', data);
+      const mailOptions = {
+        from: `"${FROM_NAME || 'Luminary'}" <${FROM_EMAIL}>`,
+        to: data.email,
+        subject: template.subject,
+        html: template.html
+      };
+      const result = await transporter.sendMail(mailOptions);
+      logger.info(`Course approval email sent to ${data.email}`, { messageId: result.messageId });
+      return result;
+    } catch (error) {
+      logger.error('Failed to send course approval email:', error);
+      throw error;
+    }
+  },
+
+  // Send course rejection email
+  async sendCourseRejectionEmail(data) {
+    try {
+      const transporter = createTransporter();
+      const template = getEmailTemplate('course_rejected', data);
+      const mailOptions = {
+        from: `"${FROM_NAME || 'Luminary'}" <${FROM_EMAIL}>`,
+        to: data.email,
+        subject: template.subject,
+        html: template.html
+      };
+      const result = await transporter.sendMail(mailOptions);
+      logger.info(`Course rejection email sent to ${data.email}`, { messageId: result.messageId });
+      return result;
+    } catch (error) {
+      logger.error('Failed to send course rejection email:', error);
       throw error;
     }
   },

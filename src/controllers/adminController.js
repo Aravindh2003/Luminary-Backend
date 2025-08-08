@@ -803,13 +803,15 @@ export const getCourses = asyncHandler(async (req, res) => {
 
   // Build where clause
   const where = {
-    ...(status !== 'all' && { status: status.toUpperCase() }),
+    // Map status filter to existing fields
+    ...(status === 'approved' && { isActive: true }),
+    ...(status === 'pending' && { isActive: false }),
     ...(search && {
       OR: [
         { title: { contains: search, mode: 'insensitive' } },
         { description: { contains: search, mode: 'insensitive' } },
-        { coach: { user: { firstName: { contains: search, mode: 'insensitive' } } } },
-        { coach: { user: { lastName: { contains: search, mode: 'insensitive' } } } },
+        { coach: { firstName: { contains: search, mode: 'insensitive' } } },
+        { coach: { lastName: { contains: search, mode: 'insensitive' } } },
         { category: { contains: search, mode: 'insensitive' } }
       ]
     }),
@@ -823,14 +825,18 @@ export const getCourses = asyncHandler(async (req, res) => {
   };
 
   // Build orderBy clause
-  const orderBy = {};
-  if (sortBy === 'coachName') {
-    orderBy.coach = { user: { firstName: sortOrder } };
-  } else if (sortBy === 'courseTitle') {
-    orderBy.title = sortOrder;
-  } else {
-    orderBy[sortBy] = sortOrder;
-  }
+  const orderBy = (() => {
+    if (sortBy === 'coachName') {
+      return { coach: { firstName: sortOrder } };
+    }
+    if (sortBy === 'courseTitle') {
+      return { title: sortOrder };
+    }
+    if (sortBy === 'submittedAt') {
+      return { createdAt: sortOrder };
+    }
+    return { [sortBy]: sortOrder };
+  })();
 
   const [courses, total] = await prisma.$transaction([
     prisma.course.findMany({
@@ -840,21 +846,12 @@ export const getCourses = asyncHandler(async (req, res) => {
       orderBy,
       include: {
         coach: {
-          include: {
-            user: {
-              select: {
-                id: true,
-                firstName: true,
-                lastName: true,
-                email: true,
-                profilePicture: true
-              }
-            }
-          }
-        },
-        weeklySchedule: {
-          include: {
-            timeSlots: true
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+            profileImageUrl: true
           }
         }
       }
@@ -865,9 +862,9 @@ export const getCourses = asyncHandler(async (req, res) => {
   // Transform data to match frontend expectations
   const transformedCourses = courses.map(course => ({
     id: course.id,
-    coachName: `${course.coach.user.firstName} ${course.coach.user.lastName}`,
-    coachEmail: course.coach.user.email,
-    coachPhoto: course.coach.user.profilePicture || '',
+    coachName: `${course.coach.firstName} ${course.coach.lastName}`,
+    coachEmail: course.coach.email,
+    coachPhoto: course.coach.profileImageUrl || '',
     courseTitle: course.title,
     courseDescription: course.description,
     category: course.category,
@@ -875,18 +872,11 @@ export const getCourses = asyncHandler(async (req, res) => {
     duration: course.duration,
     lessons: course.lessons || 0,
     thumbnail: course.thumbnail || '',
-    videoUrl: course.introVideo || '',
-    weeklySchedule: course.weeklySchedule.map(schedule => ({
-      day: schedule.day,
-      isActive: schedule.isActive,
-      timeSlots: schedule.timeSlots.map(slot => ({
-        startTime: slot.startTime,
-        endTime: slot.endTime
-      }))
-    })),
+    videoUrl: course.videoUrl || '',
+    weeklySchedule: Array.isArray(course.weeklySchedule) ? course.weeklySchedule : [],
     submittedAt: course.createdAt,
-    status: course.status.toLowerCase(),
-    rejectionReason: course.rejectionReason
+    status: course.status ? course.status.toLowerCase() : (course.isActive ? 'approved' : 'pending'),
+    rejectionReason: undefined
   }));
 
   const totalPages = Math.ceil(total / parseInt(limit));
@@ -910,25 +900,16 @@ export const getCourseDetails = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
 
   const course = await prisma.course.findUnique({
-    where: { id: courseId },
+    where: { id: Number(courseId) },
     include: {
       coach: {
-        include: {
-          user: {
-            select: {
-              id: true,
-              firstName: true,
-              lastName: true,
-              email: true,
-              phone: true,
-              profilePicture: true
-            }
-          }
-        }
-      },
-      weeklySchedule: {
-        include: {
-          timeSlots: true
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+          phone: true,
+          profileImageUrl: true
         }
       }
     }
@@ -941,9 +922,9 @@ export const getCourseDetails = asyncHandler(async (req, res) => {
   // Transform data to match frontend expectations
   const transformedCourse = {
     id: course.id,
-    coachName: `${course.coach.user.firstName} ${course.coach.user.lastName}`,
-    coachEmail: course.coach.user.email,
-    coachPhoto: course.coach.user.profilePicture || '',
+    coachName: `${course.coach.firstName} ${course.coach.lastName}`,
+    coachEmail: course.coach.email,
+    coachPhoto: course.coach.profileImageUrl || '',
     courseTitle: course.title,
     courseDescription: course.description,
     category: course.category,
@@ -951,18 +932,11 @@ export const getCourseDetails = asyncHandler(async (req, res) => {
     duration: course.duration,
     lessons: course.lessons || 0,
     thumbnail: course.thumbnail || '',
-    videoUrl: course.introVideo || '',
-    weeklySchedule: course.weeklySchedule.map(schedule => ({
-      day: schedule.day,
-      isActive: schedule.isActive,
-      timeSlots: schedule.timeSlots.map(slot => ({
-        startTime: slot.startTime,
-        endTime: slot.endTime
-      }))
-    })),
+    videoUrl: course.videoUrl || '',
+    weeklySchedule: Array.isArray(course.weeklySchedule) ? course.weeklySchedule : [],
     submittedAt: course.createdAt,
-    status: course.status.toLowerCase(),
-    rejectionReason: course.rejectionReason
+    status: course.isActive ? 'approved' : 'pending',
+    rejectionReason: undefined
   };
 
   res.json(
@@ -976,18 +950,14 @@ export const approveCourse = asyncHandler(async (req, res) => {
   const { adminNotes } = req.body;
 
   const course = await prisma.course.findUnique({
-    where: { id: courseId },
+    where: { id: Number(courseId) },
     include: {
       coach: {
-        include: {
-          user: {
-            select: {
-              id: true,
-              firstName: true,
-              lastName: true,
-              email: true
-            }
-          }
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true
         }
       }
     }
@@ -1003,7 +973,7 @@ export const approveCourse = asyncHandler(async (req, res) => {
 
   // Update course status
   const updatedCourse = await prisma.course.update({
-    where: { id: courseId },
+    where: { id: Number(courseId) },
     data: {
       status: 'APPROVED',
       isActive: true,
@@ -1015,28 +985,15 @@ export const approveCourse = asyncHandler(async (req, res) => {
   // Send approval email to coach
   try {
     await emailService.sendCourseApprovalEmail({
-      email: course.coach.user.email,
-      firstName: course.coach.user.firstName,
+      email: course.coach.email,
+      firstName: course.coach.firstName,
       courseTitle: course.title
     });
   } catch (error) {
     logger.error('Failed to send course approval email:', error);
   }
 
-  // Log admin activity
-  await prisma.adminActivity.create({
-    data: {
-      adminId: req.user.id,
-      action: 'COURSE_APPROVED',
-      targetType: 'COURSE',
-      targetId: courseId,
-      details: {
-        courseTitle: course.title,
-        coachName: `${course.coach.user.firstName} ${course.coach.user.lastName}`,
-        adminNotes
-      }
-    }
-  });
+  // Note: Admin activity model not available; skipping activity persistence
 
   res.json(
     new ApiResponse(200, updatedCourse, 'Course approved successfully')
@@ -1049,18 +1006,14 @@ export const rejectCourse = asyncHandler(async (req, res) => {
   const { rejectionReason, adminNotes } = req.body;
 
   const course = await prisma.course.findUnique({
-    where: { id: courseId },
+    where: { id: Number(courseId) },
     include: {
       coach: {
-        include: {
-          user: {
-            select: {
-              id: true,
-              firstName: true,
-              lastName: true,
-              email: true
-            }
-          }
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true
         }
       }
     }
@@ -1076,7 +1029,7 @@ export const rejectCourse = asyncHandler(async (req, res) => {
 
   // Update course status
   const updatedCourse = await prisma.course.update({
-    where: { id: courseId },
+    where: { id: Number(courseId) },
     data: {
       status: 'REJECTED',
       isActive: false,
@@ -1089,8 +1042,8 @@ export const rejectCourse = asyncHandler(async (req, res) => {
   // Send rejection email to coach
   try {
     await emailService.sendCourseRejectionEmail({
-      email: course.coach.user.email,
-      firstName: course.coach.user.firstName,
+      email: course.coach.email,
+      firstName: course.coach.firstName,
       courseTitle: course.title,
       rejectionReason
     });
@@ -1098,21 +1051,7 @@ export const rejectCourse = asyncHandler(async (req, res) => {
     logger.error('Failed to send course rejection email:', error);
   }
 
-  // Log admin activity
-  await prisma.adminActivity.create({
-    data: {
-      adminId: req.user.id,
-      action: 'COURSE_REJECTED',
-      targetType: 'COURSE',
-      targetId: courseId,
-      details: {
-        courseTitle: course.title,
-        coachName: `${course.coach.user.firstName} ${course.coach.user.lastName}`,
-        rejectionReason,
-        adminNotes
-      }
-    }
-  });
+  // Note: Admin activity model not available; skipping activity persistence
 
   res.json(
     new ApiResponse(200, updatedCourse, 'Course rejected successfully')

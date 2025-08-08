@@ -21,7 +21,8 @@ export const getCourses = asyncHandler(async (req, res) => {
 
   // Build where clause for filtering
   const where = {
-    isActive: true // Only show active courses by default
+    isActive: true,
+    status: 'APPROVED'
   };
 
   // Category filter
@@ -123,7 +124,6 @@ export const getCourses = asyncHandler(async (req, res) => {
     currency: course.currency,
     thumbnail: course.thumbnail,
     videoUrl: course.videoUrl,
-    materials: course.materials,
     program: course.program,
     timezone: course.timezone,
     weeklySchedule: course.weeklySchedule,
@@ -219,7 +219,6 @@ export const getCourseById = asyncHandler(async (req, res) => {
     currency: course.currency,
     thumbnail: course.thumbnail,
     videoUrl: course.videoUrl,
-    materials: course.materials,
     program: course.program,
     timezone: course.timezone,
     weeklySchedule: course.weeklySchedule,
@@ -257,7 +256,6 @@ export const createCourse = asyncHandler(async (req, res) => {
     courseDuration, // string label
     price,
     currency = 'USD',
-    materials = [],
     program,
     timezone = 'UTC',
     weeklySchedule,
@@ -311,28 +309,25 @@ export const createCourse = asyncHandler(async (req, res) => {
       currency,
       thumbnail: thumbnailUrl,
       videoUrl,
-      materials: Array.isArray(materials) ? materials : [],
       program: program || null,
       timezone,
       weeklySchedule: parsedWeekly,
       creditCost: credits != null ? parseFloat(credits) : 0,
-      isActive: true
+      // New courses require admin approval by default
+      isActive: false,
+      status: 'PENDING'
     },
     include: {
       coach: {
         select: {
-          user: {
-            select: {
-              firstName: true,
-              lastName: true
-            }
-          }
+          firstName: true,
+          lastName: true
         }
       }
     }
   });
 
-  logger.info(`Course created: ${course.title} by coach ${course.coach.user.firstName} ${course.coach.user.lastName}`);
+  logger.info(`Course created: ${course.title} by coach ${course.coach.firstName} ${course.coach.lastName}`);
 
   res.status(201).json(
     new ApiResponse(201, course, 'Course created successfully')
@@ -366,7 +361,6 @@ export const updateCourse = asyncHandler(async (req, res) => {
     courseDuration,
     price,
     currency,
-    materials,
     program,
     timezone,
     weeklySchedule,
@@ -418,7 +412,6 @@ export const updateCourse = asyncHandler(async (req, res) => {
       currency: currency || existingCourse.currency,
       thumbnail: thumbnailUrl,
       videoUrl,
-      materials: materials ? (Array.isArray(materials) ? materials : []) : existingCourse.materials,
       program: program ?? existingCourse.program,
       timezone: timezone ?? existingCourse.timezone,
       weeklySchedule: parsedWeekly,

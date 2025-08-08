@@ -136,18 +136,23 @@ model Course {
   benefits    String?
   category    String
   level       CourseLevel
+  status      CourseStatus @default(PENDING)
   duration    Int      // in minutes
   courseDuration String? @map("course_duration") // human-readable duration label (e.g., "12 weeks")
   price       Decimal  @db.Decimal(10, 2) // Legacy field for backward compatibility
   currency    String   @default("USD")
   creditCost  Decimal  @default(0) @map("credit_cost") @db.Decimal(10, 2) // Credits required for enrollment
-  isActive    Boolean  @default(true) @map("is_active")
+  isActive    Boolean  @default(false) @map("is_active")
   thumbnail   String?
   videoUrl    String?  @map("video_url")
-  materials   Json     @default("[]") // Array of course materials
   program     String?  // 'morning' | 'afternoon' | 'evening'
   timezone    String?  @default("UTC")
   weeklySchedule Json? @default("[]") @map("weekly_schedule") // Frontend weekly schedule structure
+  // Admin approval fields
+  approvedAt  DateTime? @map("approved_at")
+  rejectedAt  DateTime? @map("rejected_at")
+  rejectionReason String? @map("rejection_reason")
+  adminNotes  String?  @map("admin_notes")
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
@@ -504,6 +509,12 @@ enum CourseLevel {
   BEGINNER
   INTERMEDIATE
   ADVANCED
+}
+
+enum CourseStatus {
+  PENDING
+  APPROVED
+  REJECTED
 }
 
 enum SessionStatus {

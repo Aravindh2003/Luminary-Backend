@@ -97,10 +97,6 @@ const createCourseValidation = [
     .optional()
     .isIn(['USD', 'EUR', 'GBP', 'CAD'])
     .withMessage('Currency must be USD, EUR, GBP, or CAD'),
-  body('materials')
-    .optional()
-    .isArray()
-    .withMessage('Materials must be an array')
 ];
 
 const updateCourseValidation = [
@@ -328,10 +324,6 @@ router.get('/:courseId',
  *               price:
  *                 type: number
  *                 description: Legacy currency price (optional)
- *               materials:
- *                 type: array
- *                 items:
- *                   type: object
  *               thumbnail:
  *                 type: string
  *                 format: binary
@@ -429,10 +421,6 @@ router.post('/',
  *               currency:
  *                 type: string
  *                 enum: [USD, EUR, GBP, CAD]
- *               materials:
- *                 type: array
- *                 items:
- *                   type: object
  *               thumbnail:
  *                 type: string
  *                 format: binary
