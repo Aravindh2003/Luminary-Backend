@@ -1,0 +1,117 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: luminary_postgres
+    environment:
+      POSTGRES_DB: luminary_db
+      POSTGRES_USER: luminary_user
+      POSTGRES_PASSWORD: your_secure_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - luminary_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U luminary_user -d luminary_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: luminary_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - luminary_network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: .
+    container_name: luminary_backend
+    environment:
+      NODE_ENV: development
+      PORT: 5000
+      DATABASE_URL: postgresql://luminary_user:your_secure_password@postgres:5432/luminary_db?schema=public
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: your_super_secret_jwt_key_here_make_it_long_and_random
+      JWT_REFRESH_SECRET: your_refresh_token_secret_here
+      SENDGRID_API_KEY: your_sendgrid_api_key
+      STRIPE_SECRET_KEY: sk_test_your_stripe_secret_key
+      AWS_ACCESS_KEY_ID: your_aws_access_key
+      AWS_SECRET_ACCESS_KEY: your_aws_secret_key
+      AWS_S3_BUCKET: luminary-uploads
+      CORS_ORIGIN: http://localhost:5173
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - ./logs:/app/logs
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - luminary_network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    command: >
+      sh -c "
+        npx prisma generate &&
+        npx prisma db push &&
+        npm run seed &&
+        npm start
+      "
+
+  # Frontend service (uncomment if needed)
+  # frontend:
+  #   build: ../frontend
+  #   container_name: luminary_frontend
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     REACT_APP_API_URL: http://localhost:5000/api/v1
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - luminary_network
+
+  # Nginx service (uncomment if needed)
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: luminary_nginx
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+  #     - ./nginx/ssl:/etc/nginx/ssl
+  #   depends_on:
+  #     - backend
+  #     - frontend
+  #   networks:
+  #     - luminary_network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  luminary_network:
+    driver: bridge 
