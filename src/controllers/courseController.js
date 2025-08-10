@@ -6,6 +6,17 @@ import logger from '../utils/logger.js';
 
 // Get all courses with filtering and search
 export const getCourses = asyncHandler(async (req, res) => {
+
+   if (req.query.coachId !== undefined) {
+    req.query.coachId = parseInt(req.query.coachId, 10);
+    console.log(
+      "coachId value:",
+      req.query.coachId,
+      "type:",
+      typeof req.query.coachId
+    );
+  }
+
   const {
     category,
     level,
@@ -20,10 +31,25 @@ export const getCourses = asyncHandler(async (req, res) => {
   } = req.query;
 
   // Build where clause for filtering
-  const where = {
-    isActive: true,
-    status: 'APPROVED'
-  };
+  // const where = {
+  //   isActive: true,
+  //   status: 'APPROVED'
+  // };
+
+
+    // Build where clause for filtering
+  let where = {};
+  if (coachId) {
+    // If coachId is provided, show all courses for that coach (all statuses)
+    where.coachId = coachId;
+    // Optionally, allow filtering by status via query param if needed
+    // if (req.query.status) where.status = req.query.status;
+  } else {
+    // Default: show only active and approved courses
+    where.isActive = true;
+    where.status = "APPROVED";
+  }
+
 
   // Category filter
   if (category) {
@@ -111,6 +137,7 @@ export const getCourses = asyncHandler(async (req, res) => {
   ]);
 
   // Format response
+  const apiBase = `${req.protocol}://${req.get('host')}${req.baseUrl}`;
   const formattedCourses = courses.map(course => ({
     id: course.id,
     title: course.title,
@@ -122,7 +149,7 @@ export const getCourses = asyncHandler(async (req, res) => {
     courseDuration: course.courseDuration,
     price: course.price,
     currency: course.currency,
-    thumbnail: course.thumbnail,
+    thumbnail: course.thumbnail || (course.thumbnailData ? `${apiBase}/${course.id}/thumbnail` : null),
     videoUrl: course.videoUrl,
     program: course.program,
     timezone: course.timezone,
@@ -160,8 +187,9 @@ export const getCourses = asyncHandler(async (req, res) => {
 export const getCourseById = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
 
+  const id = Number(courseId);
   const course = await prisma.course.findUnique({
-    where: { id: courseId },
+    where: { id },
     include: {
       coach: {
         select: {
@@ -206,6 +234,7 @@ export const getCourseById = asyncHandler(async (req, res) => {
   }
 
   // Format response
+  const apiBase = `${req.protocol}://${req.get('host')}${req.baseUrl}`;
   const formattedCourse = {
     id: course.id,
     title: course.title,
@@ -217,7 +246,7 @@ export const getCourseById = asyncHandler(async (req, res) => {
     courseDuration: course.courseDuration,
     price: course.price,
     currency: course.currency,
-    thumbnail: course.thumbnail,
+    thumbnail: course.thumbnail || (course.thumbnailData ? `${apiBase}/${course.id}/thumbnail` : null),
     videoUrl: course.videoUrl,
     program: course.program,
     timezone: course.timezone,
@@ -265,19 +294,24 @@ export const createCourse = asyncHandler(async (req, res) => {
   const coachId = req.user.id;
 
   // Handle file uploads
-  let thumbnailUrl = null;
+  let thumbnailBinary = null;
+  let thumbnailMimeType = null;
   let videoUrl = null;
 
   if (req.files) {
     try {
       if (req.files.thumbnail) {
-        thumbnailUrl = `http://localhost:5000/uploads/course-thumbnail-${Date.now()}.jpg`;
-        logger.info(`Course thumbnail uploaded: ${req.files.thumbnail[0].originalname}`);
+        const uploadedThumb = req.files.thumbnail[0];
+        // memoryStorage provides buffer
+        thumbnailBinary = uploadedThumb.buffer;
+        thumbnailMimeType = uploadedThumb.mimetype || 'image/jpeg';
+        logger.info(`Course thumbnail received: ${uploadedThumb.originalname}`);
       }
       if (req.files.video || req.files.introVideo) {
-        videoUrl = `http://localhost:5000/uploads/course-video-${Date.now()}.mp4`;
+        // Placeholder: persist videos via separate upload flow/storage
+        // Keep null or implement storage as needed
         const uploaded = req.files.video?.[0] || req.files.introVideo?.[0];
-        if (uploaded) logger.info(`Course video uploaded: ${uploaded.originalname}`);
+        if (uploaded) logger.info(`Course video received: ${uploaded.originalname}`);
       }
     } catch (error) {
       logger.error('File upload error:', error);
@@ -307,7 +341,10 @@ export const createCourse = asyncHandler(async (req, res) => {
       courseDuration: courseDuration || null,
       price: price != null ? parseFloat(price) : 0,
       currency,
-      thumbnail: thumbnailUrl,
+      // Persist thumbnail binary if provided
+      thumbnail: null,
+      thumbnailData: thumbnailBinary,
+      thumbnailMimeType,
       videoUrl,
       program: program || null,
       timezone,
@@ -329,8 +366,16 @@ export const createCourse = asyncHandler(async (req, res) => {
 
   logger.info(`Course created: ${course.title} by coach ${course.coach.firstName} ${course.coach.lastName}`);
 
+  // Prepare response with computed thumbnail URL
+  const { thumbnailData, thumbnailMimeType: _omitMime, ...courseSafe } = course;
+  const apiBase = `${req.protocol}://${req.get('host')}${req.baseUrl}`;
+  const responseCourse = {
+    ...courseSafe,
+    thumbnail: course.thumbnail || (thumbnailBinary ? `${apiBase}/${course.id}/thumbnail` : null)
+  };
+
   res.status(201).json(
-    new ApiResponse(201, course, 'Course created successfully')
+    new ApiResponse(201, responseCourse, 'Course created successfully')
   );
 });
 
@@ -338,11 +383,12 @@ export const createCourse = asyncHandler(async (req, res) => {
 export const updateCourse = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
   const coachId = req.user.id;
+  const id = Number(courseId);
 
   // Check if course exists and belongs to the coach
   const existingCourse = await prisma.course.findFirst({
     where: {
-      id: courseId,
+      id,
       coachId
     }
   });
@@ -368,17 +414,20 @@ export const updateCourse = asyncHandler(async (req, res) => {
   } = req.body;
 
   // Handle file uploads
-  let thumbnailUrl = existingCourse.thumbnail;
+  let thumbnailBinary = null;
+  let thumbnailMimeType = null;
   let videoUrl = existingCourse.videoUrl;
 
   if (req.files) {
     try {
       if (req.files.thumbnail) {
-        thumbnailUrl = `http://localhost:5000/uploads/course-thumbnail-${Date.now()}.jpg`;
-        logger.info(`Course thumbnail updated: ${req.files.thumbnail[0].originalname}`);
+        const uploadedThumb = req.files.thumbnail[0];
+        thumbnailBinary = uploadedThumb.buffer;
+        thumbnailMimeType = uploadedThumb.mimetype || 'image/jpeg';
+        logger.info(`Course thumbnail updated: ${uploadedThumb.originalname}`);
       }
       if (req.files.video || req.files.introVideo) {
-        videoUrl = `http://localhost:5000/uploads/course-video-${Date.now()}.mp4`;
+        // Placeholder: implement real video persistence as needed
         const uploaded = req.files.video?.[0] || req.files.introVideo?.[0];
         if (uploaded) logger.info(`Course video updated: ${uploaded.originalname}`);
       }
@@ -399,7 +448,7 @@ export const updateCourse = asyncHandler(async (req, res) => {
   })();
 
   const updatedCourse = await prisma.course.update({
-    where: { id: courseId },
+    where: { id },
     data: {
       title: title || existingCourse.title,
       description: description || existingCourse.description,
@@ -410,7 +459,8 @@ export const updateCourse = asyncHandler(async (req, res) => {
       courseDuration: courseDuration ?? existingCourse.courseDuration,
       price: price != null ? parseFloat(price) : existingCourse.price,
       currency: currency || existingCourse.currency,
-      thumbnail: thumbnailUrl,
+      // Update thumbnail binary if provided
+      ...(thumbnailBinary ? { thumbnailData: thumbnailBinary, thumbnailMimeType } : {}),
       videoUrl,
       program: program ?? existingCourse.program,
       timezone: timezone ?? existingCourse.timezone,
@@ -421,8 +471,15 @@ export const updateCourse = asyncHandler(async (req, res) => {
 
   logger.info(`Course updated: ${updatedCourse.title} by coach ${coachId}`);
 
+  const { thumbnailData: _td2, thumbnailMimeType: _tm2, ...updatedSafe } = updatedCourse;
+  const apiBase2 = `${req.protocol}://${req.get('host')}${req.baseUrl}`;
+  const responseCourse = {
+    ...updatedSafe,
+    thumbnail: updatedCourse.thumbnail || (updatedCourse.thumbnailData ? `${apiBase2}/${updatedCourse.id}/thumbnail` : existingCourse.thumbnail)
+  };
+
   res.json(
-    new ApiResponse(200, updatedCourse, 'Course updated successfully')
+    new ApiResponse(200, responseCourse, 'Course updated successfully')
   );
 });
 
@@ -430,11 +487,12 @@ export const updateCourse = asyncHandler(async (req, res) => {
 export const deleteCourse = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
   const coachId = req.user.id;
+  const id = Number(courseId);
 
   // Check if course exists and belongs to the coach
   const course = await prisma.course.findFirst({
     where: {
-      id: courseId,
+      id,
       coachId
     },
     include: {
@@ -459,7 +517,7 @@ export const deleteCourse = asyncHandler(async (req, res) => {
 
   // Delete course
   await prisma.course.delete({
-    where: { id: courseId }
+    where: { id }
   });
 
   logger.info(`Course deleted: ${course.title} by coach ${coachId}`);
@@ -473,11 +531,12 @@ export const deleteCourse = asyncHandler(async (req, res) => {
 export const toggleCourseStatus = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
   const coachId = req.user.id;
+  const id = Number(courseId);
 
   // Check if course exists and belongs to the coach
   const course = await prisma.course.findFirst({
     where: {
-      id: courseId,
+      id,
       coachId
     }
   });
@@ -488,7 +547,7 @@ export const toggleCourseStatus = asyncHandler(async (req, res) => {
 
   // Toggle status
   const updatedCourse = await prisma.course.update({
-    where: { id: courseId },
+    where: { id },
     data: {
       isActive: !course.isActive
     }
@@ -506,11 +565,12 @@ export const enrollInCourse = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
   const { childId } = req.body;
   const parentId = req.user.id;
+  const id = Number(courseId);
 
   // Check if course exists and is active
   const course = await prisma.course.findFirst({
     where: {
-      id: courseId,
+      id,
       isActive: true
     },
     include: {
@@ -537,7 +597,7 @@ export const enrollInCourse = asyncHandler(async (req, res) => {
   // Check if already enrolled
   const existingEnrollment = await prisma.session.findFirst({
     where: {
-      courseId,
+      courseId: id,
       studentId: childId
     }
   });
@@ -549,7 +609,7 @@ export const enrollInCourse = asyncHandler(async (req, res) => {
   // Create enrollment (represented as a session in the current schema)
   const enrollment = await prisma.session.create({
     data: {
-      courseId,
+      courseId: id,
       coachId: course.coachId,
       studentId: childId,
       title: `Enrollment in ${course.title}`,
@@ -654,6 +714,34 @@ export const getCourseReviews = asyncHandler(async (req, res) => {
       }
     }, 'Course reviews retrieved successfully')
   );
+});
+
+// Serve course thumbnail binary
+export const getCourseThumbnail = asyncHandler(async (req, res) => {
+  const { courseId } = req.params;
+  const id = Number(courseId);
+  const course = await prisma.course.findUnique({
+    where: { id: id }
+  });
+
+  if (!course) {
+    throw new ApiError(404, 'Course not found');
+  }
+
+  if (course.thumbnailData) {
+    const mime = course.thumbnailMimeType || 'image/jpeg';
+    res.setHeader('Content-Type', mime);
+    // Cache for a short period
+    res.setHeader('Cache-Control', 'public, max-age=3600');
+    return res.status(200).send(Buffer.from(course.thumbnailData));
+  }
+
+  // Fallback: if an external thumbnail URL exists
+  if (course.thumbnail) {
+    return res.redirect(course.thumbnail);
+  }
+
+  throw new ApiError(404, 'Thumbnail not available');
 });
 
 // Add course review

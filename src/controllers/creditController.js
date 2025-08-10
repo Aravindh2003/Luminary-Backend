@@ -383,13 +383,13 @@ export const purchaseCredits = asyncHandler(async (req, res) => {
       amount: parseFloat(creditPackage.price),
       currency: creditPackage.currency,
       paymentId,
-      status: paymentId ? 'COMPLETED' : 'PENDING',
+      status: paymentId ? 'SUCCEEDED' : 'PENDING',
       expiresAt
     }
   });
 
   // If payment is completed, add credits to balance
-  if (creditPurchase.status === 'COMPLETED') {
+  if (creditPurchase.status === 'SUCCEEDED') {
     await addCreditsToBalance(userId, totalCredits, 'PURCHASE', 
       `Purchased ${creditPackage.name} package`, creditPurchase.id, 'PURCHASE');
   }

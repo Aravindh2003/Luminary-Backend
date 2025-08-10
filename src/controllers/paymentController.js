@@ -32,9 +32,9 @@ export const getPayments = asyncHandler(async (req, res) => {
 
   // Role-based filtering
   if (userRole === 'PARENT') {
-    where.payerId = userId;
+    where.userId = userId;
   } else if (userRole === 'COACH') {
-    where.payeeId = userId;
+    
   }
   // Admin can see all payments
 
@@ -118,7 +118,7 @@ export const getPayments = asyncHandler(async (req, res) => {
     amount: payment.amount,
     currency: payment.currency,
     status: payment.status,
-    stripePaymentIntentId: payment.stripePaymentIntentId,
+    stripePaymentId: payment.stripePaymentId,
     stripeRefundId: payment.stripeRefundId,
     description: payment.description,
     refundReason: payment.refundReason,
@@ -166,13 +166,19 @@ export const getPaymentById = asyncHandler(async (req, res) => {
   const userId = req.user.id;
   const userRole = req.user.role;
 
+  // Convert paymentId to integer
+  const paymentIdInt = parseInt(paymentId, 10);
+  if (isNaN(paymentIdInt)) {
+    throw new ApiError(400, 'Invalid payment ID');
+  }
+
   // Build where clause based on user role
-  const where = { id: paymentId };
+  const where = { id: paymentIdInt };
 
   if (userRole === 'PARENT') {
-    where.payerId = userId;
+    where.userId = userId;
   } else if (userRole === 'COACH') {
-    where.payeeId = userId;
+    
   }
   // Admin can access any payment
 
@@ -233,7 +239,7 @@ export const getPaymentById = asyncHandler(async (req, res) => {
     amount: payment.amount,
     currency: payment.currency,
     status: payment.status,
-    stripePaymentIntentId: payment.stripePaymentIntentId,
+    stripePaymentId: payment.stripePaymentId,
     stripeRefundId: payment.stripeRefundId,
     description: payment.description,
     refundReason: payment.refundReason,
@@ -266,27 +272,36 @@ export const createPayment = asyncHandler(async (req, res) => {
     amount,
     currency,
     paymentMethodId,
-    description
+    description,
+    metadata = {}
   } = req.body;
 
   const payerId = req.user.id;
 
   // Check if course and session exist
-  const [course, session] = await Promise.all([
-    prisma.course.findUnique({
-      where: { id: courseId },
-      include: {
-        coach: {
-          select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            email: true
-          }
+  // Check if course exists
+  const course = await prisma.course.findUnique({
+    where: { id: courseId },
+    include: {
+      coach: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+          email: true
         }
       }
-    }),
-    prisma.session.findUnique({
+    }
+  });
+
+  if (!course) {
+    throw new ApiError(404, 'Course not found');
+  }
+
+  // Check if session exists (only if sessionId is provided)
+  let session = null;
+  if (sessionId !== null && sessionId !== undefined) {
+    session = await prisma.session.findUnique({
       where: { id: sessionId },
       include: {
         coach: {
@@ -295,30 +310,48 @@ export const createPayment = asyncHandler(async (req, res) => {
           }
         }
       }
-    })
-  ]);
+    });
 
-  if (!course) {
-    throw new ApiError(404, 'Course not found');
-  }
-
-  if (!session) {
-    throw new ApiError(404, 'Session not found');
+    if (!session) {
+      throw new ApiError(404, 'Session not found');
+    }
   }
 
   // Check if payment already exists for this session
   const existingPayment = await prisma.payment.findFirst({
     where: {
       sessionId,
-      payerId,
-      status: {
-        in: ['PENDING', 'COMPLETED']
-      }
+      userId: payerId,
+      status: 'PENDING'
     }
   });
 
   if (existingPayment) {
-    throw new ApiError(400, 'Payment already exists for this session');
+    // If there's already a pending payment, retrieve the Stripe PaymentIntent
+    const paymentIntent = await stripe.paymentIntents.retrieve(existingPayment.stripePaymentId);
+    
+    logger.info(`Returning existing pending payment: ${existingPayment.id}`);
+    
+    return res.status(200).json(
+      new ApiResponse(200, {
+        paymentId: existingPayment.id,
+        clientSecret: paymentIntent.client_secret,
+        paymentIntentId: paymentIntent.id
+      }, 'Existing pending payment found')
+    );
+  }
+
+  // Check if there's already a successful payment for this session
+  const successfulPayment = await prisma.payment.findFirst({
+    where: {
+      sessionId,
+      userId: payerId,
+      status: 'SUCCEEDED'
+    }
+  });
+
+  if (successfulPayment) {
+    throw new ApiError(400, 'Payment already completed for this session');
   }
 
   // Create Stripe payment intent
@@ -330,7 +363,10 @@ export const createPayment = asyncHandler(async (req, res) => {
       payment_method: paymentMethodId,
       description: description || `Payment for ${course.title}`,
       confirm: false,
-      return_url: `${process.env.FRONTEND_URL}/payment/confirm`
+      automatic_payment_methods: {
+        enabled: true,
+        allow_redirects: 'never'
+      }
     });
   } catch (error) {
     logger.error('Stripe payment intent creation failed:', error);
@@ -340,23 +376,23 @@ export const createPayment = asyncHandler(async (req, res) => {
   // Create payment record
   const payment = await prisma.payment.create({
     data: {
-      courseId,
       sessionId,
-      payerId,
-      payeeId: course.coachId,
+      userId: payerId,
       amount,
       currency,
       status: 'PENDING',
-      stripePaymentIntentId: paymentIntent.id,
-      description: description || `Payment for ${course.title}`
+      stripePaymentId: paymentIntent.id,
+      metadata: {
+        courseId,
+        courseTitle: course.title,
+        coachId: course.coachId,
+        description: description || `Payment for ${course.title}`,
+        selectedChildren: metadata?.selectedChildren || [],
+        cardholderName: metadata?.cardholderName || ''
+      }
     },
     include: {
-      course: {
-        select: {
-          title: true
-        }
-      },
-      payer: {
+      user: {
         select: {
           firstName: true,
           lastName: true
@@ -365,7 +401,7 @@ export const createPayment = asyncHandler(async (req, res) => {
     }
   });
 
-  logger.info(`Payment created: ${payment.id} for course ${payment.course.title} by ${payment.payer.firstName} ${payment.payer.lastName}`);
+  logger.info(`Payment created: ${payment.id} for course ${payment.metadata.courseTitle} by ${payment.user.firstName} ${payment.user.lastName}`);
 
   res.status(201).json(
     new ApiResponse(201, {
@@ -382,41 +418,79 @@ export const confirmPayment = asyncHandler(async (req, res) => {
   const { paymentIntentId } = req.body;
   const userId = req.user.id;
 
+  // Convert paymentId to integer
+  const paymentIdInt = parseInt(paymentId, 10);
+  if (isNaN(paymentIdInt)) {
+    throw new ApiError(400, 'Invalid payment ID');
+  }
+
   // Check if payment exists and belongs to user
   const payment = await prisma.payment.findFirst({
     where: {
-      id: paymentId,
-      payerId: userId,
+      id: paymentIdInt,
+      userId: userId,
       status: 'PENDING'
     }
   });
 
+  logger.info(`Looking for payment: ID=${paymentIdInt}, userId=${userId}, status=PENDING`);
+
   if (!payment) {
+    logger.error(`Payment not found: ID=${paymentIdInt}, userId=${userId}`);
     throw new ApiError(404, 'Payment not found or cannot be confirmed');
   }
 
-  // Confirm payment with Stripe
+  logger.info(`Found payment: ${JSON.stringify(payment)}`);
+
+  // Validate that the PaymentIntent ID matches
+  if (payment.stripePaymentId !== paymentIntentId) {
+    logger.error(`PaymentIntent ID mismatch: stored=${payment.stripePaymentId}, provided=${paymentIntentId}`);
+    throw new ApiError(400, 'PaymentIntent ID does not match');
+  }
+
+  // Check payment status with Stripe
   try {
-    const paymentIntent = await stripe.paymentIntents.confirm(paymentIntentId);
+    let paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
+    
+    // If payment requires confirmation, confirm it
+    if (paymentIntent.status === 'requires_confirmation') {
+      logger.info(`Payment requires confirmation, confirming now: ${paymentIntentId}`);
+      paymentIntent = await stripe.paymentIntents.confirm(paymentIntentId, {
+        return_url: `${process.env.FRONTEND_URL}/payment/success`
+      });
+    }
     
     if (paymentIntent.status === 'succeeded') {
       // Update payment status
       const updatedPayment = await prisma.payment.update({
-        where: { id: paymentId },
-        data: { status: 'COMPLETED' }
+        where: { id: paymentIdInt },
+        data: { status: 'SUCCEEDED' }
       });
 
-      logger.info(`Payment confirmed: ${paymentId}`);
+      logger.info(`Payment confirmed: ${paymentIdInt}`);
 
       res.json(
         new ApiResponse(200, updatedPayment, 'Payment confirmed successfully')
       );
+    } else if (paymentIntent.status === 'requires_action') {
+      // Payment requires additional authentication (3D Secure, etc.)
+      logger.info(`Payment requires action: ${paymentIntentId}`);
+      res.json(
+        new ApiResponse(200, {
+          requiresAction: true,
+          clientSecret: paymentIntent.client_secret
+        }, 'Payment requires additional authentication')
+      );
     } else {
-      throw new ApiError(400, 'Payment confirmation failed');
+      logger.error(`Payment confirmation failed - Stripe status: ${paymentIntent.status}`);
+      throw new ApiError(400, `Payment confirmation failed - Status: ${paymentIntent.status}`);
     }
   } catch (error) {
     logger.error('Payment confirmation failed:', error);
-    throw new ApiError(400, 'Payment confirmation failed');
+    if (error instanceof ApiError) {
+      throw error;
+    }
+    throw new ApiError(400, `Payment confirmation failed: ${error.message}`);
   }
 });
 
@@ -426,10 +500,16 @@ export const processRefund = asyncHandler(async (req, res) => {
   const { reason, amount } = req.body;
   const userId = req.user.id;
 
+  // Convert paymentId to integer
+  const paymentIdInt = parseInt(paymentId, 10);
+  if (isNaN(paymentIdInt)) {
+    throw new ApiError(400, 'Invalid payment ID');
+  }
+
   // Check if payment exists
   const payment = await prisma.payment.findFirst({
     where: {
-      id: paymentId,
+      id: paymentIdInt,
       status: 'COMPLETED'
     }
   });
@@ -447,14 +527,14 @@ export const processRefund = asyncHandler(async (req, res) => {
   try {
     const refundAmount = amount ? Math.round(amount * 100) : undefined; // Convert to cents
     const refund = await stripe.refunds.create({
-      payment_intent: payment.stripePaymentIntentId,
+      payment_intent: payment.stripePaymentId,
       amount: refundAmount,
       reason: 'requested_by_customer'
     });
 
     // Update payment record
     const updatedPayment = await prisma.payment.update({
-      where: { id: paymentId },
+      where: { id: paymentIdInt },
       data: {
         status: 'REFUNDED',
         stripeRefundId: refund.id,
@@ -478,11 +558,17 @@ export const cancelPayment = asyncHandler(async (req, res) => {
   const { paymentId } = req.params;
   const userId = req.user.id;
 
+  // Convert paymentId to integer
+  const paymentIdInt = parseInt(paymentId, 10);
+  if (isNaN(paymentIdInt)) {
+    throw new ApiError(400, 'Invalid payment ID');
+  }
+
   // Check if payment exists and belongs to user
   const payment = await prisma.payment.findFirst({
     where: {
-      id: paymentId,
-      payerId: userId,
+      id: paymentIdInt,
+      userId: userId,
       status: 'PENDING'
     }
   });
@@ -493,11 +579,11 @@ export const cancelPayment = asyncHandler(async (req, res) => {
 
   // Cancel payment with Stripe
   try {
-    await stripe.paymentIntents.cancel(payment.stripePaymentIntentId);
+    await stripe.paymentIntents.cancel(payment.stripePaymentId);
 
     // Update payment status
     const updatedPayment = await prisma.payment.update({
-      where: { id: paymentId },
+      where: { id: paymentIdInt },
       data: { status: 'CANCELLED' }
     });
 
@@ -614,13 +700,19 @@ export const generateInvoice = asyncHandler(async (req, res) => {
   const userId = req.user.id;
   const userRole = req.user.role;
 
+  // Convert paymentId to integer
+  const paymentIdInt = parseInt(paymentId, 10);
+  if (isNaN(paymentIdInt)) {
+    throw new ApiError(400, 'Invalid payment ID');
+  }
+
   // Build where clause based on user role
-  const where = { id: paymentId };
+  const where = { id: paymentIdInt };
 
   if (userRole === 'PARENT') {
-    where.payerId = userId;
+    where.userId = userId;
   } else if (userRole === 'COACH') {
-    where.payeeId = userId;
+    
   }
 
   const payment = await prisma.payment.findFirst({

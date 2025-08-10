@@ -42,6 +42,8 @@ app.use(helmet({
       imgSrc: ["'self'", "data:", "https:"],
     },
   },
+  // Allow resources (e.g., images) to be consumed cross-origin (frontend at :5173)
+  crossOriginResourcePolicy: { policy: 'cross-origin' },
   crossOriginEmbedderPolicy: false,
 }));
 

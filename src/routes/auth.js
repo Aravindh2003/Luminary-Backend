@@ -5,6 +5,7 @@ import asyncHandler from '../utils/asyncHandler.js';
 import validate from '../middleware/validation.js';
 import { authenticate } from '../middleware/auth.js';
 import * as authController from '../controllers/authController.js';
+import * as emailVerificationController from '../controllers/emailVerificationController.js';
 
 const router = express.Router();
 
@@ -617,5 +618,187 @@ router.post('/reset-password/:token', passwordValidation, validate, asyncHandler
  *         description: User not found
  */
 router.get('/profile', authenticate, asyncHandler(authController.getProfile));
+
+// Email Verification Routes (Brevo/Sendinblue)
+
+/**
+ * @swagger
+ * /auth/request-verification-code:
+ *   post:
+ *     summary: Request email verification code
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: user@example.com
+ *               userType:
+ *                 type: string
+ *                 enum: [parent, coach]
+ *                 default: parent
+ *                 example: parent
+ *     responses:
+ *       200:
+ *         description: Verification code sent successfully
+ *       400:
+ *         description: Email already verified or invalid request
+ *       404:
+ *         description: User not found
+ */
+router.post('/request-verification-code', 
+  [
+    body('email').isEmail().normalizeEmail().withMessage('Please provide a valid email'),
+    body('userType').optional().isIn(['parent', 'coach']).withMessage('User type must be parent or coach')
+  ],
+  validate,
+  asyncHandler(emailVerificationController.requestVerificationCode)
+);
+
+/**
+ * @swagger
+ * /auth/verify-email-code:
+ *   post:
+ *     summary: Verify email with verification code
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - code
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: user@example.com
+ *               code:
+ *                 type: string
+ *                 example: "123456"
+ *     responses:
+ *       200:
+ *         description: Email verified successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     user:
+ *                       $ref: '#/components/schemas/User'
+ *                     coach:
+ *                       $ref: '#/components/schemas/Coach'
+ *                 message:
+ *                   type: string
+ *       400:
+ *         description: Invalid or expired verification code
+ *       404:
+ *         description: User not found
+ */
+router.post('/verify-email-code',
+  [
+    body('email').isEmail().normalizeEmail().withMessage('Please provide a valid email'),
+    body('code').isLength({ min: 6, max: 6 }).withMessage('Verification code must be 6 digits')
+  ],
+  validate,
+  asyncHandler(emailVerificationController.verifyEmailWithCode)
+);
+
+/**
+ * @swagger
+ * /auth/resend-verification-code:
+ *   post:
+ *     summary: Resend email verification code
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 example: user@example.com
+ *               userType:
+ *                 type: string
+ *                 enum: [parent, coach]
+ *                 default: parent
+ *                 example: parent
+ *     responses:
+ *       200:
+ *         description: Verification code resent successfully
+ *       400:
+ *         description: Email already verified or invalid request
+ *       404:
+ *         description: User not found
+ */
+router.post('/resend-verification-code',
+  [
+    body('email').isEmail().normalizeEmail().withMessage('Please provide a valid email'),
+    body('userType').optional().isIn(['parent', 'coach']).withMessage('User type must be parent or coach')
+  ],
+  validate,
+  asyncHandler(emailVerificationController.resendVerificationCode)
+);
+
+/**
+ * @swagger
+ * /auth/verification-status/{email}:
+ *   get:
+ *     summary: Check email verification status
+ *     tags: [Authentication]
+ *     parameters:
+ *       - in: path
+ *         name: email
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: email
+ *         description: Email address to check
+ *     responses:
+ *       200:
+ *         description: Verification status retrieved
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 success:
+ *                   type: boolean
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     email:
+ *                       type: string
+ *                     isVerified:
+ *                       type: boolean
+ *                     firstName:
+ *                       type: string
+ *                     role:
+ *                       type: string
+ *                 message:
+ *                   type: string
+ *       404:
+ *         description: User not found
+ */
+router.get('/verification-status/:email', asyncHandler(emailVerificationController.checkVerificationStatus));
 
 export default router;

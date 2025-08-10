@@ -41,8 +41,8 @@ router.post('/webhook/stripe', express.raw({ type: 'application/json' }), async 
       const paymentIntent = event.data.object;
       // Update payment record in DB
       await prisma.payment.updateMany({
-        where: { stripePaymentId: paymentIntent.id },
-        data: { status: 'SUCCEEDED' }
+        where: { stripePaymentIntentId: paymentIntent.id },
+        data: { status: 'COMPLETED' }
       });
       // Optionally, update session status, send email, etc.
       break;
@@ -50,7 +50,7 @@ router.post('/webhook/stripe', express.raw({ type: 'application/json' }), async 
     case 'payment_intent.payment_failed': {
       const paymentIntent = event.data.object;
       await prisma.payment.updateMany({
-        where: { stripePaymentId: paymentIntent.id },
+        where: { stripePaymentIntentId: paymentIntent.id },
         data: { status: 'FAILED' }
       });
       break;
@@ -66,11 +66,10 @@ router.post('/webhook/stripe', express.raw({ type: 'application/json' }), async 
 // Validation rules
 const createPaymentValidation = [
   body('courseId')
-    .isInt()
+    .isUUID()
     .withMessage('Invalid course ID format'),
   body('sessionId')
-    .optional({ nullable: true })
-    .isInt({ min: 1 })
+    .isUUID()
     .withMessage('Invalid session ID format'),
   body('amount')
     .isFloat({ min: 0.01 })
@@ -86,9 +85,9 @@ const createPaymentValidation = [
 ];
 
 const getPaymentsValidation = [
-  query('status').optional().isIn(['PENDING', 'SUCCEEDED', 'FAILED', 'REFUNDED', 'CANCELLED']),
-  query('courseId').optional().isInt({ min: 1 }),
-  query('sessionId').optional().isInt({ min: 1 }),
+  query('status').optional().isIn(['PENDING', 'COMPLETED', 'FAILED', 'REFUNDED', 'CANCELLED']),
+  query('courseId').optional().isUUID(),
+  query('sessionId').optional().isUUID(),
   query('startDate').optional().isISO8601(),
   query('endDate').optional().isISO8601(),
   query('page').optional().isInt({ min: 1 }),
@@ -236,7 +235,7 @@ router.get('/', getPaymentsValidation, validate, asyncHandler(paymentController.
  *         description: Payment not found
  */
 router.get('/:paymentId',
-  [param('paymentId').isInt({ min: 1 }).withMessage('Invalid payment ID format')],
+  [param('paymentId').isUUID().withMessage('Invalid payment ID format')],
   validate,
   asyncHandler(paymentController.getPaymentById)
 );
@@ -358,7 +357,7 @@ router.post('/:paymentId/confirm',
   authenticate,
   authorize('PARENT'),
   [
-    param('paymentId').isInt({ min: 1 }).withMessage('Invalid payment ID format'),
+    param('paymentId').isUUID().withMessage('Invalid payment ID format'),
     body('paymentIntentId').isString().trim().notEmpty().withMessage('Payment intent ID is required')
   ],
   validate,
@@ -415,7 +414,7 @@ router.post('/:paymentId/refund',
   authenticate,
   authorize('ADMIN', 'COACH'),
   [
-    param('paymentId').isInt({ min: 1 }).withMessage('Invalid payment ID format'),
+    param('paymentId').isUUID().withMessage('Invalid payment ID format'),
     body('reason').isString().trim().isLength({ min: 10, max: 500 }).withMessage('Reason must be between 10 and 500 characters'),
     body('amount').optional().isFloat({ min: 0.01 }).withMessage('Refund amount must be greater than 0')
   ],
@@ -454,7 +453,7 @@ router.post('/:paymentId/refund',
 router.post('/:paymentId/cancel',
   authenticate,
   authorize('PARENT'),
-  [param('paymentId').isInt({ min: 1 }).withMessage('Invalid payment ID format')],
+  [param('paymentId').isUUID().withMessage('Invalid payment ID format')],
   validate,
   asyncHandler(paymentController.cancelPayment)
 );
@@ -614,7 +613,7 @@ router.delete('/payment-methods/:paymentMethodId',
  */
 router.get('/invoice/:paymentId',
   authenticate,
-  [param('paymentId').isInt({ min: 1 }).withMessage('Invalid payment ID format')],
+  [param('paymentId').isUUID().withMessage('Invalid payment ID format')],
   validate,
   asyncHandler(paymentController.generateInvoice)
 );

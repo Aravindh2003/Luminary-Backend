@@ -102,7 +102,7 @@ const createCourseValidation = [
 const updateCourseValidation = [
   ...createCourseValidation,
   param('courseId')
-    .isUUID()
+    .isInt()
     .withMessage('Invalid course ID format')
 ];
 
@@ -254,9 +254,16 @@ router.get('/', getCoursesValidation, validate, asyncHandler(courseController.ge
  *         description: Course not found
  */
 router.get('/:courseId', 
-  [param('courseId').isUUID().withMessage('Invalid course ID format')],
+  [param('courseId').isInt().withMessage('Invalid course ID format')],
   validate,
   asyncHandler(courseController.getCourseById)
+);
+
+// Serve course thumbnail (binary)
+router.get('/:courseId/thumbnail',
+  [param('courseId').isInt().withMessage('Invalid course ID format')],
+  validate,
+  asyncHandler(courseController.getCourseThumbnail)
 );
 
 /**
@@ -481,7 +488,7 @@ router.put('/:courseId',
 router.delete('/:courseId',
   authenticate,
   authorize('COACH'),
-  [param('courseId').isUUID().withMessage('Invalid course ID format')],
+  [param('courseId').isInt().withMessage('Invalid course ID format')],
   validate,
   asyncHandler(courseController.deleteCourse)
 );
@@ -515,7 +522,7 @@ router.delete('/:courseId',
 router.patch('/:courseId/toggle-status',
   authenticate,
   authorize('COACH'),
-  [param('courseId').isUUID().withMessage('Invalid course ID format')],
+  [param('courseId').isInt().withMessage('Invalid course ID format')],
   validate,
   asyncHandler(courseController.toggleCourseStatus)
 );
@@ -565,8 +572,8 @@ router.post('/:courseId/enroll',
   authenticate,
   authorize('PARENT'),
   [
-    param('courseId').isUUID().withMessage('Invalid course ID format'),
-    body('childId').isUUID().withMessage('Invalid child ID format')
+    param('courseId').isInt().withMessage('Invalid course ID format'),
+    body('childId').isInt().withMessage('Invalid child ID format')
   ],
   validate,
   asyncHandler(courseController.enrollInCourse)
@@ -609,7 +616,7 @@ router.post('/:courseId/enroll',
  */
 router.get('/:courseId/reviews',
   [
-    param('courseId').isUUID().withMessage('Invalid course ID format'),
+    param('courseId').isInt().withMessage('Invalid course ID format'),
     query('page').optional().isInt({ min: 1 }),
     query('limit').optional().isInt({ min: 1, max: 50 })
   ],
@@ -667,7 +674,7 @@ router.post('/:courseId/reviews',
   authenticate,
   authorize('PARENT'),
   [
-    param('courseId').isUUID().withMessage('Invalid course ID format'),
+    param('courseId').isInt().withMessage('Invalid course ID format'),
     body('rating').isInt({ min: 1, max: 5 }).withMessage('Rating must be between 1 and 5'),
     body('comment').optional().isString().trim().isLength({ max: 1000 }).withMessage('Comment must be less than 1000 characters')
   ],

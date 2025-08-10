@@ -144,6 +144,8 @@ model Course {
   creditCost  Decimal  @default(0) @map("credit_cost") @db.Decimal(10, 2) // Credits required for enrollment
   isActive    Boolean  @default(false) @map("is_active")
   thumbnail   String?
+  thumbnailData Bytes?
+  thumbnailMimeType String? @map("thumbnail_mime_type")
   videoUrl    String?  @map("video_url")
   program     String?  // 'morning' | 'afternoon' | 'evening'
   timezone    String?  @default("UTC")

@@ -301,7 +301,7 @@ export const getCoachEarnings = async (coachId, startDate, endDate) => {
     const sessions = await prisma.session.findMany({
       where: {
         coachId,
-        status: 'COMPLETED',
+        status: 'SUCCEEDED',
         startTime: {
           gte: startDate,
           lte: endDate

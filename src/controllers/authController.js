@@ -4,12 +4,13 @@ import ApiResponse from '../utils/ApiResponse.js';
 import asyncHandler from '../utils/asyncHandler.js';
 import { generateToken, generateRefreshToken, verifyRefreshToken } from '../middleware/auth.js';
 import emailService from '../services/emailService.js';
+import brevoEmailService from '../services/brevoEmailService.js';
 // import fileService from '../services/fileService.js'; // Temporarily disabled
 import crypto from 'crypto';
 import bcrypt from 'bcryptjs';
 import logger from '../utils/logger.js';
 
-// Parent Registration - matches frontend RegisterParent workflow
+// Parent Registration - matches frontend RegisterParent workflow with email verification
 export const registerParent = asyncHandler(async (req, res) => {
   const { email, password, firstName, lastName, phone } = req.body;
 
@@ -25,11 +26,7 @@ export const registerParent = asyncHandler(async (req, res) => {
   // Hash password
   const hashedPassword = await bcrypt.hash(password, 12);
 
-  // Generate email verification token
-  const emailVerificationToken = crypto.randomBytes(32).toString('hex');
-  const emailVerificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
-
-  // Create user
+  // Create user (not verified initially)
   const user = await prisma.user.create({
     data: {
       email,
@@ -38,29 +35,19 @@ export const registerParent = asyncHandler(async (req, res) => {
       lastName,
       phone,
       role: 'PARENT',
-      emailVerificationToken,
-      emailVerificationExpires,
+      isVerified: false, // Will be verified via email code
       preferences: {}
     }
   });
 
-  // Send welcome email
+  // Send email verification code using Brevo
   try {
-    await emailService.sendWelcomeEmail(user);
-    logger.info(`Welcome email sent to parent: ${user.email}`);
+    await brevoEmailService.sendVerificationCode(email, firstName, 'parent');
+    logger.info(`Email verification code sent to parent: ${user.email}`);
   } catch (error) {
-    logger.error('Failed to send welcome email:', error);
+    logger.error('Failed to send verification email:', error);
+    // Don't fail registration if email fails, user can request code later
   }
-
-  // Generate tokens
-  const accessToken = generateToken(user.id, user.role);
-  const refreshToken = generateRefreshToken(user.id);
-
-  // Update user with refresh token
-  await prisma.user.update({
-    where: { id: user.id },
-    data: { refreshToken }
-  });
 
   res.status(201).json(
     new ApiResponse(201, {
@@ -72,13 +59,12 @@ export const registerParent = asyncHandler(async (req, res) => {
         role: user.role,
         isVerified: user.isVerified
       },
-      accessToken,
-      refreshToken
-    }, 'Parent registered successfully')
+      requiresVerification: true
+    }, 'Parent registered successfully! Please check your email for verification code.')
   );
 });
 
-// Coach Registration - matches exact frontend RegisterCoach workflow
+// Coach Registration - matches exact frontend RegisterCoach workflow with email verification
 export const registerCoach = asyncHandler(async (req, res) => {
   const {
     email,
@@ -123,10 +109,6 @@ export const registerCoach = asyncHandler(async (req, res) => {
   // Hash password
   const hashedPassword = await bcrypt.hash(password, 12);
 
-  // Generate email verification token
-  const emailVerificationToken = crypto.randomBytes(32).toString('hex');
-  const emailVerificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000);
-
   // Handle file uploads if present
   let licenseFileUrl = null;
   let resumeFileUrl = null;
@@ -163,8 +145,7 @@ export const registerCoach = asyncHandler(async (req, res) => {
         lastName,
         phone,
         role: 'COACH',
-        emailVerificationToken,
-        emailVerificationExpires,
+        isVerified: false, // Will be verified via email code
         preferences: {}
       }
     });
@@ -190,23 +171,14 @@ export const registerCoach = asyncHandler(async (req, res) => {
     return { user, coach };
   });
 
-  // Send coach application notification email
+  // Send email verification code using Brevo
   try {
-    await emailService.sendCoachApplicationNotification(result.user);
-    logger.info(`Coach application notification sent to: ${result.user.email}`);
+    await brevoEmailService.sendVerificationCode(email, firstName, 'coach');
+    logger.info(`Email verification code sent to coach: ${result.user.email}`);
   } catch (error) {
-    logger.error('Failed to send coach application notification:', error);
+    logger.error('Failed to send verification email:', error);
+    // Don't fail registration if email fails, user can request code later
   }
-
-  // Generate tokens
-  const accessToken = generateToken(result.user.id, result.user.role);
-  const refreshToken = generateRefreshToken(result.user.id);
-
-  // Update user with refresh token
-  await prisma.user.update({
-    where: { id: result.user.id },
-    data: { refreshToken }
-  });
 
   res.status(201).json(
     new ApiResponse(201, {
@@ -224,13 +196,12 @@ export const registerCoach = asyncHandler(async (req, res) => {
         status: result.coach.status,
         languages: result.coach.languages
       },
-      accessToken,
-      refreshToken
-    }, 'Coach registered successfully! Your profile has been submitted for admin approval.')
+      requiresVerification: true
+    }, 'Coach registered successfully! Please check your email for verification code.')
   );
 });
 
-// Login - matches frontend login workflow for all roles
+// Login - matches frontend login workflow for all roles with email verification check
 export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -272,6 +243,11 @@ export const login = asyncHandler(async (req, res) => {
     });
 
     throw new ApiError(401, 'Invalid email or password');
+  }
+
+  // Check if email is verified
+  if (!user.isVerified) {
+    throw new ApiError(403, 'Please verify your email address before logging in. Check your inbox for verification code.');
   }
 
   // Check if user is active
