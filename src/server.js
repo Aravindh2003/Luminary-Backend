@@ -26,6 +26,7 @@ import availabilityRoutes from './routes/availability.js';
 import creditRoutes from './routes/credit.js';
 import videoRoutes from './routes/videos.js';
 import childrenRoutes from './routes/children.js';
+import parentCoachProfileRoutes from './routes/parentCoachProfile.js';
 
 dotenv.config();
 const app = express();
@@ -136,6 +137,7 @@ app.use(`/api/${API_VERSION}/availability`, availabilityRoutes);
 app.use(`/api/${API_VERSION}/credits`, creditRoutes);
 app.use(`/api/${API_VERSION}/videos`, videoRoutes);
 app.use(`/api/${API_VERSION}/children`, childrenRoutes);
+app.use(`/api/${API_VERSION}/parent`, parentCoachProfileRoutes);
 
 // Serve uploaded files
 app.use('/uploads', express.static('uploads'));

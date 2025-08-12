@@ -27,3 +27,6 @@ coverage/
 .env.*
 .env.example
 env.example
+
+# Ignore database seed file
+src/database/seed.js
