@@ -408,7 +408,16 @@ export const adminLogin = asyncHandler(async (req, res) => {
 
 // Logout
 export const logout = asyncHandler(async (req, res) => {
-  const { userId } = req.user;
+  // Log the complete req.user object for debugging
+  logger.info('Logout called. req.user:', req.user);
+
+  // Use the correct property name based on middleware
+  const userId = req.user?.id;
+
+  if (!userId) {
+    logger.error('Logout failed: No userId found in req.user:', req.user);
+    throw new ApiError(500, 'User not authenticated for logout');
+  }
 
   // Clear refresh token
   await prisma.user.update({
