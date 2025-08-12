@@ -1,13 +1,13 @@
-import { prisma } from '../config/database.js';
-import ApiError from '../utils/ApiError.js';
-import ApiResponse from '../utils/ApiResponse.js';
-import asyncHandler from '../utils/asyncHandler.js';
-import logger from '../utils/logger.js';
+import { prisma } from "../config/database.js";
+import ApiError from "../utils/ApiError.js";
+import ApiResponse from "../utils/ApiResponse.js";
+import asyncHandler from "../utils/asyncHandler.js";
+import logger from "../utils/logger.js";
 
 // Get all courses with filtering and search
 export const getCourses = asyncHandler(async (req, res) => {
-
-   if (req.query.coachId !== undefined) {
+  // Debug: ensure coachId is integer
+  if (req.query.coachId !== undefined) {
     req.query.coachId = parseInt(req.query.coachId, 10);
     console.log(
       "coachId value:",
@@ -16,28 +16,20 @@ export const getCourses = asyncHandler(async (req, res) => {
       typeof req.query.coachId
     );
   }
-
   const {
     category,
     level,
-    search = '',
+    search = "",
     page = 1,
     limit = 10,
-    sortBy = 'createdAt',
-    sortOrder = 'desc',
+    sortBy = "createdAt",
+    sortOrder = "desc",
     minPrice,
     maxPrice,
-    coachId
+    coachId,
   } = req.query;
 
   // Build where clause for filtering
-  // const where = {
-  //   isActive: true,
-  //   status: 'APPROVED'
-  // };
-
-
-    // Build where clause for filtering
   let where = {};
   if (coachId) {
     // If coachId is provided, show all courses for that coach (all statuses)
@@ -49,7 +41,6 @@ export const getCourses = asyncHandler(async (req, res) => {
     where.isActive = true;
     where.status = "APPROVED";
   }
-
 
   // Category filter
   if (category) {
@@ -68,32 +59,27 @@ export const getCourses = asyncHandler(async (req, res) => {
     if (maxPrice) where.price.lte = parseFloat(maxPrice);
   }
 
-  // Coach filter
-  if (coachId) {
-    where.coachId = coachId;
-  }
-
   // Search filter
   if (search) {
     where.OR = [
       {
         title: {
           contains: search,
-          mode: 'insensitive'
-        }
+          mode: "insensitive",
+        },
       },
       {
         description: {
           contains: search,
-          mode: 'insensitive'
-        }
+          mode: "insensitive",
+        },
       },
       {
         category: {
           contains: search,
-          mode: 'insensitive'
-        }
-      }
+          mode: "insensitive",
+        },
+      },
     ];
   }
 
@@ -118,27 +104,26 @@ export const getCourses = asyncHandler(async (req, res) => {
             coach: {
               select: {
                 rating: true,
-                totalReviews: true
-              }
-            }
-          }
+                totalReviews: true,
+              },
+            },
+          },
         },
         _count: {
           select: {
-            sessions: true
-          }
-        }
+            sessions: true,
+          },
+        },
       },
       orderBy,
       skip,
-      take
+      take,
     }),
-    prisma.course.count({ where })
+    prisma.course.count({ where }),
   ]);
 
   // Format response
-  const apiBase = `${req.protocol}://${req.get('host')}${req.baseUrl}`;
-  const formattedCourses = courses.map(course => ({
+  const formattedCourses = courses.map((course) => ({
     id: course.id,
     title: course.title,
     description: course.description,
@@ -149,7 +134,7 @@ export const getCourses = asyncHandler(async (req, res) => {
     courseDuration: course.courseDuration,
     price: course.price,
     currency: course.currency,
-    thumbnail: course.thumbnail || (course.thumbnailData ? `${apiBase}/${course.id}/thumbnail` : null),
+    thumbnail: course.thumbnail,
     videoUrl: course.videoUrl,
     program: course.program,
     timezone: course.timezone,
@@ -162,24 +147,28 @@ export const getCourses = asyncHandler(async (req, res) => {
       name: `${course.coach.firstName} ${course.coach.lastName}`,
       avatar: course.coach.profileImageUrl,
       rating: course.coach.coach?.rating || 0,
-      totalReviews: course.coach.coach?.totalReviews || 0
+      totalReviews: course.coach.coach?.totalReviews || 0,
     },
-    totalSessions: course._count.sessions
+    totalSessions: course._count.sessions,
   }));
 
   const totalPages = Math.ceil(totalCount / take);
 
   res.json(
-    new ApiResponse(200, {
-      courses: formattedCourses,
-      pagination: {
-        currentPage: parseInt(page),
-        totalPages,
-        totalCount,
-        hasNextPage: parseInt(page) < totalPages,
-        hasPrevPage: parseInt(page) > 1
-      }
-    }, 'Courses retrieved successfully')
+    new ApiResponse(
+      200,
+      {
+        courses: formattedCourses,
+        pagination: {
+          currentPage: parseInt(page),
+          totalPages,
+          totalCount,
+          hasNextPage: parseInt(page) < totalPages,
+          hasPrevPage: parseInt(page) > 1,
+        },
+      },
+      "Courses retrieved successfully"
+    )
   );
 });
 
@@ -187,9 +176,8 @@ export const getCourses = asyncHandler(async (req, res) => {
 export const getCourseById = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
 
-  const id = Number(courseId);
   const course = await prisma.course.findUnique({
-    where: { id },
+    where: { id: courseId },
     include: {
       coach: {
         select: {
@@ -198,15 +186,15 @@ export const getCourseById = asyncHandler(async (req, res) => {
             select: {
               firstName: true,
               lastName: true,
-              profileImageUrl: true
-            }
+              profileImageUrl: true,
+            },
           },
           rating: true,
           totalReviews: true,
           totalStudents: true,
           experienceDescription: true,
-          languages: true
-        }
+          languages: true,
+        },
       },
       sessions: {
         select: {
@@ -215,26 +203,25 @@ export const getCourseById = asyncHandler(async (req, res) => {
           description: true,
           startTime: true,
           endTime: true,
-          status: true
+          status: true,
         },
         orderBy: {
-          startTime: 'asc'
-        }
+          startTime: "asc",
+        },
       },
       _count: {
         select: {
-          sessions: true
-        }
-      }
-    }
+          sessions: true,
+        },
+      },
+    },
   });
 
   if (!course) {
-    throw new ApiError(404, 'Course not found');
+    throw new ApiError(404, "Course not found");
   }
 
   // Format response
-  const apiBase = `${req.protocol}://${req.get('host')}${req.baseUrl}`;
   const formattedCourse = {
     id: course.id,
     title: course.title,
@@ -246,7 +233,7 @@ export const getCourseById = asyncHandler(async (req, res) => {
     courseDuration: course.courseDuration,
     price: course.price,
     currency: course.currency,
-    thumbnail: course.thumbnail || (course.thumbnailData ? `${apiBase}/${course.id}/thumbnail` : null),
+    thumbnail: course.thumbnail,
     videoUrl: course.videoUrl,
     program: course.program,
     timezone: course.timezone,
@@ -262,14 +249,18 @@ export const getCourseById = asyncHandler(async (req, res) => {
       totalReviews: course.coach.totalReviews,
       totalStudents: course.coach.totalStudents,
       experience: course.coach.experienceDescription,
-      languages: course.coach.languages
+      languages: course.coach.languages,
     },
     sessions: course.sessions,
-    totalSessions: course._count.sessions
+    totalSessions: course._count.sessions,
   };
 
   res.json(
-    new ApiResponse(200, formattedCourse, 'Course details retrieved successfully')
+    new ApiResponse(
+      200,
+      formattedCourse,
+      "Course details retrieved successfully"
+    )
   );
 });
 
@@ -284,38 +275,36 @@ export const createCourse = asyncHandler(async (req, res) => {
     duration, // minutes (legacy)
     courseDuration, // string label
     price,
-    currency = 'USD',
+    currency = "USD",
     program,
-    timezone = 'UTC',
+    timezone = "UTC",
     weeklySchedule,
-    credits
+    credits,
   } = req.body;
 
   const coachId = req.user.id;
 
   // Handle file uploads
-  let thumbnailBinary = null;
-  let thumbnailMimeType = null;
+  let thumbnailUrl = null;
   let videoUrl = null;
 
   if (req.files) {
     try {
       if (req.files.thumbnail) {
-        const uploadedThumb = req.files.thumbnail[0];
-        // memoryStorage provides buffer
-        thumbnailBinary = uploadedThumb.buffer;
-        thumbnailMimeType = uploadedThumb.mimetype || 'image/jpeg';
-        logger.info(`Course thumbnail received: ${uploadedThumb.originalname}`);
+        thumbnailUrl = `http://localhost:5000/uploads/course-thumbnail-${Date.now()}.jpg`;
+        logger.info(
+          `Course thumbnail uploaded: ${req.files.thumbnail[0].originalname}`
+        );
       }
       if (req.files.video || req.files.introVideo) {
-        // Placeholder: persist videos via separate upload flow/storage
-        // Keep null or implement storage as needed
+        videoUrl = `http://localhost:5000/uploads/course-video-${Date.now()}.mp4`;
         const uploaded = req.files.video?.[0] || req.files.introVideo?.[0];
-        if (uploaded) logger.info(`Course video received: ${uploaded.originalname}`);
+        if (uploaded)
+          logger.info(`Course video uploaded: ${uploaded.originalname}`);
       }
     } catch (error) {
-      logger.error('File upload error:', error);
-      throw new ApiError(500, 'Failed to upload files');
+      logger.error("File upload error:", error);
+      throw new ApiError(500, "Failed to upload files");
     }
   }
 
@@ -323,7 +312,9 @@ export const createCourse = asyncHandler(async (req, res) => {
   const parsedWeekly = (() => {
     try {
       if (!weeklySchedule) return [];
-      return typeof weeklySchedule === 'string' ? JSON.parse(weeklySchedule) : weeklySchedule;
+      return typeof weeklySchedule === "string"
+        ? JSON.parse(weeklySchedule)
+        : weeklySchedule;
     } catch (e) {
       return [];
     }
@@ -336,15 +327,12 @@ export const createCourse = asyncHandler(async (req, res) => {
       description,
       benefits: benefits || null,
       category,
-      level: level || 'BEGINNER',
+      level: level || "BEGINNER",
       duration: duration ? parseInt(duration) : 0,
       courseDuration: courseDuration || null,
       price: price != null ? parseFloat(price) : 0,
       currency,
-      // Persist thumbnail binary if provided
-      thumbnail: null,
-      thumbnailData: thumbnailBinary,
-      thumbnailMimeType,
+      thumbnail: thumbnailUrl,
       videoUrl,
       program: program || null,
       timezone,
@@ -352,49 +340,42 @@ export const createCourse = asyncHandler(async (req, res) => {
       creditCost: credits != null ? parseFloat(credits) : 0,
       // New courses require admin approval by default
       isActive: false,
-      status: 'PENDING'
+      status: "PENDING",
     },
     include: {
       coach: {
         select: {
           firstName: true,
-          lastName: true
-        }
-      }
-    }
+          lastName: true,
+        },
+      },
+    },
   });
 
-  logger.info(`Course created: ${course.title} by coach ${course.coach.firstName} ${course.coach.lastName}`);
-
-  // Prepare response with computed thumbnail URL
-  const { thumbnailData, thumbnailMimeType: _omitMime, ...courseSafe } = course;
-  const apiBase = `${req.protocol}://${req.get('host')}${req.baseUrl}`;
-  const responseCourse = {
-    ...courseSafe,
-    thumbnail: course.thumbnail || (thumbnailBinary ? `${apiBase}/${course.id}/thumbnail` : null)
-  };
-
-  res.status(201).json(
-    new ApiResponse(201, responseCourse, 'Course created successfully')
+  logger.info(
+    `Course created: ${course.title} by coach ${course.coach.firstName} ${course.coach.lastName}`
   );
+
+  res
+    .status(201)
+    .json(new ApiResponse(201, course, "Course created successfully"));
 });
 
 // Update course
 export const updateCourse = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
   const coachId = req.user.id;
-  const id = Number(courseId);
 
   // Check if course exists and belongs to the coach
   const existingCourse = await prisma.course.findFirst({
     where: {
-      id,
-      coachId
-    }
+      id: courseId,
+      coachId,
+    },
   });
 
   if (!existingCourse) {
-    throw new ApiError(404, 'Course not found or access denied');
+    throw new ApiError(404, "Course not found or access denied");
   }
 
   const {
@@ -410,30 +391,30 @@ export const updateCourse = asyncHandler(async (req, res) => {
     program,
     timezone,
     weeklySchedule,
-    credits
+    credits,
   } = req.body;
 
   // Handle file uploads
-  let thumbnailBinary = null;
-  let thumbnailMimeType = null;
+  let thumbnailUrl = existingCourse.thumbnail;
   let videoUrl = existingCourse.videoUrl;
 
   if (req.files) {
     try {
       if (req.files.thumbnail) {
-        const uploadedThumb = req.files.thumbnail[0];
-        thumbnailBinary = uploadedThumb.buffer;
-        thumbnailMimeType = uploadedThumb.mimetype || 'image/jpeg';
-        logger.info(`Course thumbnail updated: ${uploadedThumb.originalname}`);
+        thumbnailUrl = `http://localhost:5000/uploads/course-thumbnail-${Date.now()}.jpg`;
+        logger.info(
+          `Course thumbnail updated: ${req.files.thumbnail[0].originalname}`
+        );
       }
       if (req.files.video || req.files.introVideo) {
-        // Placeholder: implement real video persistence as needed
+        videoUrl = `http://localhost:5000/uploads/course-video-${Date.now()}.mp4`;
         const uploaded = req.files.video?.[0] || req.files.introVideo?.[0];
-        if (uploaded) logger.info(`Course video updated: ${uploaded.originalname}`);
+        if (uploaded)
+          logger.info(`Course video updated: ${uploaded.originalname}`);
       }
     } catch (error) {
-      logger.error('File upload error:', error);
-      throw new ApiError(500, 'Failed to upload files');
+      logger.error("File upload error:", error);
+      throw new ApiError(500, "Failed to upload files");
     }
   }
 
@@ -441,14 +422,16 @@ export const updateCourse = asyncHandler(async (req, res) => {
   const parsedWeekly = (() => {
     try {
       if (!weeklySchedule) return existingCourse.weeklySchedule;
-      return typeof weeklySchedule === 'string' ? JSON.parse(weeklySchedule) : weeklySchedule;
+      return typeof weeklySchedule === "string"
+        ? JSON.parse(weeklySchedule)
+        : weeklySchedule;
     } catch (e) {
       return existingCourse.weeklySchedule;
     }
   })();
 
   const updatedCourse = await prisma.course.update({
-    where: { id },
+    where: { id: courseId },
     data: {
       title: title || existingCourse.title,
       description: description || existingCourse.description,
@@ -459,104 +442,99 @@ export const updateCourse = asyncHandler(async (req, res) => {
       courseDuration: courseDuration ?? existingCourse.courseDuration,
       price: price != null ? parseFloat(price) : existingCourse.price,
       currency: currency || existingCourse.currency,
-      // Update thumbnail binary if provided
-      ...(thumbnailBinary ? { thumbnailData: thumbnailBinary, thumbnailMimeType } : {}),
+      thumbnail: thumbnailUrl,
       videoUrl,
       program: program ?? existingCourse.program,
       timezone: timezone ?? existingCourse.timezone,
       weeklySchedule: parsedWeekly,
-      creditCost: credits != null ? parseFloat(credits) : existingCourse.creditCost
-    }
+      creditCost:
+        credits != null ? parseFloat(credits) : existingCourse.creditCost,
+    },
   });
 
   logger.info(`Course updated: ${updatedCourse.title} by coach ${coachId}`);
 
-  const { thumbnailData: _td2, thumbnailMimeType: _tm2, ...updatedSafe } = updatedCourse;
-  const apiBase2 = `${req.protocol}://${req.get('host')}${req.baseUrl}`;
-  const responseCourse = {
-    ...updatedSafe,
-    thumbnail: updatedCourse.thumbnail || (updatedCourse.thumbnailData ? `${apiBase2}/${updatedCourse.id}/thumbnail` : existingCourse.thumbnail)
-  };
-
-  res.json(
-    new ApiResponse(200, responseCourse, 'Course updated successfully')
-  );
+  res.json(new ApiResponse(200, updatedCourse, "Course updated successfully"));
 });
 
 // Delete course
 export const deleteCourse = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
   const coachId = req.user.id;
-  const id = Number(courseId);
 
   // Check if course exists and belongs to the coach
   const course = await prisma.course.findFirst({
     where: {
-      id,
-      coachId
+      id: courseId,
+      coachId,
     },
     include: {
       sessions: {
         where: {
           status: {
-            in: ['SCHEDULED', 'IN_PROGRESS']
-          }
-        }
-      }
-    }
+            in: ["SCHEDULED", "IN_PROGRESS"],
+          },
+        },
+      },
+    },
   });
 
   if (!course) {
-    throw new ApiError(404, 'Course not found or access denied');
+    throw new ApiError(404, "Course not found or access denied");
   }
 
   // Check if course has active sessions
   if (course.sessions.length > 0) {
-    throw new ApiError(400, 'Cannot delete course with active sessions');
+    throw new ApiError(400, "Cannot delete course with active sessions");
   }
 
   // Delete course
   await prisma.course.delete({
-    where: { id }
+    where: { id: courseId },
   });
 
   logger.info(`Course deleted: ${course.title} by coach ${coachId}`);
 
-  res.json(
-    new ApiResponse(200, null, 'Course deleted successfully')
-  );
+  res.json(new ApiResponse(200, null, "Course deleted successfully"));
 });
 
 // Toggle course status
 export const toggleCourseStatus = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
   const coachId = req.user.id;
-  const id = Number(courseId);
 
   // Check if course exists and belongs to the coach
   const course = await prisma.course.findFirst({
     where: {
-      id,
-      coachId
-    }
+      id: courseId,
+      coachId,
+    },
   });
 
   if (!course) {
-    throw new ApiError(404, 'Course not found or access denied');
+    throw new ApiError(404, "Course not found or access denied");
   }
 
   // Toggle status
   const updatedCourse = await prisma.course.update({
-    where: { id },
+    where: { id: courseId },
     data: {
-      isActive: !course.isActive
-    }
+      isActive: !course.isActive,
+    },
   });
 
-  logger.info(`Course status toggled: ${course.title} - ${updatedCourse.isActive ? 'Active' : 'Inactive'}`);
+  logger.info(
+    `Course status toggled: ${course.title} - ${
+      updatedCourse.isActive ? "Active" : "Inactive"
+    }`
+  );
 
   res.json(
-    new ApiResponse(200, updatedCourse, `Course ${updatedCourse.isActive ? 'activated' : 'deactivated'} successfully`)
+    new ApiResponse(
+      200,
+      updatedCourse,
+      `Course ${updatedCourse.isActive ? "activated" : "deactivated"} successfully`
+    )
   );
 });
 
@@ -565,13 +543,12 @@ export const enrollInCourse = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
   const { childId } = req.body;
   const parentId = req.user.id;
-  const id = Number(courseId);
 
   // Check if course exists and is active
   const course = await prisma.course.findFirst({
     where: {
-      id,
-      isActive: true
+      id: courseId,
+      isActive: true,
     },
     include: {
       coach: {
@@ -579,16 +556,16 @@ export const enrollInCourse = asyncHandler(async (req, res) => {
           user: {
             select: {
               firstName: true,
-              lastName: true
-            }
-          }
-        }
-      }
-    }
+              lastName: true,
+            },
+          },
+        },
+      },
+    },
   });
 
   if (!course) {
-    throw new ApiError(404, 'Course not found or not available');
+    throw new ApiError(404, "Course not found or not available");
   }
 
   // Check if child belongs to parent (this would need a Child model in the schema)
@@ -597,19 +574,19 @@ export const enrollInCourse = asyncHandler(async (req, res) => {
   // Check if already enrolled
   const existingEnrollment = await prisma.session.findFirst({
     where: {
-      courseId: id,
-      studentId: childId
-    }
+      courseId,
+      studentId: childId,
+    },
   });
 
   if (existingEnrollment) {
-    throw new ApiError(400, 'Already enrolled in this course');
+    throw new ApiError(400, "Already enrolled in this course");
   }
 
   // Create enrollment (represented as a session in the current schema)
   const enrollment = await prisma.session.create({
     data: {
-      courseId: id,
+      courseId,
       coachId: course.coachId,
       studentId: childId,
       title: `Enrollment in ${course.title}`,
@@ -617,18 +594,24 @@ export const enrollInCourse = asyncHandler(async (req, res) => {
       startTime: new Date(),
       endTime: new Date(),
       duration: 0,
-      status: 'SCHEDULED'
-    }
+      status: "SCHEDULED",
+    },
   });
 
-  logger.info(`Student ${childId} enrolled in course ${course.title} by parent ${parentId}`);
+  logger.info(
+    `Student ${childId} enrolled in course ${course.title} by parent ${parentId}`
+  );
 
   res.status(201).json(
-    new ApiResponse(201, {
-      enrollmentId: enrollment.id,
-      courseTitle: course.title,
-      coachName: `${course.coach.user.firstName} ${course.coach.user.lastName}`
-    }, 'Enrollment created successfully')
+    new ApiResponse(
+      201,
+      {
+        enrollmentId: enrollment.id,
+        courseTitle: course.title,
+        coachName: `${course.coach.user.firstName} ${course.coach.user.lastName}`,
+      },
+      "Enrollment created successfully"
+    )
   );
 });
 
@@ -639,11 +622,11 @@ export const getCourseReviews = asyncHandler(async (req, res) => {
 
   // Check if course exists
   const course = await prisma.course.findUnique({
-    where: { id: courseId }
+    where: { id: courseId },
   });
 
   if (!course) {
-    throw new ApiError(404, 'Course not found');
+    throw new ApiError(404, "Course not found");
   }
 
   // Get reviews
@@ -654,40 +637,40 @@ export const getCourseReviews = asyncHandler(async (req, res) => {
     prisma.review.findMany({
       where: {
         session: {
-          courseId
-        }
+          courseId,
+        },
       },
       include: {
         reviewer: {
           select: {
             firstName: true,
             lastName: true,
-            profileImageUrl: true
-          }
+            profileImageUrl: true,
+          },
         },
         session: {
           select: {
-            title: true
-          }
-        }
+            title: true,
+          },
+        },
       },
       orderBy: {
-        createdAt: 'desc'
+        createdAt: "desc",
       },
       skip,
-      take
+      take,
     }),
     prisma.review.count({
       where: {
         session: {
-          courseId
-        }
-      }
-    })
+          courseId,
+        },
+      },
+    }),
   ]);
 
   // Format reviews
-  const formattedReviews = reviews.map(review => ({
+  const formattedReviews = reviews.map((review) => ({
     id: review.id,
     rating: review.rating,
     comment: review.comment,
@@ -695,53 +678,29 @@ export const getCourseReviews = asyncHandler(async (req, res) => {
     createdAt: review.createdAt,
     reviewer: {
       name: `${review.reviewer.firstName} ${review.reviewer.lastName}`,
-      avatar: review.reviewer.profileImageUrl
+      avatar: review.reviewer.profileImageUrl,
     },
-    sessionTitle: review.session?.title
+    sessionTitle: review.session?.title,
   }));
 
   const totalPages = Math.ceil(totalCount / take);
 
   res.json(
-    new ApiResponse(200, {
-      reviews: formattedReviews,
-      pagination: {
-        currentPage: parseInt(page),
-        totalPages,
-        totalCount,
-        hasNextPage: parseInt(page) < totalPages,
-        hasPrevPage: parseInt(page) > 1
-      }
-    }, 'Course reviews retrieved successfully')
+    new ApiResponse(
+      200,
+      {
+        reviews: formattedReviews,
+        pagination: {
+          currentPage: parseInt(page),
+          totalPages,
+          totalCount,
+          hasNextPage: parseInt(page) < totalPages,
+          hasPrevPage: parseInt(page) > 1,
+        },
+      },
+      "Course reviews retrieved successfully"
+    )
   );
-});
-
-// Serve course thumbnail binary
-export const getCourseThumbnail = asyncHandler(async (req, res) => {
-  const { courseId } = req.params;
-  const id = Number(courseId);
-  const course = await prisma.course.findUnique({
-    where: { id: id }
-  });
-
-  if (!course) {
-    throw new ApiError(404, 'Course not found');
-  }
-
-  if (course.thumbnailData) {
-    const mime = course.thumbnailMimeType || 'image/jpeg';
-    res.setHeader('Content-Type', mime);
-    // Cache for a short period
-    res.setHeader('Cache-Control', 'public, max-age=3600');
-    return res.status(200).send(Buffer.from(course.thumbnailData));
-  }
-
-  // Fallback: if an external thumbnail URL exists
-  if (course.thumbnail) {
-    return res.redirect(course.thumbnail);
-  }
-
-  throw new ApiError(404, 'Thumbnail not available');
 });
 
 // Add course review
@@ -752,11 +711,11 @@ export const addCourseReview = asyncHandler(async (req, res) => {
 
   // Check if course exists
   const course = await prisma.course.findUnique({
-    where: { id: courseId }
+    where: { id: courseId },
   });
 
   if (!course) {
-    throw new ApiError(404, 'Course not found');
+    throw new ApiError(404, "Course not found");
   }
 
   // Check if user has completed a session for this course
@@ -764,24 +723,27 @@ export const addCourseReview = asyncHandler(async (req, res) => {
     where: {
       courseId,
       studentId: reviewerId,
-      status: 'COMPLETED'
-    }
+      status: "COMPLETED",
+    },
   });
 
   if (!session) {
-    throw new ApiError(400, 'You must complete a session before reviewing this course');
+    throw new ApiError(
+      400,
+      "You must complete a session before reviewing this course"
+    );
   }
 
   // Check if already reviewed
   const existingReview = await prisma.review.findFirst({
     where: {
       sessionId: session.id,
-      reviewerId
-    }
+      reviewerId,
+    },
   });
 
   if (existingReview) {
-    throw new ApiError(400, 'You have already reviewed this course');
+    throw new ApiError(400, "You have already reviewed this course");
   }
 
   // Create review
@@ -792,26 +754,28 @@ export const addCourseReview = asyncHandler(async (req, res) => {
       sessionId: session.id,
       rating,
       comment: comment || null,
-      isPublic: true
+      isPublic: true,
     },
     include: {
       reviewer: {
         select: {
           firstName: true,
-          lastName: true
-        }
-      }
-    }
+          lastName: true,
+        },
+      },
+    },
   });
 
   // Update coach rating
   await updateCoachRating(course.coachId);
 
-  logger.info(`Review added for course ${course.title} by ${review.reviewer.firstName} ${review.reviewer.lastName}`);
-
-  res.status(201).json(
-    new ApiResponse(201, review, 'Review added successfully')
+  logger.info(
+    `Review added for course ${course.title} by ${review.reviewer.firstName} ${review.reviewer.lastName}`
   );
+
+  res
+    .status(201)
+    .json(new ApiResponse(201, review, "Review added successfully"));
 });
 
 // Helper function to update coach rating
@@ -819,22 +783,23 @@ async function updateCoachRating(coachId) {
   const reviews = await prisma.review.findMany({
     where: {
       coachId,
-      isPublic: true
+      isPublic: true,
     },
     select: {
-      rating: true
-    }
+      rating: true,
+    },
   });
 
   if (reviews.length > 0) {
-    const averageRating = reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length;
-    
+    const averageRating =
+      reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length;
+
     await prisma.coach.update({
       where: { id: coachId },
       data: {
         rating: averageRating,
-        totalReviews: reviews.length
-      }
+        totalReviews: reviews.length,
+      },
     });
   }
-} 
+}

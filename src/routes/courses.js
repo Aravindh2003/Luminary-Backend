@@ -1,11 +1,11 @@
-import express from 'express';
-import { body, query, param } from 'express-validator';
-import multer from 'multer';
-import asyncHandler from '../utils/asyncHandler.js';
-import validate from '../middleware/validation.js';
-import { authenticate, authorize } from '../middleware/auth.js';
-import * as courseController from '../controllers/courseController.js';
-import fileUploadService from '../services/fileUploadService.js';
+import express from "express";
+import { body, query, param } from "express-validator";
+import multer from "multer";
+import asyncHandler from "../utils/asyncHandler.js";
+import validate from "../middleware/validation.js";
+import { authenticate, authorize } from "../middleware/auth.js";
+import * as courseController from "../controllers/courseController.js";
+import fileUploadService from "../services/fileUploadService.js";
 
 const router = express.Router();
 
@@ -14,109 +14,106 @@ const courseUpload = multer({
   storage: multer.memoryStorage(),
   limits: {
     fileSize: 50 * 1024 * 1024, // 50MB max per file
-    files: 3 // Maximum 3 files (thumbnail, video or introVideo)
+    files: 3, // Maximum 3 files (thumbnail, video or introVideo)
   },
   fileFilter: (req, file, cb) => {
-    if (file.fieldname === 'thumbnail') {
-      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+    if (file.fieldname === "thumbnail") {
+      const allowedTypes = ["image/jpeg", "image/png", "image/webp"];
       if (allowedTypes.includes(file.mimetype)) {
         cb(null, true);
       } else {
-        cb(new Error('Thumbnail must be JPEG, PNG, or WebP format'), false);
+        cb(new Error("Thumbnail must be JPEG, PNG, or WebP format"), false);
       }
-    } else if (file.fieldname === 'video' || file.fieldname === 'introVideo') {
-      if (file.mimetype.startsWith('video/')) {
+    } else if (file.fieldname === "video" || file.fieldname === "introVideo") {
+      if (file.mimetype.startsWith("video/")) {
         cb(null, true);
       } else {
-        cb(new Error('Video file must be a valid video format'), false);
+        cb(new Error("Video file must be a valid video format"), false);
       }
     } else {
-      cb(new Error('Unexpected field'), false);
+      cb(new Error("Unexpected field"), false);
     }
-  }
+  },
 });
 
 // Validation rules
 const createCourseValidation = [
-  body('title')
+  body("title")
     .trim()
     .isLength({ min: 3, max: 200 })
-    .withMessage('Title must be between 3 and 200 characters'),
-  body('description')
+    .withMessage("Title must be between 3 and 200 characters"),
+  body("description")
     .trim()
     .isLength({ min: 10, max: 2000 })
-    .withMessage('Description must be between 10 and 2000 characters'),
-  body('benefits')
+    .withMessage("Description must be between 10 and 2000 characters"),
+  body("benefits")
     .optional()
     .isString()
     .isLength({ max: 2000 })
-    .withMessage('Benefits must be less than 2000 characters'),
-  body('category')
-    .trim()
-    .notEmpty()
-    .withMessage('Category is required'),
-  body('program')
+    .withMessage("Benefits must be less than 2000 characters"),
+  body("category").trim().notEmpty().withMessage("Category is required"),
+  body("program")
     .optional()
-    .isIn(['morning', 'afternoon', 'evening'])
-    .withMessage('Program must be morning, afternoon, or evening'),
-  body('credits')
+    .isIn(["morning", "afternoon", "evening"])
+    .withMessage("Program must be morning, afternoon, or evening"),
+  body("credits")
     .optional()
     .isFloat({ min: 0 })
-    .withMessage('Credits must be a positive number'),
-  body('timezone')
+    .withMessage("Credits must be a positive number"),
+  body("timezone")
     .optional()
     .isString()
-    .withMessage('Timezone must be a string'),
-  body('weeklySchedule')
+    .withMessage("Timezone must be a string"),
+  body("weeklySchedule")
     .optional()
     .custom((value) => {
-      // Accept array or JSON string
-      const parsed = typeof value === 'string' ? JSON.parse(value) : value;
-      if (!Array.isArray(parsed)) throw new Error('weeklySchedule must be an array');
+      const parsed = typeof value === "string" ? JSON.parse(value) : value;
+      if (!Array.isArray(parsed))
+        throw new Error("weeklySchedule must be an array");
       return true;
     }),
-  body('courseDuration')
+  body("courseDuration")
     .optional()
     .isString()
     .isLength({ max: 100 })
-    .withMessage('courseDuration must be a short string'),
+    .withMessage("courseDuration must be a short string"),
   // Legacy/optional fields maintained for backward compatibility
-  body('level')
+  body("level")
     .optional()
-    .isIn(['BEGINNER', 'INTERMEDIATE', 'ADVANCED'])
-    .withMessage('Level must be BEGINNER, INTERMEDIATE, or ADVANCED'),
-  body('duration')
+    .isIn(["BEGINNER", "INTERMEDIATE", "ADVANCED"])
+    .withMessage("Level must be BEGINNER, INTERMEDIATE, or ADVANCED"),
+  body("duration")
     .optional()
     .isInt({ min: 1, max: 10000 })
-    .withMessage('Duration must be a positive integer (minutes)'),
-  body('price')
+    .withMessage("Duration must be a positive integer (minutes)"),
+  body("price")
     .optional()
     .isFloat({ min: 0, max: 10000 })
-    .withMessage('Price must be between 0 and 10000'),
-  body('currency')
+    .withMessage("Price must be between 0 and 10000"),
+  body("currency")
     .optional()
-    .isIn(['USD', 'EUR', 'GBP', 'CAD'])
-    .withMessage('Currency must be USD, EUR, GBP, or CAD'),
+    .isIn(["USD", "EUR", "GBP", "CAD"])
+    .withMessage("Currency must be USD, EUR, GBP, or CAD"),
 ];
 
 const updateCourseValidation = [
   ...createCourseValidation,
-  param('courseId')
-    .isInt()
-    .withMessage('Invalid course ID format')
+  param("courseId").isUUID().withMessage("Invalid course ID format"),
 ];
 
 const getCoursesValidation = [
-  query('category').optional().isString().trim(),
-  query('level').optional().isIn(['BEGINNER', 'INTERMEDIATE', 'ADVANCED']),
-  query('search').optional().isString().trim().isLength({ max: 100 }),
-  query('page').optional().isInt({ min: 1 }),
-  query('limit').optional().isInt({ min: 1, max: 100 }),
-  query('sortBy').optional().isIn(['title', 'price', 'rating', 'createdAt', 'students']),
-  query('sortOrder').optional().isIn(['asc', 'desc']),
-  query('minPrice').optional().isFloat({ min: 0 }),
-  query('maxPrice').optional().isFloat({ min: 0 }),
-  query('coachId').optional().isUUID()
+  query("category").optional().isString().trim(),
+  query("level").optional().isIn(["BEGINNER", "INTERMEDIATE", "ADVANCED"]),
+  query("search").optional().isString().trim().isLength({ max: 100 }),
+  query("page").optional().isInt({ min: 1 }),
+  query("limit").optional().isInt({ min: 1, max: 100 }),
+  query("sortBy")
+    .optional()
+    .isIn(["title", "price", "rating", "createdAt", "students"]),
+  query("sortOrder").optional().isIn(["asc", "desc"]),
+  query("minPrice").optional().isFloat({ min: 0 }),
+  query("maxPrice").optional().isFloat({ min: 0 }),
+  query("coachId").optional().isInt({ min: 1 }),
 ];
 
 /**
@@ -220,7 +217,12 @@ const getCoursesValidation = [
  *                 message:
  *                   type: string
  */
-router.get('/', getCoursesValidation, validate, asyncHandler(courseController.getCourses));
+router.get(
+  "/",
+  getCoursesValidation,
+  validate,
+  asyncHandler(courseController.getCourses)
+);
 
 /**
  * @swagger
@@ -253,17 +255,11 @@ router.get('/', getCoursesValidation, validate, asyncHandler(courseController.ge
  *       404:
  *         description: Course not found
  */
-router.get('/:courseId', 
-  [param('courseId').isInt().withMessage('Invalid course ID format')],
+router.get(
+  "/:courseId",
+  [param("courseId").isUUID().withMessage("Invalid course ID format")],
   validate,
   asyncHandler(courseController.getCourseById)
-);
-
-// Serve course thumbnail (binary)
-router.get('/:courseId/thumbnail',
-  [param('courseId').isInt().withMessage('Invalid course ID format')],
-  validate,
-  asyncHandler(courseController.getCourseThumbnail)
 );
 
 /**
@@ -369,13 +365,14 @@ router.get('/:courseId/thumbnail',
  *       403:
  *         description: Coach access required
  */
-router.post('/',
+router.post(
+  "/",
   authenticate,
-  authorize('COACH'),
+  authorize("COACH"),
   courseUpload.fields([
-    { name: 'thumbnail', maxCount: 1 },
-    { name: 'video', maxCount: 1 },
-    { name: 'introVideo', maxCount: 1 }
+    { name: "thumbnail", maxCount: 1 },
+    { name: "video", maxCount: 1 },
+    { name: "introVideo", maxCount: 1 },
   ]),
   createCourseValidation,
   validate,
@@ -446,13 +443,14 @@ router.post('/',
  *       404:
  *         description: Course not found
  */
-router.put('/:courseId',
+router.put(
+  "/:courseId",
   authenticate,
-  authorize('COACH'),
+  authorize("COACH"),
   courseUpload.fields([
-    { name: 'thumbnail', maxCount: 1 },
-    { name: 'video', maxCount: 1 },
-    { name: 'introVideo', maxCount: 1 }
+    { name: "thumbnail", maxCount: 1 },
+    { name: "video", maxCount: 1 },
+    { name: "introVideo", maxCount: 1 },
   ]),
   updateCourseValidation,
   validate,
@@ -485,10 +483,11 @@ router.put('/:courseId',
  *       404:
  *         description: Course not found
  */
-router.delete('/:courseId',
+router.delete(
+  "/:courseId",
   authenticate,
-  authorize('COACH'),
-  [param('courseId').isInt().withMessage('Invalid course ID format')],
+  authorize("COACH"),
+  [param("courseId").isUUID().withMessage("Invalid course ID format")],
   validate,
   asyncHandler(courseController.deleteCourse)
 );
@@ -519,10 +518,11 @@ router.delete('/:courseId',
  *       404:
  *         description: Course not found
  */
-router.patch('/:courseId/toggle-status',
+router.patch(
+  "/:courseId/toggle-status",
   authenticate,
-  authorize('COACH'),
-  [param('courseId').isInt().withMessage('Invalid course ID format')],
+  authorize("COACH"),
+  [param("courseId").isUUID().withMessage("Invalid course ID format")],
   validate,
   asyncHandler(courseController.toggleCourseStatus)
 );
@@ -568,12 +568,13 @@ router.patch('/:courseId/toggle-status',
  *       404:
  *         description: Course or child not found
  */
-router.post('/:courseId/enroll',
+router.post(
+  "/:courseId/enroll",
   authenticate,
-  authorize('PARENT'),
+  authorize("PARENT"),
   [
-    param('courseId').isInt().withMessage('Invalid course ID format'),
-    body('childId').isInt().withMessage('Invalid child ID format')
+    param("courseId").isUUID().withMessage("Invalid course ID format"),
+    body("childId").isUUID().withMessage("Invalid child ID format"),
   ],
   validate,
   asyncHandler(courseController.enrollInCourse)
@@ -614,11 +615,12 @@ router.post('/:courseId/enroll',
  *       404:
  *         description: Course not found
  */
-router.get('/:courseId/reviews',
+router.get(
+  "/:courseId/reviews",
   [
-    param('courseId').isInt().withMessage('Invalid course ID format'),
-    query('page').optional().isInt({ min: 1 }),
-    query('limit').optional().isInt({ min: 1, max: 50 })
+    param("courseId").isUUID().withMessage("Invalid course ID format"),
+    query("page").optional().isInt({ min: 1 }),
+    query("limit").optional().isInt({ min: 1, max: 50 }),
   ],
   validate,
   asyncHandler(courseController.getCourseReviews)
@@ -670,16 +672,24 @@ router.get('/:courseId/reviews',
  *       404:
  *         description: Course not found
  */
-router.post('/:courseId/reviews',
+router.post(
+  "/:courseId/reviews",
   authenticate,
-  authorize('PARENT'),
+  authorize("PARENT"),
   [
-    param('courseId').isInt().withMessage('Invalid course ID format'),
-    body('rating').isInt({ min: 1, max: 5 }).withMessage('Rating must be between 1 and 5'),
-    body('comment').optional().isString().trim().isLength({ max: 1000 }).withMessage('Comment must be less than 1000 characters')
+    param("courseId").isUUID().withMessage("Invalid course ID format"),
+    body("rating")
+      .isInt({ min: 1, max: 5 })
+      .withMessage("Rating must be between 1 and 5"),
+    body("comment")
+      .optional()
+      .isString()
+      .trim()
+      .isLength({ max: 1000 })
+      .withMessage("Comment must be less than 1000 characters"),
   ],
   validate,
   asyncHandler(courseController.addCourseReview)
 );
 
-export default router; 
+export default router;
