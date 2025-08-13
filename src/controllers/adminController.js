@@ -325,9 +325,14 @@ export const getCoaches = asyncHandler(async (req, res) => {
 // Get single coach details - matches frontend coach profile modal
 export const getCoachDetails = asyncHandler(async (req, res) => {
   const { coachId } = req.params;
+  const id = parseInt(coachId, 10);
+
+  if (isNaN(id)) {
+    throw new ApiError(400, "Invalid coach ID");
+  }
 
   const coach = await prisma.coach.findUnique({
-    where: { id: coachId },
+    where: { id },
     include: {
       user: {
         select: {
@@ -869,6 +874,7 @@ export const getCourses = asyncHandler(async (req, res) => {
     courseDescription: course.description,
     category: course.category,
     price: course.price,
+    creditCost: course.creditCost, // Add credit cost to response
     duration: course.duration,
     lessons: course.lessons || 0,
     thumbnail: course.thumbnail || '',

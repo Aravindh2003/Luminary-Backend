@@ -187,15 +187,6 @@ export const getCourseById = asyncHandler(async (req, res) => {
           firstName: true,
           lastName: true,
           profileImageUrl: true,
-          coach: {
-            select: {
-              rating: true,
-              totalReviews: true,
-              totalStudents: true,
-              experienceDescription: true,
-              languages: true,
-            },
-          },
         },
       },
       sessions: {
@@ -382,17 +373,12 @@ export const createCourse = asyncHandler(async (req, res) => {
 // Update course
 export const updateCourse = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
-  const id = parseInt(courseId, 10);
   const coachId = req.user.id;
-
-  if (isNaN(id)) {
-    throw new ApiError(400, "Invalid course ID");
-  }
 
   // Check if course exists and belongs to the coach
   const existingCourse = await prisma.course.findFirst({
     where: {
-      id,
+      id: courseId,
       coachId,
     },
   });
@@ -454,7 +440,7 @@ export const updateCourse = asyncHandler(async (req, res) => {
   })();
 
   const updatedCourse = await prisma.course.update({
-    where: { id },
+    where: { id: courseId },
     data: {
       title: title || existingCourse.title,
       description: description || existingCourse.description,
@@ -483,17 +469,12 @@ export const updateCourse = asyncHandler(async (req, res) => {
 // Delete course
 export const deleteCourse = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
-  const id = parseInt(courseId, 10);
   const coachId = req.user.id;
-
-  if (isNaN(id)) {
-    throw new ApiError(400, "Invalid course ID");
-  }
 
   // Check if course exists and belongs to the coach
   const course = await prisma.course.findFirst({
     where: {
-      id,
+      id: courseId,
       coachId,
     },
     include: {
@@ -518,7 +499,7 @@ export const deleteCourse = asyncHandler(async (req, res) => {
 
   // Delete course
   await prisma.course.delete({
-    where: { id },
+    where: { id: courseId },
   });
 
   logger.info(`Course deleted: ${course.title} by coach ${coachId}`);
@@ -529,17 +510,12 @@ export const deleteCourse = asyncHandler(async (req, res) => {
 // Toggle course status
 export const toggleCourseStatus = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
-  const id = parseInt(courseId, 10);
   const coachId = req.user.id;
-
-  if (isNaN(id)) {
-    throw new ApiError(400, "Invalid course ID");
-  }
 
   // Check if course exists and belongs to the coach
   const course = await prisma.course.findFirst({
     where: {
-      id,
+      id: courseId,
       coachId,
     },
   });
@@ -550,7 +526,7 @@ export const toggleCourseStatus = asyncHandler(async (req, res) => {
 
   // Toggle status
   const updatedCourse = await prisma.course.update({
-    where: { id },
+    where: { id: courseId },
     data: {
       isActive: !course.isActive,
     },
@@ -574,18 +550,13 @@ export const toggleCourseStatus = asyncHandler(async (req, res) => {
 // Enroll in course
 export const enrollInCourse = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
-  const id = parseInt(courseId, 10);
   const { childId } = req.body;
   const parentId = req.user.id;
-
-  if (isNaN(id)) {
-    throw new ApiError(400, "Invalid course ID");
-  }
 
   // Check if course exists and is active
   const course = await prisma.course.findFirst({
     where: {
-      id,
+      id: courseId,
       isActive: true,
     },
     include: {
@@ -656,16 +627,11 @@ export const enrollInCourse = asyncHandler(async (req, res) => {
 // Get course reviews
 export const getCourseReviews = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
-  const id = parseInt(courseId, 10);
   const { page = 1, limit = 10 } = req.query;
-
-  if (isNaN(id)) {
-    throw new ApiError(400, "Invalid course ID");
-  }
 
   // Check if course exists
   const course = await prisma.course.findUnique({
-    where: { id },
+    where: { id: courseId },
   });
 
   if (!course) {
@@ -749,17 +715,12 @@ export const getCourseReviews = asyncHandler(async (req, res) => {
 // Add course review
 export const addCourseReview = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
-  const id = parseInt(courseId, 10);
   const { rating, comment } = req.body;
   const reviewerId = req.user.id;
 
-  if (isNaN(id)) {
-    throw new ApiError(400, "Invalid course ID");
-  }
-
   // Check if course exists
   const course = await prisma.course.findUnique({
-    where: { id },
+    where: { id: courseId },
   });
 
   if (!course) {

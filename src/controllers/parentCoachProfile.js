@@ -1,90 +1,128 @@
-import { prisma } from '../config/database.js';
-import ApiError from '../utils/ApiError.js';
-import ApiResponse from '../utils/ApiResponse.js';
-import asyncHandler from '../utils/asyncHandler.js';
+import { prisma } from "../config/database.js";
+import ApiError from "../utils/ApiError.js";
+import ApiResponse from "../utils/ApiResponse.js";
+import asyncHandler from "../utils/asyncHandler.js";
 
 // Publicly fetch coach profile for Parent dashboard (by coachId)
 // Fetch coach profile by courseId for Parent dashboard
 export const getCoachProfileByCourseId = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
-
-  // Find course and its coachId
-  const course = await prisma.course.findUnique({
-    where: { id: Number(courseId) },
-    select: { coachId: true }
-  });
-  if (!course || !course.coachId) {
-    throw new ApiError(404, 'Course or coach not found');
+  const id = parseInt(courseId, 10);
+  
+  if (isNaN(id)) {
+    throw new ApiError(400, "Invalid course ID");
   }
+  
+  console.log("Backend received courseId:", typeof id, id);
 
-  // Reuse the same logic as getCoachProfileForParent
-  const coach = await prisma.coach.findUnique({
-    where: { id: course.coachId },
-    select: {
-      id: true,
-      domain: true,
-      experienceDescription: true,
-      address: true,
-      languages: true,
-      hourlyRate: true,
-      rating: true,
-      totalReviews: true,
-      user: {
+  // Find course with its coach (User) information
+  const course = await prisma.course.findUnique({
+    where: { id },
+    select: { 
+      coachId: true,
+      coach: {
         select: {
           id: true,
           firstName: true,
           lastName: true,
           email: true,
           profileImageUrl: true,
-          phone: true
+          phone: true,
+          coach: {
+            select: {
+              id: true,
+              domain: true,
+              experienceDescription: true,
+              address: true,
+              languages: true,
+              hourlyRate: true,
+              rating: true,
+              totalReviews: true,
+            }
+          }
         }
       }
-    }
+    },
   });
+
+  if (!course || !course.coach || !course.coach.coach) {
+    throw new ApiError(404, "Course or coach not found");
+  }
+
+  // Get all active courses by this coach (using User.id as coachId)
   const courses = await prisma.course.findMany({
     where: {
-      coachId: course.coachId,
-      isActive: true
+      coachId: course.coachId, // This is User.id
+      isActive: true,
     },
     select: {
       id: true,
       title: true,
       category: true,
-      thumbnail: true
-    }
+      thumbnail: true,
+    },
   });
-  if (!coach) {
-    throw new ApiError(404, 'Coach not found');
-  }
+
+  const user = course.coach;
+  const coachData = course.coach.coach;
+
   const profile = {
-    id: coach.id,
-    firstName: coach.user.firstName,
-    lastName: coach.user.lastName,
-    email: coach.user.email,
-    phone: coach.user.phone,
-    avatar: coach.user.profileImageUrl,
-    domain: coach.domain,
-    experience: coach.experienceDescription,
-    address: coach.address,
-    languages: coach.languages,
-    hourlyRate: coach.hourlyRate,
-    rating: coach.rating,
-    totalReviews: coach.totalReviews,
-    courses: courses.map(c => ({
+    id: coachData.id, // Coach.id
+    userId: user.id, // User.id
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    phone: user.phone,
+    avatar: user.profileImageUrl,
+    domain: coachData.domain,
+    experience: coachData.experienceDescription,
+    address: coachData.address,
+    languages: coachData.languages,
+    hourlyRate: coachData.hourlyRate,
+    rating: coachData.rating,
+    totalReviews: coachData.totalReviews,
+    courses: courses.map((c) => ({
       id: c.id,
       title: c.title,
       category: c.category,
-      thumbnail: c.thumbnail
-    }))
+      thumbnail: c.thumbnail,
+    })),
   };
-  res.json(new ApiResponse(200, profile, 'Coach profile retrieved successfully'));
+
+  res.json(
+    new ApiResponse(200, profile, "Coach profile retrieved successfully")
+  );
 });
 
 export const getCoachProfileForParent = asyncHandler(async (req, res) => {
   const { coachId } = req.params;
+  
+  // Try to parse as integer first, if it fails, treat as string
+  let id;
+  const parsedId = parseInt(coachId, 10);
+  if (!isNaN(parsedId)) {
+    id = parsedId;
+  } else {
+    // If it's not a number, it might be a User.id (string)
+    // In this case, we need to find the coach by User.id
+    const user = await prisma.user.findUnique({
+      where: { id: coachId },
+      select: {
+        coach: {
+          select: { id: true }
+        }
+      }
+    });
+    
+    if (!user || !user.coach) {
+      throw new ApiError(404, "Coach not found");
+    }
+    
+    id = user.coach.id;
+  }
 
   const coach = await prisma.coach.findUnique({
-    where: { id: Number(coachId) },
+    where: { id },
     select: {
       id: true,
       domain: true,
@@ -101,28 +139,28 @@ export const getCoachProfileForParent = asyncHandler(async (req, res) => {
           lastName: true,
           email: true,
           profileImageUrl: true,
-          phone: true
-        }
-      }
-    }
+          phone: true,
+        },
+      },
+    },
   });
 
-  // Fetch active courses taught by this coach (coachId on Course model)
+  // Fetch active courses taught by this coach (coachId on Course model refers to User.id)
   const courses = await prisma.course.findMany({
     where: {
-      coachId: Number(coachId),
-      isActive: true
+      coachId: coach.user.id, // Use User.id, not Coach.id
+      isActive: true,
     },
     select: {
       id: true,
       title: true,
       category: true,
-      thumbnail: true
-    }
+      thumbnail: true,
+    },
   });
 
   if (!coach) {
-    throw new ApiError(404, 'Coach not found');
+    throw new ApiError(404, "Coach not found");
   }
 
   const profile = {
@@ -139,13 +177,15 @@ export const getCoachProfileForParent = asyncHandler(async (req, res) => {
     hourlyRate: coach.hourlyRate,
     rating: coach.rating,
     totalReviews: coach.totalReviews,
-    courses: courses.map(c => ({
+    courses: courses.map((c) => ({
       id: c.id,
       title: c.title,
       category: c.category,
-      thumbnail: c.thumbnail
-    }))
+      thumbnail: c.thumbnail,
+    })),
   };
 
-  res.json(new ApiResponse(200, profile, 'Coach profile retrieved successfully'));
+  res.json(
+    new ApiResponse(200, profile, "Coach profile retrieved successfully")
+  );
 });

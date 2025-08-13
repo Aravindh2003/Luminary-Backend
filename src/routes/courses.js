@@ -98,7 +98,7 @@ const createCourseValidation = [
 
 const updateCourseValidation = [
   ...createCourseValidation,
-  param("courseId").isUUID().withMessage("Invalid course ID format"),
+  param("courseId").isInt().withMessage("Invalid course ID format"),
 ];
 
 const getCoursesValidation = [
@@ -257,7 +257,7 @@ router.get(
  */
 router.get(
   "/:courseId",
-  [param("courseId").isUUID().withMessage("Invalid course ID format")],
+  [param("courseId").isInt().withMessage("Invalid course ID format")],
   validate,
   asyncHandler(courseController.getCourseById)
 );
@@ -487,7 +487,7 @@ router.delete(
   "/:courseId",
   authenticate,
   authorize("COACH"),
-  [param("courseId").isUUID().withMessage("Invalid course ID format")],
+  [param("courseId").isInt().withMessage("Invalid course ID format")],
   validate,
   asyncHandler(courseController.deleteCourse)
 );
@@ -522,7 +522,7 @@ router.patch(
   "/:courseId/toggle-status",
   authenticate,
   authorize("COACH"),
-  [param("courseId").isUUID().withMessage("Invalid course ID format")],
+  [param("courseId").isInt().withMessage("Invalid course ID format")],
   validate,
   asyncHandler(courseController.toggleCourseStatus)
 );
@@ -573,7 +573,7 @@ router.post(
   authenticate,
   authorize("PARENT"),
   [
-    param("courseId").isUUID().withMessage("Invalid course ID format"),
+    param("courseId").isInt().withMessage("Invalid course ID format"),
     body("childId").isUUID().withMessage("Invalid child ID format"),
   ],
   validate,
@@ -618,7 +618,7 @@ router.post(
 router.get(
   "/:courseId/reviews",
   [
-    param("courseId").isUUID().withMessage("Invalid course ID format"),
+    param("courseId").isInt().withMessage("Invalid course ID format"),
     query("page").optional().isInt({ min: 1 }),
     query("limit").optional().isInt({ min: 1, max: 50 }),
   ],
@@ -677,7 +677,7 @@ router.post(
   authenticate,
   authorize("PARENT"),
   [
-    param("courseId").isUUID().withMessage("Invalid course ID format"),
+    param("courseId").isInt().withMessage("Invalid course ID format"),
     body("rating")
       .isInt({ min: 1, max: 5 })
       .withMessage("Rating must be between 1 and 5"),
