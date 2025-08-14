@@ -301,6 +301,7 @@ export const getCoaches = asyncHandler(async (req, res) => {
     address: coach.address,
     languages: coach.languages,
     status: coach.status,
+    isFrozen: !!coach.isFrozen,
     rating: coach.rating,
     totalReviews: coach.totalReviews,
     totalStudents: coach.totalStudents,
@@ -421,6 +422,7 @@ export const getCoachDetails = asyncHandler(async (req, res) => {
     certifications: coach.certifications,
     specializations: coach.specializations,
     status: coach.status,
+    isFrozen: !!coach.isFrozen,
     rating: coach.rating,
     totalReviews: coach.totalReviews,
     totalStudents: coach.totalStudents,
@@ -655,6 +657,18 @@ export const suspendCoach = asyncHandler(async (req, res) => {
     data: { isActive: false },
   });
 
+  // Email coach about suspension
+  try {
+    await emailService.sendCoachSuspendedEmail({
+      email: coach.user.email,
+      firstName: coach.user.firstName,
+      reason: reason || null,
+      adminNotes: adminNotes || null,
+    });
+  } catch (error) {
+    logger.error("Failed to send coach suspended email:", error);
+  }
+
   logger.info(`Coach suspended by admin`, {
     coachId,
     coachEmail: coach.user.email,
@@ -708,6 +722,17 @@ export const reactivateCoach = asyncHandler(async (req, res) => {
     where: { id: coach.userId },
     data: { isActive: true },
   });
+
+  // Email coach about reactivation
+  try {
+    await emailService.sendCoachReactivatedEmail({
+      email: coach.user.email,
+      firstName: coach.user.firstName,
+      adminNotes: adminNotes || null,
+    });
+  } catch (error) {
+    logger.error("Failed to send coach reactivated email:", error);
+  }
 
   logger.info(`Coach reactivated by admin`, {
     coachId,
@@ -1310,6 +1335,69 @@ export const activateRejectedCoach = asyncHandler(async (req, res) => {
       200,
       { id: updated.id, status: updated.status },
       "Coach moved to pending"
+    )
+  );
+});
+
+// Freeze a pending coach (prevent editing)
+export const freezePendingCoach = asyncHandler(async (req, res) => {
+  const { coachId } = req.params;
+  const coach = await prisma.coach.findUnique({
+    where: { id: Number(coachId) },
+    include: { user: true },
+  });
+  if (!coach) throw new ApiError(404, "Coach not found");
+  if (coach.status !== "PENDING")
+    throw new ApiError(400, "Only pending coaches can be frozen");
+  const updated = await prisma.coach.update({
+    where: { id: Number(coachId) },
+    data: { isFrozen: true },
+  });
+  // Email coach about freeze
+  try {
+    await emailService.sendCoachFrozenEmail({
+      email: coach.user.email,
+      firstName: coach.user.firstName,
+    });
+  } catch (error) {
+    logger.error("Failed to send coach frozen email:", error);
+  }
+  res.json(
+    new ApiResponse(
+      200,
+      { id: updated.id, isFrozen: updated.isFrozen },
+      "Coach frozen"
+    )
+  );
+});
+
+export const unfreezePendingCoach = asyncHandler(async (req, res) => {
+  const { coachId } = req.params;
+  const coach = await prisma.coach.findUnique({
+    where: { id: Number(coachId) },
+    include: { user: true },
+  });
+  if (!coach) throw new ApiError(404, "Coach not found");
+  if (coach.status !== "PENDING")
+    throw new ApiError(400, "Only pending coaches can be unfrozen");
+  const updated = await prisma.coach.update({
+    where: { id: Number(coachId) },
+    data: { isFrozen: false },
+  });
+  // Email coach about unfreeze
+  try {
+    await emailService.sendCoachUnfrozenEmail({
+      email: coach.user.email,
+      firstName: coach.user.firstName,
+    });
+  } catch (error) {
+    logger.error("Failed to send coach unfrozen email:", error);
+  }
+  res.json(
+    new ApiResponse(
+      200,
+      { id: updated.id, isFrozen: updated.isFrozen },
+      "Coach unfrozen"
     )
   );
 });

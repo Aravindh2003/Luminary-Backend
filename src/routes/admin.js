@@ -1016,4 +1016,18 @@ router.post(
   asyncHandler(adminController.activateRejectedCoach)
 );
 
+// Freeze/unfreeze pending coach
+router.post(
+  "/coaches/:coachId/freeze",
+  coachIdValidation,
+  validate,
+  asyncHandler(adminController.freezePendingCoach)
+);
+router.post(
+  "/coaches/:coachId/unfreeze",
+  coachIdValidation,
+  validate,
+  asyncHandler(adminController.unfreezePendingCoach)
+);
+
 export default router;

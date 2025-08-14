@@ -92,6 +92,8 @@ model Coach {
 
   // Status and Approval (from admin workflow)
   status          CoachStatus @default(PENDING)
+  // When true (set by Admin), pending coach cannot edit profile/details
+  isFrozen        Boolean     @default(false) @map("is_frozen")
   adminNotes      String?     @map("admin_notes") // Admin notes for approval/rejection
   approvedAt      DateTime?   @map("approved_at")
   approvedBy      Int?        @map("approved_by") // Admin user ID who approved
@@ -122,6 +124,7 @@ model Coach {
   rejectedByUser User? @relation("CoachRejections", fields: [rejectedBy], references: [id])
 
   @@index([status])
+  @@index([isFrozen])
   @@index([domain])
   @@index([rating])
   @@index([isFeatured])

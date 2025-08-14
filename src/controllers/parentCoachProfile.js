@@ -8,17 +8,17 @@ import asyncHandler from "../utils/asyncHandler.js";
 export const getCoachProfileByCourseId = asyncHandler(async (req, res) => {
   const { courseId } = req.params;
   const id = parseInt(courseId, 10);
-  
+
   if (isNaN(id)) {
     throw new ApiError(400, "Invalid course ID");
   }
-  
+
   console.log("Backend received courseId:", typeof id, id);
 
   // Find course with its coach (User) information
   const course = await prisma.course.findUnique({
     where: { id },
-    select: { 
+    select: {
       coachId: true,
       coach: {
         select: {
@@ -38,10 +38,11 @@ export const getCoachProfileByCourseId = asyncHandler(async (req, res) => {
               hourlyRate: true,
               rating: true,
               totalReviews: true,
-            }
-          }
-        }
-      }
+              status: true,
+            },
+          },
+        },
+      },
     },
   });
 
@@ -81,6 +82,7 @@ export const getCoachProfileByCourseId = asyncHandler(async (req, res) => {
     hourlyRate: coachData.hourlyRate,
     rating: coachData.rating,
     totalReviews: coachData.totalReviews,
+    status: coachData.status,
     courses: courses.map((c) => ({
       id: c.id,
       title: c.title,
@@ -96,7 +98,7 @@ export const getCoachProfileByCourseId = asyncHandler(async (req, res) => {
 
 export const getCoachProfileForParent = asyncHandler(async (req, res) => {
   const { coachId } = req.params;
-  
+
   // Try to parse as integer first, if it fails, treat as string
   let id;
   const parsedId = parseInt(coachId, 10);
@@ -109,15 +111,15 @@ export const getCoachProfileForParent = asyncHandler(async (req, res) => {
       where: { id: coachId },
       select: {
         coach: {
-          select: { id: true }
-        }
-      }
+          select: { id: true },
+        },
+      },
     });
-    
+
     if (!user || !user.coach) {
       throw new ApiError(404, "Coach not found");
     }
-    
+
     id = user.coach.id;
   }
 
@@ -132,6 +134,7 @@ export const getCoachProfileForParent = asyncHandler(async (req, res) => {
       hourlyRate: true,
       rating: true,
       totalReviews: true,
+      status: true,
       user: {
         select: {
           id: true,
@@ -177,6 +180,7 @@ export const getCoachProfileForParent = asyncHandler(async (req, res) => {
     hourlyRate: coach.hourlyRate,
     rating: coach.rating,
     totalReviews: coach.totalReviews,
+    status: coach.status,
     courses: courses.map((c) => ({
       id: c.id,
       title: c.title,

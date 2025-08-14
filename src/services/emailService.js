@@ -221,6 +221,74 @@ const getEmailTemplate = (type, data) => {
         `,
       };
 
+    case "coach_suspended":
+      return {
+        subject: "Your Coach Account Has Been Suspended",
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8fafc;">
+            <div style="background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%); padding: 24px; border-radius: 10px; text-align: center; margin-bottom: 20px;">
+              <h1 style="color: white; margin: 0; font-size: 22px;">Account Suspended</h1>
+            </div>
+            <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+              <p style="color:#2d3748;">Hi ${data.firstName},</p>
+              <p style="color:#4a5568;">Your coach account has been suspended by an administrator.</p>
+              ${data.reason ? `<p style="color:#4a5568;"><strong>Reason:</strong> ${data.reason}</p>` : ""}
+              ${data.adminNotes ? `<p style=\"color:#4a5568;\"><strong>Notes:</strong> ${data.adminNotes}</p>` : ""}
+              <p style="color:#4a5568;">If you believe this is a mistake, please contact support.</p>
+            </div>
+          </div>
+        `,
+      };
+
+    case "coach_reactivated":
+      return {
+        subject: "Your Coach Account Has Been Reactivated ✅",
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8fafc;">
+            <div style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); padding: 24px; border-radius: 10px; text-align: center; margin-bottom: 20px;">
+              <h1 style="color: white; margin: 0; font-size: 22px;">Account Reactivated</h1>
+            </div>
+            <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+              <p style="color:#2d3748;">Hi ${data.firstName},</p>
+              <p style="color:#4a5568;">Good news! Your coach account has been reactivated and you can log in again.</p>
+              ${data.adminNotes ? `<p style=\"color:#4a5568;\"><strong>Notes:</strong> ${data.adminNotes}</p>` : ""}
+            </div>
+          </div>
+        `,
+      };
+
+    case "coach_frozen":
+      return {
+        subject: "Your Coach Profile Has Been Frozen (Pending Review)",
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8fafc;">
+            <div style="background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%); padding: 24px; border-radius: 10px; text-align: center; margin-bottom: 20px;">
+              <h1 style="color: white; margin: 0; font-size: 22px;">Profile Frozen</h1>
+            </div>
+            <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+              <p style="color:#2d3748;">Hi ${data.firstName},</p>
+              <p style="color:#4a5568;">Your coach profile has been temporarily frozen by an administrator while it's under review. You can still view your profile, but editing is disabled.</p>
+            </div>
+          </div>
+        `,
+      };
+
+    case "coach_unfrozen":
+      return {
+        subject: "Your Coach Profile Is Unfrozen ✅",
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8fafc;">
+            <div style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); padding: 24px; border-radius: 10px; text-align: center; margin-bottom: 20px;">
+              <h1 style="color: white; margin: 0; font-size: 22px;">Profile Unfrozen</h1>
+            </div>
+            <div style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+              <p style="color:#2d3748;">Hi ${data.firstName},</p>
+              <p style="color:#4a5568;">Your coach profile is now unfrozen. If your status is still pending, you can continue editing your profile.</p>
+            </div>
+          </div>
+        `,
+      };
+
     case "course_approved":
       return {
         subject: `Your course has been approved: ${data.courseTitle} 🎉`,
@@ -470,6 +538,94 @@ const emailService = {
       return result;
     } catch (error) {
       logger.error("Failed to send coach rejection notification:", error);
+      throw error;
+    }
+  },
+
+  // Send coach suspended email
+  async sendCoachSuspendedEmail(data) {
+    try {
+      const transporter = createTransporter();
+      const template = getEmailTemplate("coach_suspended", data);
+      const mailOptions = {
+        from: `"${FROM_NAME || "Luminary"}" <${FROM_EMAIL}>`,
+        to: data.email,
+        subject: template.subject,
+        html: template.html,
+      };
+      const result = await transporter.sendMail(mailOptions);
+      logger.info(`Coach suspended email sent to ${data.email}`, {
+        messageId: result.messageId,
+      });
+      return result;
+    } catch (error) {
+      logger.error("Failed to send coach suspended email:", error);
+      throw error;
+    }
+  },
+
+  // Send coach reactivated email
+  async sendCoachReactivatedEmail(data) {
+    try {
+      const transporter = createTransporter();
+      const template = getEmailTemplate("coach_reactivated", data);
+      const mailOptions = {
+        from: `"${FROM_NAME || "Luminary"}" <${FROM_EMAIL}>`,
+        to: data.email,
+        subject: template.subject,
+        html: template.html,
+      };
+      const result = await transporter.sendMail(mailOptions);
+      logger.info(`Coach reactivated email sent to ${data.email}`, {
+        messageId: result.messageId,
+      });
+      return result;
+    } catch (error) {
+      logger.error("Failed to send coach reactivated email:", error);
+      throw error;
+    }
+  },
+
+  // Send coach frozen email
+  async sendCoachFrozenEmail(data) {
+    try {
+      const transporter = createTransporter();
+      const template = getEmailTemplate("coach_frozen", data);
+      const mailOptions = {
+        from: `"${FROM_NAME || "Luminary"}" <${FROM_EMAIL}>`,
+        to: data.email,
+        subject: template.subject,
+        html: template.html,
+      };
+      const result = await transporter.sendMail(mailOptions);
+      logger.info(`Coach frozen email sent to ${data.email}`, {
+        messageId: result.messageId,
+      });
+      return result;
+    } catch (error) {
+      logger.error("Failed to send coach frozen email:", error);
+      throw error;
+    }
+  },
+
+  // Send coach unfrozen email
+  async sendCoachUnfrozenEmail(data) {
+    try {
+      const transporter = createTransporter();
+      const template = getEmailTemplate("coach_unfrozen", data);
+      const mailOptions = {
+        from: `"${FROM_NAME || "Luminary"}" <${FROM_EMAIL}>`,
+        to: data.email,
+        subject: template.subject,
+        html: template.html,
+      };
+      const result = await transporter.sendMail(mailOptions);
+      logger.info(`Coach unfrozen email sent to ${data.email}`, {
+        messageId: result.messageId,
+      });
+      return result;
+    } catch (error) {
+      logger.error("Failed to send coach unfrozen email:", error);
       throw error;
     }
   },

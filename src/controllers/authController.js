@@ -248,36 +248,11 @@ export const login = asyncHandler(async (req, res) => {
     throw new ApiError(401, "Invalid email or password");
   }
 
-  // Check if account is locked
-  if (user.lockedUntil && user.lockedUntil > new Date()) {
-    const lockTimeRemaining = Math.ceil(
-      (user.lockedUntil - new Date()) / (1000 * 60)
-    );
-    throw new ApiError(
-      423,
-      `Account is locked. Try again in ${lockTimeRemaining} minutes.`
-    );
-  }
-
   // Verify password
   const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
-    // Increment login attempts
-    const loginAttempts = user.loginAttempts + 1;
-    const updateData = { loginAttempts };
-
-    // Lock account after 5 failed attempts for 30 minutes
-    if (loginAttempts >= 5) {
-      updateData.lockedUntil = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
-      updateData.loginAttempts = 0; // Reset attempts after locking
-    }
-
-    await prisma.user.update({
-      where: { id: user.id },
-      data: updateData,
-    });
-
+    // No lockout: directly reject invalid credentials
     throw new ApiError(401, "Invalid email or password");
   }
 
@@ -307,14 +282,10 @@ export const login = asyncHandler(async (req, res) => {
     throw new ApiError(403, message);
   }
 
-  // Reset login attempts on successful login
+  // Update last login timestamp on successful login
   await prisma.user.update({
     where: { id: user.id },
-    data: {
-      loginAttempts: 0,
-      lockedUntil: null,
-      lastLogin: new Date(),
-    },
+    data: { lastLogin: new Date() },
   });
 
   // Generate tokens
@@ -375,36 +346,11 @@ export const adminLogin = asyncHandler(async (req, res) => {
     throw new ApiError(401, "Invalid admin credentials");
   }
 
-  // Check if account is locked
-  if (user.lockedUntil && user.lockedUntil > new Date()) {
-    const lockTimeRemaining = Math.ceil(
-      (user.lockedUntil - new Date()) / (1000 * 60)
-    );
-    throw new ApiError(
-      423,
-      `Account is locked. Try again in ${lockTimeRemaining} minutes.`
-    );
-  }
-
   // Verify password
   const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
-    // Increment login attempts for admin (more strict)
-    const loginAttempts = user.loginAttempts + 1;
-    const updateData = { loginAttempts };
-
-    // Lock admin account after 3 failed attempts for 1 minute
-    if (loginAttempts >= 3) {
-      updateData.lockedUntil = new Date(Date.now() + 1 * 60 * 1000); // 1 minute
-      updateData.loginAttempts = 0;
-    }
-
-    await prisma.user.update({
-      where: { id: user.id },
-      data: updateData,
-    });
-
+    // No lockout: directly reject invalid credentials
     throw new ApiError(401, "Invalid admin credentials");
   }
 
@@ -413,14 +359,10 @@ export const adminLogin = asyncHandler(async (req, res) => {
     throw new ApiError(403, "Admin account has been deactivated.");
   }
 
-  // Reset login attempts on successful login
+  // Update last login timestamp on successful login
   await prisma.user.update({
     where: { id: user.id },
-    data: {
-      loginAttempts: 0,
-      lockedUntil: null,
-      lastLogin: new Date(),
-    },
+    data: { lastLogin: new Date() },
   });
 
   // Generate tokens
@@ -746,6 +688,7 @@ export const getProfile = asyncHandler(async (req, res) => {
           hourlyRate: true,
           bio: true,
           status: true,
+          isFrozen: true,
           rating: true,
           totalReviews: true,
           totalStudents: true,

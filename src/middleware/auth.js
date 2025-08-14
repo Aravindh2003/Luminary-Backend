@@ -1,31 +1,27 @@
-import jwt from 'jsonwebtoken';
-import { prisma } from '../config/database.js';
-import ApiError from '../utils/ApiError.js';
-import asyncHandler from '../utils/asyncHandler.js';
+import jwt from "jsonwebtoken";
+import { prisma } from "../config/database.js";
+import ApiError from "../utils/ApiError.js";
+import asyncHandler from "../utils/asyncHandler.js";
 
 const { JWT_SECRET, JWT_REFRESH_SECRET } = process.env;
 
 export const generateToken = (userId, role) => {
-  return jwt.sign(
-    { userId, role },
-    JWT_SECRET,
-    { expiresIn: process.env.JWT_EXPIRES_IN || '24h' }
-  );
+  return jwt.sign({ userId, role }, JWT_SECRET, {
+    expiresIn: process.env.JWT_EXPIRES_IN || "24h",
+  });
 };
 
 export const generateRefreshToken = (userId) => {
-  return jwt.sign(
-    { userId },
-    JWT_REFRESH_SECRET,
-    { expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d' }
-  );
+  return jwt.sign({ userId }, JWT_REFRESH_SECRET, {
+    expiresIn: process.env.JWT_REFRESH_EXPIRES_IN || "7d",
+  });
 };
 
 export const verifyToken = (token) => {
   try {
     return jwt.verify(token, JWT_SECRET);
   } catch (error) {
-    throw new ApiError(401, 'Invalid access token');
+    throw new ApiError(401, "Invalid access token");
   }
 };
 
@@ -33,16 +29,16 @@ export const verifyRefreshToken = (token) => {
   try {
     return jwt.verify(token, JWT_REFRESH_SECRET);
   } catch (error) {
-    throw new ApiError(401, 'Invalid refresh token');
+    throw new ApiError(401, "Invalid refresh token");
   }
 };
 
 export const authenticate = asyncHandler(async (req, res, next) => {
   try {
-    const token = req.header('Authorization')?.replace('Bearer ', '');
+    const token = req.header("Authorization")?.replace("Bearer ", "");
 
     if (!token) {
-      throw new ApiError(401, 'Access token is required');
+      throw new ApiError(401, "Access token is required");
     }
 
     const decoded = verifyToken(token);
@@ -50,16 +46,26 @@ export const authenticate = asyncHandler(async (req, res, next) => {
     const user = await prisma.user.findUnique({
       where: { id: decoded.userId },
       include: {
-        coach: true
-      }
+        coach: true,
+      },
     });
 
     if (!user) {
-      throw new ApiError(401, 'User not found');
+      throw new ApiError(401, "User not found");
     }
 
     if (!user.isActive) {
-      throw new ApiError(401, 'Account is deactivated');
+      // Use 403 so the frontend can display a modal countdown instead of instant logout
+      throw new ApiError(403, "Your account has been deactivated by Admin.");
+    }
+
+    // Block suspended coaches from accessing authenticated APIs
+    if (
+      user.role === "COACH" &&
+      user.coach &&
+      user.coach.status === "SUSPENDED"
+    ) {
+      throw new ApiError(403, "Your account is suspended by Admin.");
     }
 
     req.user = {
@@ -69,7 +75,7 @@ export const authenticate = asyncHandler(async (req, res, next) => {
       lastName: user.lastName,
       role: user.role,
       isVerified: user.isVerified,
-      coach: user.coach
+      coach: user.coach,
     };
 
     next();
@@ -77,32 +83,32 @@ export const authenticate = asyncHandler(async (req, res, next) => {
     if (error instanceof ApiError) {
       throw error;
     }
-    throw new ApiError(401, 'Invalid access token');
+    throw new ApiError(401, "Invalid access token");
   }
 });
 
 export const authorize = (...roles) => {
   return (req, res, next) => {
     if (!req.user) {
-      throw new ApiError(401, 'Authentication required');
+      throw new ApiError(401, "Authentication required");
     }
 
     if (!roles.includes(req.user.role)) {
-      throw new ApiError(403, 'Insufficient permissions');
+      throw new ApiError(403, "Insufficient permissions");
     }
 
     next();
   };
 };
 
-export const requireAdmin = authorize('ADMIN');
-export const requireCoach = authorize('COACH');
-export const requireParent = authorize('PARENT');
-export const requireCoachOrAdmin = authorize('COACH', 'ADMIN');
+export const requireAdmin = authorize("ADMIN");
+export const requireCoach = authorize("COACH");
+export const requireParent = authorize("PARENT");
+export const requireCoachOrAdmin = authorize("COACH", "ADMIN");
 
 export const requireEmailVerification = asyncHandler(async (req, res, next) => {
   if (!req.user.isVerified) {
-    throw new ApiError(403, 'Email verification required');
+    throw new ApiError(403, "Email verification required");
   }
   next();
 });
@@ -110,7 +116,7 @@ export const requireEmailVerification = asyncHandler(async (req, res, next) => {
 export const authRateLimit = {
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 5, // limit each IP to 5 requests per windowMs
-  message: 'Too many authentication attempts, please try again later',
+  message: "Too many authentication attempts, please try again later",
   standardHeaders: true,
   legacyHeaders: false,
 };
@@ -135,7 +141,7 @@ export const resetLoginAttempts = asyncHandler(async (req, res, next) => {
 
 export const optionalAuth = asyncHandler(async (req, res, next) => {
   try {
-    const token = req.header('Authorization')?.replace('Bearer ', '');
+    const token = req.header("Authorization")?.replace("Bearer ", "");
 
     if (token) {
       const decoded = verifyToken(token);
@@ -143,8 +149,8 @@ export const optionalAuth = asyncHandler(async (req, res, next) => {
       const user = await prisma.user.findUnique({
         where: { id: decoded.userId },
         include: {
-          coach: true
-        }
+          coach: true,
+        },
       });
 
       if (user && user.isActive) {
@@ -155,7 +161,7 @@ export const optionalAuth = asyncHandler(async (req, res, next) => {
           lastName: user.lastName,
           role: user.role,
           isVerified: user.isVerified,
-          coach: user.coach
+          coach: user.coach,
         };
       }
     }
@@ -166,61 +172,61 @@ export const optionalAuth = asyncHandler(async (req, res, next) => {
   next();
 });
 
-export const checkOwnership = (model, idField = 'id') => {
+export const checkOwnership = (model, idField = "id") => {
   return asyncHandler(async (req, res, next) => {
     const resourceId = req.params[idField];
     const userId = req.user.id;
 
     let resource;
-    
+
     switch (model) {
-      case 'user':
+      case "user":
         resource = await prisma.user.findUnique({
-          where: { id: resourceId }
+          where: { id: resourceId },
         });
         break;
-      case 'coach':
+      case "coach":
         resource = await prisma.coach.findUnique({
-          where: { id: resourceId }
+          where: { id: resourceId },
         });
         break;
-      case 'course':
+      case "course":
         resource = await prisma.course.findUnique({
-          where: { id: resourceId }
+          where: { id: resourceId },
         });
         break;
-      case 'session':
+      case "session":
         resource = await prisma.session.findUnique({
-          where: { id: resourceId }
+          where: { id: resourceId },
         });
         break;
       default:
-        throw new ApiError(400, 'Invalid model specified');
+        throw new ApiError(400, "Invalid model specified");
     }
 
     if (!resource) {
-      throw new ApiError(404, 'Resource not found');
+      throw new ApiError(404, "Resource not found");
     }
 
     // Check ownership based on model
     let isOwner = false;
     switch (model) {
-      case 'user':
+      case "user":
         isOwner = resource.id === userId;
         break;
-      case 'coach':
+      case "coach":
         isOwner = resource.userId === userId;
         break;
-      case 'course':
+      case "course":
         isOwner = resource.coachId === userId;
         break;
-      case 'session':
+      case "session":
         isOwner = resource.coachId === userId || resource.studentId === userId;
         break;
     }
 
-    if (!isOwner && req.user.role !== 'ADMIN') {
-      throw new ApiError(403, 'Access denied');
+    if (!isOwner && req.user.role !== "ADMIN") {
+      throw new ApiError(403, "Access denied");
     }
 
     req.resource = resource;
@@ -245,5 +251,5 @@ export default {
   updateLoginAttempts,
   resetLoginAttempts,
   optionalAuth,
-  checkOwnership
-}; 
+  checkOwnership,
+};
