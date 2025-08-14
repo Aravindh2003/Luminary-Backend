@@ -1,11 +1,11 @@
-import express from 'express';
-import { body } from 'express-validator';
-import multer from 'multer';
-import asyncHandler from '../utils/asyncHandler.js';
-import validate from '../middleware/validation.js';
-import { authenticate } from '../middleware/auth.js';
-import * as authController from '../controllers/authController.js';
-import * as emailVerificationController from '../controllers/emailVerificationController.js';
+import express from "express";
+import { body } from "express-validator";
+import multer from "multer";
+import asyncHandler from "../utils/asyncHandler.js";
+import validate from "../middleware/validation.js";
+import { authenticate } from "../middleware/auth.js";
+import * as authController from "../controllers/authController.js";
+import * as emailVerificationController from "../controllers/emailVerificationController.js";
 
 const router = express.Router();
 
@@ -15,136 +15,124 @@ const upload = multer({
   storage,
   limits: {
     fileSize: 50 * 1024 * 1024, // 50MB max file size
-    files: 3 // Maximum 3 files (license, resume, video)
+    files: 3, // Maximum 3 files (license, resume, video)
   },
   fileFilter: (req, file, cb) => {
     // License files: PDF, JPG, PNG, DOC
-    if (file.fieldname === 'license') {
-      const allowedTypes = ['application/pdf', 'image/jpeg', 'image/png', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+    if (file.fieldname === "license") {
+      const allowedTypes = [
+        "application/pdf",
+        "image/jpeg",
+        "image/png",
+        "application/msword",
+        "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      ];
       if (allowedTypes.includes(file.mimetype)) {
         cb(null, true);
       } else {
-        cb(new Error('License file must be PDF, JPG, PNG, or DOC format'), false);
+        cb(
+          new Error("License file must be PDF, JPG, PNG, or DOC format"),
+          false
+        );
       }
     }
     // Resume files: Any format
-    else if (file.fieldname === 'resume') {
+    else if (file.fieldname === "resume") {
       cb(null, true); // Accept any file type for resume
     }
     // Video files: Video formats only
-    else if (file.fieldname === 'video') {
-      if (file.mimetype.startsWith('video/')) {
+    else if (file.fieldname === "video") {
+      if (file.mimetype.startsWith("video/")) {
         cb(null, true);
       } else {
-        cb(new Error('Video file must be a valid video format'), false);
+        cb(new Error("Video file must be a valid video format"), false);
       }
     } else {
-      cb(new Error('Unexpected field'), false);
+      cb(new Error("Unexpected field"), false);
     }
-  }
+  },
 });
 
 // Validation rules matching frontend requirements
 
 // Parent registration validation
 const parentRegistrationValidation = [
-  body('email')
+  body("email")
     .isEmail()
     .normalizeEmail()
     .withMessage('Please include an "@" in the email address'),
-  body('password')
+  body("password")
     .isLength({ min: 8 })
-    .withMessage('Password must be at least 8 characters')
+    .withMessage("Password must be at least 8 characters")
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])/)
-    .withMessage('Password must contain at least one capital letter, one lowercase letter, one number, and one special character'),
-  body('firstName')
-    .trim()
-    .notEmpty()
-    .withMessage('First name is required'),
-  body('lastName')
-    .trim()
-    .notEmpty()
-    .withMessage('Last name is required'),
-  body('phone')
-    .notEmpty()
-    .withMessage('Phone number is required')
+    .withMessage(
+      "Password must contain at least one capital letter, one lowercase letter, one number, and one special character"
+    ),
+  body("firstName").trim().notEmpty().withMessage("First name is required"),
+  body("lastName").trim().notEmpty().withMessage("Last name is required"),
+  body("phone").notEmpty().withMessage("Phone number is required"),
 ];
 
 // Coach registration validation - matches exact frontend requirements
 const coachRegistrationValidation = [
-  body('email')
+  body("email")
     .isEmail()
     .normalizeEmail()
     .withMessage('Please include an "@" in the email address'),
-  body('password')
+  body("password")
     .isLength({ min: 8 })
-    .withMessage('Password must be at least 8 characters')
+    .withMessage("Password must be at least 8 characters")
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])/)
-    .withMessage('Password must contain at least one capital letter, one lowercase letter, one number, and one special character'),
-  body('firstName')
-    .trim()
-    .notEmpty()
-    .withMessage('First name is required'),
-  body('lastName')
-    .trim()
-    .notEmpty()
-    .withMessage('Last name is required'),
-  body('phone')
-    .notEmpty()
-    .withMessage('Phone number is required'),
-  body('domain')
-    .trim()
-    .notEmpty()
-    .withMessage('Domain is required'),
-  body('experience')
-    .trim()
-    .notEmpty()
-    .withMessage('Experience is required'),
-  body('address')
-    .trim()
-    .notEmpty()
-    .withMessage('Address is required'),
-  body('languages')
+    .withMessage(
+      "Password must contain at least one capital letter, one lowercase letter, one number, and one special character"
+    ),
+  body("firstName").trim().notEmpty().withMessage("First name is required"),
+  body("lastName").trim().notEmpty().withMessage("Last name is required"),
+  body("phone").notEmpty().withMessage("Phone number is required"),
+  body("domain").trim().notEmpty().withMessage("Domain is required"),
+  body("experience").trim().notEmpty().withMessage("Experience is required"),
+  body("address").trim().notEmpty().withMessage("Address is required"),
+  body("languages")
     .custom((value) => {
       // Handle both array and JSON string formats
       let languages;
-      if (typeof value === 'string') {
+      if (typeof value === "string") {
         try {
           languages = JSON.parse(value);
         } catch (error) {
-          throw new Error('Invalid languages format');
+          throw new Error("Invalid languages format");
         }
       } else {
         languages = value;
       }
-      
+
       if (!Array.isArray(languages) || languages.length === 0) {
-        throw new Error('At least one language is required');
+        throw new Error("At least one language is required");
       }
-      
+
       return true;
     })
-    .withMessage('At least one language is required')
+    .withMessage("At least one language is required"),
 ];
 
 // Login validation
 const loginValidation = [
-  body('email')
+  body("email")
     .isEmail()
     .normalizeEmail()
-    .withMessage('Please provide a valid email'),
-  body('password')
-    .notEmpty()
-    .withMessage('Password is required')
+    .withMessage("Please provide a valid email"),
+  body("password").notEmpty().withMessage("Password is required"),
 ];
 
 // Password validation for reset
 const passwordValidation = [
-  body('password')
+  body("password")
     .isLength({ min: 8 })
-    .withMessage('Password must be at least 8 characters')
+    .withMessage("Password must be at least 8 characters")
     .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])/)
-    .withMessage('Password must contain at least one capital letter, one lowercase letter, one number, and one special character')
+    .withMessage(
+      "Password must contain at least one capital letter, one lowercase letter, one number, and one special character"
+    ),
 ];
 
 // Routes with Swagger documentation
@@ -262,7 +250,12 @@ const passwordValidation = [
  *       409:
  *         description: User already exists
  */
-router.post('/register/parent', parentRegistrationValidation, validate, asyncHandler(authController.registerParent));
+router.post(
+  "/register/parent",
+  parentRegistrationValidation,
+  validate,
+  asyncHandler(authController.registerParent)
+);
 
 /**
  * @swagger
@@ -342,14 +335,15 @@ router.post('/register/parent', parentRegistrationValidation, validate, asyncHan
  *       409:
  *         description: User already exists
  */
-router.post('/register/coach', 
+router.post(
+  "/register/coach",
   upload.fields([
-    { name: 'license', maxCount: 1 },
-    { name: 'resume', maxCount: 1 },
-    { name: 'video', maxCount: 1 }
+    { name: "license", maxCount: 1 },
+    { name: "resume", maxCount: 1 },
+    { name: "video", maxCount: 1 },
   ]),
-  coachRegistrationValidation, 
-  validate, 
+  coachRegistrationValidation,
+  validate,
   asyncHandler(authController.registerCoach)
 );
 
@@ -390,7 +384,12 @@ router.post('/register/coach',
  *       423:
  *         description: Account temporarily locked
  */
-router.post('/login', loginValidation, validate, asyncHandler(authController.login));
+router.post(
+  "/login",
+  loginValidation,
+  validate,
+  asyncHandler(authController.login)
+);
 
 /**
  * @swagger
@@ -429,7 +428,12 @@ router.post('/login', loginValidation, validate, asyncHandler(authController.log
  *       423:
  *         description: Account temporarily locked
  */
-router.post('/admin/login', loginValidation, validate, asyncHandler(authController.adminLogin));
+router.post(
+  "/admin/login",
+  loginValidation,
+  validate,
+  asyncHandler(authController.adminLogin)
+);
 
 /**
  * @swagger
@@ -445,7 +449,7 @@ router.post('/admin/login', loginValidation, validate, asyncHandler(authControll
  *       401:
  *         description: Unauthorized
  */
-router.post('/logout', authenticate, asyncHandler(authController.logout));
+router.post("/logout", authenticate, asyncHandler(authController.logout));
 
 /**
  * @swagger
@@ -487,7 +491,7 @@ router.post('/logout', authenticate, asyncHandler(authController.logout));
  *       401:
  *         description: Invalid refresh token
  */
-router.post('/refresh', asyncHandler(authController.refreshToken));
+router.post("/refresh", asyncHandler(authController.refreshToken));
 
 /**
  * @swagger
@@ -508,7 +512,7 @@ router.post('/refresh', asyncHandler(authController.refreshToken));
  *       400:
  *         description: Invalid or expired token
  */
-router.get('/verify-email/:token', asyncHandler(authController.verifyEmail));
+router.get("/verify-email/:token", asyncHandler(authController.verifyEmail));
 
 /**
  * @swagger
@@ -533,8 +537,14 @@ router.get('/verify-email/:token', asyncHandler(authController.verifyEmail));
  *       200:
  *         description: Password reset email sent (if account exists)
  */
-router.post('/forgot-password', 
-  [body('email').isEmail().normalizeEmail().withMessage('Please provide a valid email')],
+router.post(
+  "/forgot-password",
+  [
+    body("email")
+      .isEmail()
+      .normalizeEmail()
+      .withMessage("Please provide a valid email"),
+  ],
   validate,
   asyncHandler(authController.forgotPassword)
 );
@@ -571,7 +581,38 @@ router.post('/forgot-password',
  *       400:
  *         description: Invalid or expired token / Validation error
  */
-router.post('/reset-password/:token', passwordValidation, validate, asyncHandler(authController.resetPassword));
+router.post(
+  "/reset-password/:token",
+  passwordValidation,
+  validate,
+  asyncHandler(authController.resetPassword)
+);
+
+// Verify current password during reset
+router.post(
+  "/verify-current-password/:token",
+  [
+    body("currentPassword")
+      .isString()
+      .isLength({ min: 1 })
+      .withMessage("Current password is required"),
+  ],
+  validate,
+  asyncHandler(authController.verifyCurrentPassword)
+);
+
+// Live check if new password equals old password
+router.post(
+  "/check-new-password/:token",
+  [
+    body("password")
+      .isString()
+      .isLength({ min: 1 })
+      .withMessage("Password is required"),
+  ],
+  validate,
+  asyncHandler(authController.checkNewPasswordSame)
+);
 
 /**
  * @swagger
@@ -617,7 +658,7 @@ router.post('/reset-password/:token', passwordValidation, validate, asyncHandler
  *       404:
  *         description: User not found
  */
-router.get('/profile', authenticate, asyncHandler(authController.getProfile));
+router.get("/profile", authenticate, asyncHandler(authController.getProfile));
 
 // Email Verification Routes (Brevo/Sendinblue)
 
@@ -653,10 +694,17 @@ router.get('/profile', authenticate, asyncHandler(authController.getProfile));
  *       404:
  *         description: User not found
  */
-router.post('/request-verification-code', 
+router.post(
+  "/request-verification-code",
   [
-    body('email').isEmail().normalizeEmail().withMessage('Please provide a valid email'),
-    body('userType').optional().isIn(['parent', 'coach']).withMessage('User type must be parent or coach')
+    body("email")
+      .isEmail()
+      .normalizeEmail()
+      .withMessage("Please provide a valid email"),
+    body("userType")
+      .optional()
+      .isIn(["parent", "coach"])
+      .withMessage("User type must be parent or coach"),
   ],
   validate,
   asyncHandler(emailVerificationController.requestVerificationCode)
@@ -709,10 +757,16 @@ router.post('/request-verification-code',
  *       404:
  *         description: User not found
  */
-router.post('/verify-email-code',
+router.post(
+  "/verify-email-code",
   [
-    body('email').isEmail().normalizeEmail().withMessage('Please provide a valid email'),
-    body('code').isLength({ min: 6, max: 6 }).withMessage('Verification code must be 6 digits')
+    body("email")
+      .isEmail()
+      .normalizeEmail()
+      .withMessage("Please provide a valid email"),
+    body("code")
+      .isLength({ min: 6, max: 6 })
+      .withMessage("Verification code must be 6 digits"),
   ],
   validate,
   asyncHandler(emailVerificationController.verifyEmailWithCode)
@@ -750,10 +804,17 @@ router.post('/verify-email-code',
  *       404:
  *         description: User not found
  */
-router.post('/resend-verification-code',
+router.post(
+  "/resend-verification-code",
   [
-    body('email').isEmail().normalizeEmail().withMessage('Please provide a valid email'),
-    body('userType').optional().isIn(['parent', 'coach']).withMessage('User type must be parent or coach')
+    body("email")
+      .isEmail()
+      .normalizeEmail()
+      .withMessage("Please provide a valid email"),
+    body("userType")
+      .optional()
+      .isIn(["parent", "coach"])
+      .withMessage("User type must be parent or coach"),
   ],
   validate,
   asyncHandler(emailVerificationController.resendVerificationCode)
@@ -799,6 +860,9 @@ router.post('/resend-verification-code',
  *       404:
  *         description: User not found
  */
-router.get('/verification-status/:email', asyncHandler(emailVerificationController.checkVerificationStatus));
+router.get(
+  "/verification-status/:email",
+  asyncHandler(emailVerificationController.checkVerificationStatus)
+);
 
 export default router;

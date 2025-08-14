@@ -1,32 +1,32 @@
-import { prisma } from '../config/database.js';
-import ApiError from '../utils/ApiError.js';
-import ApiResponse from '../utils/ApiResponse.js';
-import asyncHandler from '../utils/asyncHandler.js';
-import emailService from '../services/emailService.js';
-import logger from '../utils/logger.js';
+import { prisma } from "../config/database.js";
+import ApiError from "../utils/ApiError.js";
+import ApiResponse from "../utils/ApiResponse.js";
+import asyncHandler from "../utils/asyncHandler.js";
+import emailService from "../services/emailService.js";
+import logger from "../utils/logger.js";
 
 // Get admin dashboard statistics - matches frontend AdminDashboard stats
 export const getDashboardStats = asyncHandler(async (req, res) => {
   const stats = await prisma.$transaction(async (tx) => {
     const totalCoaches = await tx.coach.count();
     const pendingCoaches = await tx.coach.count({
-      where: { status: 'PENDING' }
+      where: { status: "PENDING" },
     });
     const approvedCoaches = await tx.coach.count({
-      where: { status: 'APPROVED' }
+      where: { status: "APPROVED" },
     });
     const rejectedCoaches = await tx.coach.count({
-      where: { status: 'REJECTED' }
+      where: { status: "REJECTED" },
     });
 
     // Additional stats for admin dashboard
     const totalParents = await tx.user.count({
-      where: { role: 'PARENT' }
+      where: { role: "PARENT" },
     });
     const totalSessions = await tx.session.count();
     const totalRevenue = await tx.payment.aggregate({
-      where: { status: 'SUCCEEDED' },
-      _sum: { amount: true }
+      where: { status: "SUCCEEDED" },
+      _sum: { amount: true },
     });
 
     return {
@@ -36,12 +36,12 @@ export const getDashboardStats = asyncHandler(async (req, res) => {
       rejectedCoaches,
       totalParents,
       totalSessions,
-      totalRevenue: totalRevenue._sum.amount || 0
+      totalRevenue: totalRevenue._sum.amount || 0,
     };
   });
 
   res.json(
-    new ApiResponse(200, stats, 'Dashboard statistics retrieved successfully')
+    new ApiResponse(200, stats, "Dashboard statistics retrieved successfully")
   );
 });
 
@@ -50,40 +50,40 @@ export const getDashboard = asyncHandler(async (req, res) => {
   const stats = await prisma.$transaction(async (tx) => {
     const totalCoaches = await tx.coach.count();
     const pendingCoaches = await tx.coach.count({
-      where: { status: 'PENDING' }
+      where: { status: "PENDING" },
     });
     const approvedCoaches = await tx.coach.count({
-      where: { status: 'APPROVED' }
+      where: { status: "APPROVED" },
     });
     const rejectedCoaches = await tx.coach.count({
-      where: { status: 'REJECTED' }
+      where: { status: "REJECTED" },
     });
 
     // Additional stats for admin dashboard
     const totalParents = await tx.user.count({
-      where: { role: 'PARENT' }
+      where: { role: "PARENT" },
     });
     const totalSessions = await tx.session.count();
     const totalRevenue = await tx.payment.aggregate({
-      where: { status: 'SUCCEEDED' },
-      _sum: { amount: true }
+      where: { status: "SUCCEEDED" },
+      _sum: { amount: true },
     });
 
     // Get total users (parents + coaches)
     const totalUsers = totalParents + totalCoaches;
-    
+
     // Get total courses
     const totalCourses = await tx.course.count();
-    
+
     // Get pending course approvals (courses that are not active)
     const pendingCourseApprovals = await tx.course.count({
-      where: { isActive: false }
+      where: { isActive: false },
     });
 
     // Get recent activity (last 10 activities)
     const recentActivity = await tx.coach.findMany({
       take: 10,
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
       select: {
         id: true,
         status: true,
@@ -92,61 +92,69 @@ export const getDashboard = asyncHandler(async (req, res) => {
           select: {
             firstName: true,
             lastName: true,
-            email: true
-          }
-        }
-      }
+            email: true,
+          },
+        },
+      },
     });
 
     // Get monthly stats (current month)
     const currentDate = new Date();
-    const startOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-    const endOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+    const startOfMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth(),
+      1
+    );
+    const endOfMonth = new Date(
+      currentDate.getFullYear(),
+      currentDate.getMonth() + 1,
+      0
+    );
 
     const monthlyStats = await prisma.$transaction(async (tx) => {
       const newUsers = await tx.user.count({
         where: {
           createdAt: {
             gte: startOfMonth,
-            lte: endOfMonth
-          }
-        }
+            lte: endOfMonth,
+          },
+        },
       });
 
       const newCoaches = await tx.coach.count({
         where: {
           createdAt: {
             gte: startOfMonth,
-            lte: endOfMonth
-          }
-        }
+            lte: endOfMonth,
+          },
+        },
       });
 
       const newCourses = await tx.course.count({
         where: {
           createdAt: {
             gte: startOfMonth,
-            lte: endOfMonth
-          }
-        }
+            lte: endOfMonth,
+          },
+        },
       });
 
       const revenue = await tx.payment.aggregate({
         where: {
-          status: 'SUCCEEDED',
+          status: "SUCCEEDED",
           createdAt: {
             gte: startOfMonth,
-            lte: endOfMonth
-          }
+            lte: endOfMonth,
+          },
         },
-        _sum: { amount: true }
+        _sum: { amount: true },
       });
 
       return {
         newUsers,
         newCoaches,
         newCourses,
-        revenue: revenue._sum.amount || 0
+        revenue: revenue._sum.amount || 0,
       };
     });
 
@@ -159,31 +167,35 @@ export const getDashboard = asyncHandler(async (req, res) => {
       pendingCoachApprovals: pendingCoaches,
       pendingCourseApprovals,
       recentActivity,
-      monthlyStats
+      monthlyStats,
     };
   });
 
   res.json(
-    new ApiResponse(200, { dashboard: stats }, 'Dashboard data retrieved successfully')
+    new ApiResponse(
+      200,
+      { dashboard: stats },
+      "Dashboard data retrieved successfully"
+    )
   );
 });
 
 // Get all coaches with filtering and search - matches frontend AdminDashboard
 export const getCoaches = asyncHandler(async (req, res) => {
   const {
-    status = 'all',
-    search = '',
+    status = "all",
+    search = "",
     page = 1,
     limit = 10,
-    sortBy = 'createdAt',
-    sortOrder = 'desc'
+    sortBy = "createdAt",
+    sortOrder = "desc",
   } = req.query;
 
   // Build where clause for filtering
   const where = {};
-  
+
   // Status filter
-  if (status !== 'all') {
+  if (status !== "all") {
     where.status = status.toUpperCase();
   }
 
@@ -194,32 +206,32 @@ export const getCoaches = asyncHandler(async (req, res) => {
         user: {
           firstName: {
             contains: search,
-            mode: 'insensitive'
-          }
-        }
+            mode: "insensitive",
+          },
+        },
       },
       {
         user: {
           lastName: {
             contains: search,
-            mode: 'insensitive'
-          }
-        }
+            mode: "insensitive",
+          },
+        },
       },
       {
         user: {
           email: {
             contains: search,
-            mode: 'insensitive'
-          }
-        }
+            mode: "insensitive",
+          },
+        },
       },
       {
         domain: {
           contains: search,
-          mode: 'insensitive'
-        }
-      }
+          mode: "insensitive",
+        },
+      },
     ];
   }
 
@@ -229,11 +241,11 @@ export const getCoaches = asyncHandler(async (req, res) => {
 
   // Sort order
   const orderBy = {};
-  if (sortBy === 'createdAt' || sortBy === 'updatedAt') {
+  if (sortBy === "createdAt" || sortBy === "updatedAt") {
     orderBy[sortBy] = sortOrder;
-  } else if (sortBy === 'name') {
+  } else if (sortBy === "name") {
     orderBy.user = { firstName: sortOrder };
-  } else if (sortBy === 'email') {
+  } else if (sortBy === "email") {
     orderBy.user = { email: sortOrder };
   } else {
     orderBy[sortBy] = sortOrder;
@@ -252,33 +264,33 @@ export const getCoaches = asyncHandler(async (req, res) => {
             phone: true,
             isVerified: true,
             createdAt: true,
-            lastLogin: true
-          }
+            lastLogin: true,
+          },
         },
         approvedByUser: {
           select: {
             firstName: true,
             lastName: true,
-            email: true
-          }
+            email: true,
+          },
         },
         rejectedByUser: {
           select: {
             firstName: true,
             lastName: true,
-            email: true
-          }
-        }
+            email: true,
+          },
+        },
       },
       orderBy,
       skip,
-      take
+      take,
     }),
-    prisma.coach.count({ where })
+    prisma.coach.count({ where }),
   ]);
 
   // Format response to match frontend expectations
-  const formattedCoaches = coaches.map(coach => ({
+  const formattedCoaches = coaches.map((coach) => ({
     id: coach.id,
     firstName: coach.user.firstName,
     lastName: coach.user.lastName,
@@ -303,22 +315,26 @@ export const getCoaches = asyncHandler(async (req, res) => {
     rejectedBy: coach.rejectedByUser,
     rejectionReason: coach.rejectionReason,
     isVerified: coach.user.isVerified,
-    lastLogin: coach.user.lastLogin
+    lastLogin: coach.user.lastLogin,
   }));
 
   const totalPages = Math.ceil(totalCount / take);
 
   res.json(
-    new ApiResponse(200, {
-      coaches: formattedCoaches,
-      pagination: {
-        currentPage: parseInt(page),
-        totalPages,
-        totalCount,
-        hasNextPage: parseInt(page) < totalPages,
-        hasPrevPage: parseInt(page) > 1
-      }
-    }, 'Coaches retrieved successfully')
+    new ApiResponse(
+      200,
+      {
+        coaches: formattedCoaches,
+        pagination: {
+          currentPage: parseInt(page),
+          totalPages,
+          totalCount,
+          hasNextPage: parseInt(page) < totalPages,
+          hasPrevPage: parseInt(page) > 1,
+        },
+      },
+      "Coaches retrieved successfully"
+    )
   );
 });
 
@@ -344,22 +360,22 @@ export const getCoachDetails = asyncHandler(async (req, res) => {
           isVerified: true,
           createdAt: true,
           lastLogin: true,
-          profileImageUrl: true
-        }
+          profileImageUrl: true,
+        },
       },
       approvedByUser: {
         select: {
           firstName: true,
           lastName: true,
-          email: true
-        }
+          email: true,
+        },
       },
       rejectedByUser: {
         select: {
           firstName: true,
           lastName: true,
-          email: true
-        }
+          email: true,
+        },
       },
       courses: {
         select: {
@@ -368,8 +384,8 @@ export const getCoachDetails = asyncHandler(async (req, res) => {
           category: true,
           level: true,
           price: true,
-          isActive: true
-        }
+          isActive: true,
+        },
       },
       coachSessions: {
         select: {
@@ -377,18 +393,18 @@ export const getCoachDetails = asyncHandler(async (req, res) => {
           title: true,
           status: true,
           startTime: true,
-          endTime: true
+          endTime: true,
         },
         orderBy: {
-          startTime: 'desc'
+          startTime: "desc",
         },
-        take: 5
-      }
-    }
+        take: 5,
+      },
+    },
   });
 
   if (!coach) {
-    throw new ApiError(404, 'Coach not found');
+    throw new ApiError(404, "Coach not found");
   }
 
   // Format response to match frontend expectations
@@ -420,11 +436,11 @@ export const getCoachDetails = asyncHandler(async (req, res) => {
     rejectedBy: coach.rejectedByUser,
     rejectionReason: coach.rejectionReason,
     courses: coach.courses,
-    recentSessions: coach.coachSessions
+    recentSessions: coach.coachSessions,
   };
 
   res.json(
-    new ApiResponse(200, formattedCoach, 'Coach details retrieved successfully')
+    new ApiResponse(200, formattedCoach, "Coach details retrieved successfully")
   );
 });
 
@@ -438,15 +454,15 @@ export const approveCoach = asyncHandler(async (req, res) => {
   const coach = await prisma.coach.findUnique({
     where: { id: coachId },
     include: {
-      user: true
-    }
+      user: true,
+    },
   });
 
   if (!coach) {
-    throw new ApiError(404, 'Coach not found');
+    throw new ApiError(404, "Coach not found");
   }
 
-  if (coach.status !== 'PENDING') {
+  if (coach.status !== "PENDING") {
     throw new ApiError(400, `Coach is already ${coach.status.toLowerCase()}`);
   }
 
@@ -454,14 +470,14 @@ export const approveCoach = asyncHandler(async (req, res) => {
   const updatedCoach = await prisma.coach.update({
     where: { id: coachId },
     data: {
-      status: 'APPROVED',
+      status: "APPROVED",
       approvedAt: new Date(),
       approvedBy: adminId,
       adminNotes: adminNotes || null,
       // Clear any previous rejection data
       rejectedAt: null,
       rejectedBy: null,
-      rejectionReason: null
+      rejectionReason: null,
     },
     include: {
       user: true,
@@ -469,18 +485,26 @@ export const approveCoach = asyncHandler(async (req, res) => {
         select: {
           firstName: true,
           lastName: true,
-          email: true
-        }
-      }
-    }
+          email: true,
+        },
+      },
+    },
   });
 
   // Send approval notification email using Resend
   try {
-    await emailService.sendCoachApprovalNotification(updatedCoach.user, adminNotes);
-    logger.info(`Coach approval notification sent to ${updatedCoach.user.email} via Resend`);
+    await emailService.sendCoachApprovalNotification(
+      updatedCoach.user,
+      adminNotes
+    );
+    logger.info(
+      `Coach approval notification sent to ${updatedCoach.user.email} via Resend`
+    );
   } catch (error) {
-    logger.error('Failed to send coach approval notification via Resend:', error);
+    logger.error(
+      "Failed to send coach approval notification via Resend:",
+      error
+    );
     // Don't fail the approval if email fails
   }
 
@@ -489,17 +513,21 @@ export const approveCoach = asyncHandler(async (req, res) => {
     coachId,
     coachEmail: coach.user.email,
     adminId,
-    adminNotes
+    adminNotes,
   });
 
   res.json(
-    new ApiResponse(200, {
-      id: updatedCoach.id,
-      status: updatedCoach.status,
-      approvedAt: updatedCoach.approvedAt,
-      approvedBy: updatedCoach.approvedByUser,
-      adminNotes: updatedCoach.adminNotes
-    }, 'Coach approved successfully')
+    new ApiResponse(
+      200,
+      {
+        id: updatedCoach.id,
+        status: updatedCoach.status,
+        approvedAt: updatedCoach.approvedAt,
+        approvedBy: updatedCoach.approvedByUser,
+        adminNotes: updatedCoach.adminNotes,
+      },
+      "Coach approved successfully"
+    )
   );
 });
 
@@ -513,15 +541,15 @@ export const rejectCoach = asyncHandler(async (req, res) => {
   const coach = await prisma.coach.findUnique({
     where: { id: coachId },
     include: {
-      user: true
-    }
+      user: true,
+    },
   });
 
   if (!coach) {
-    throw new ApiError(404, 'Coach not found');
+    throw new ApiError(404, "Coach not found");
   }
 
-  if (coach.status !== 'PENDING') {
+  if (coach.status !== "PENDING") {
     throw new ApiError(400, `Coach is already ${coach.status.toLowerCase()}`);
   }
 
@@ -529,14 +557,14 @@ export const rejectCoach = asyncHandler(async (req, res) => {
   const updatedCoach = await prisma.coach.update({
     where: { id: coachId },
     data: {
-      status: 'REJECTED',
+      status: "REJECTED",
       rejectedAt: new Date(),
       rejectedBy: adminId,
-      rejectionReason: rejectionReason || 'No specific reason provided',
+      rejectionReason: rejectionReason || "No specific reason provided",
       adminNotes: adminNotes || null,
       // Clear any previous approval data
       approvedAt: null,
-      approvedBy: null
+      approvedBy: null,
     },
     include: {
       user: true,
@@ -544,18 +572,26 @@ export const rejectCoach = asyncHandler(async (req, res) => {
         select: {
           firstName: true,
           lastName: true,
-          email: true
-        }
-      }
-    }
+          email: true,
+        },
+      },
+    },
   });
 
   // Send rejection notification email using Resend
   try {
-    await emailService.sendCoachRejectionNotification(updatedCoach.user, rejectionReason);
-    logger.info(`Coach rejection notification sent to ${updatedCoach.user.email} via Resend`);
+    await emailService.sendCoachRejectionNotification(
+      updatedCoach.user,
+      rejectionReason
+    );
+    logger.info(
+      `Coach rejection notification sent to ${updatedCoach.user.email} via Resend`
+    );
   } catch (error) {
-    logger.error('Failed to send coach rejection notification via Resend:', error);
+    logger.error(
+      "Failed to send coach rejection notification via Resend:",
+      error
+    );
     // Don't fail the rejection if email fails
   }
 
@@ -565,18 +601,22 @@ export const rejectCoach = asyncHandler(async (req, res) => {
     coachEmail: coach.user.email,
     adminId,
     rejectionReason,
-    adminNotes
+    adminNotes,
   });
 
   res.json(
-    new ApiResponse(200, {
-      id: updatedCoach.id,
-      status: updatedCoach.status,
-      rejectedAt: updatedCoach.rejectedAt,
-      rejectedBy: updatedCoach.rejectedByUser,
-      rejectionReason: updatedCoach.rejectionReason,
-      adminNotes: updatedCoach.adminNotes
-    }, 'Coach rejected successfully')
+    new ApiResponse(
+      200,
+      {
+        id: updatedCoach.id,
+        status: updatedCoach.status,
+        rejectedAt: updatedCoach.rejectedAt,
+        rejectedBy: updatedCoach.rejectedByUser,
+        rejectionReason: updatedCoach.rejectionReason,
+        adminNotes: updatedCoach.adminNotes,
+      },
+      "Coach rejected successfully"
+    )
   );
 });
 
@@ -588,31 +628,31 @@ export const suspendCoach = asyncHandler(async (req, res) => {
 
   const coach = await prisma.coach.findUnique({
     where: { id: coachId },
-    include: { user: true }
+    include: { user: true },
   });
 
   if (!coach) {
-    throw new ApiError(404, 'Coach not found');
+    throw new ApiError(404, "Coach not found");
   }
 
-  if (coach.status !== 'APPROVED') {
-    throw new ApiError(400, 'Only approved coaches can be suspended');
+  if (coach.status !== "APPROVED") {
+    throw new ApiError(400, "Only approved coaches can be suspended");
   }
 
   const updatedCoach = await prisma.coach.update({
     where: { id: coachId },
     data: {
-      status: 'SUSPENDED',
+      status: "SUSPENDED",
       adminNotes: adminNotes || null,
       // Store suspension info in a JSON field if needed
       // suspensionReason: reason
-    }
+    },
   });
 
   // Also deactivate the user account
   await prisma.user.update({
     where: { id: coach.userId },
-    data: { isActive: false }
+    data: { isActive: false },
   });
 
   logger.info(`Coach suspended by admin`, {
@@ -620,15 +660,19 @@ export const suspendCoach = asyncHandler(async (req, res) => {
     coachEmail: coach.user.email,
     adminId,
     reason,
-    adminNotes
+    adminNotes,
   });
 
   res.json(
-    new ApiResponse(200, {
-      id: updatedCoach.id,
-      status: updatedCoach.status,
-      adminNotes: updatedCoach.adminNotes
-    }, 'Coach suspended successfully')
+    new ApiResponse(
+      200,
+      {
+        id: updatedCoach.id,
+        status: updatedCoach.status,
+        adminNotes: updatedCoach.adminNotes,
+      },
+      "Coach suspended successfully"
+    )
   );
 });
 
@@ -640,44 +684,48 @@ export const reactivateCoach = asyncHandler(async (req, res) => {
 
   const coach = await prisma.coach.findUnique({
     where: { id: coachId },
-    include: { user: true }
+    include: { user: true },
   });
 
   if (!coach) {
-    throw new ApiError(404, 'Coach not found');
+    throw new ApiError(404, "Coach not found");
   }
 
-  if (coach.status !== 'SUSPENDED') {
-    throw new ApiError(400, 'Coach is not suspended');
+  if (coach.status !== "SUSPENDED") {
+    throw new ApiError(400, "Coach is not suspended");
   }
 
   const updatedCoach = await prisma.coach.update({
     where: { id: coachId },
     data: {
-      status: 'APPROVED',
-      adminNotes: adminNotes || null
-    }
+      status: "APPROVED",
+      adminNotes: adminNotes || null,
+    },
   });
 
   // Reactivate the user account
   await prisma.user.update({
     where: { id: coach.userId },
-    data: { isActive: true }
+    data: { isActive: true },
   });
 
   logger.info(`Coach reactivated by admin`, {
     coachId,
     coachEmail: coach.user.email,
     adminId,
-    adminNotes
+    adminNotes,
   });
 
   res.json(
-    new ApiResponse(200, {
-      id: updatedCoach.id,
-      status: updatedCoach.status,
-      adminNotes: updatedCoach.adminNotes
-    }, 'Coach reactivated successfully')
+    new ApiResponse(
+      200,
+      {
+        id: updatedCoach.id,
+        status: updatedCoach.status,
+        adminNotes: updatedCoach.adminNotes,
+      },
+      "Coach reactivated successfully"
+    )
   );
 });
 
@@ -688,31 +736,35 @@ export const updateCoachNotes = asyncHandler(async (req, res) => {
   const adminId = req.user.id;
 
   const coach = await prisma.coach.findUnique({
-    where: { id: coachId }
+    where: { id: coachId },
   });
 
   if (!coach) {
-    throw new ApiError(404, 'Coach not found');
+    throw new ApiError(404, "Coach not found");
   }
 
   const updatedCoach = await prisma.coach.update({
     where: { id: coachId },
     data: {
-      adminNotes: adminNotes || null
-    }
+      adminNotes: adminNotes || null,
+    },
   });
 
   logger.info(`Coach notes updated by admin`, {
     coachId,
     adminId,
-    adminNotes
+    adminNotes,
   });
 
   res.json(
-    new ApiResponse(200, {
-      id: updatedCoach.id,
-      adminNotes: updatedCoach.adminNotes
-    }, 'Coach notes updated successfully')
+    new ApiResponse(
+      200,
+      {
+        id: updatedCoach.id,
+        adminNotes: updatedCoach.adminNotes,
+      },
+      "Coach notes updated successfully"
+    )
   );
 });
 
@@ -725,67 +777,65 @@ export const getAdminActivities = asyncHandler(async (req, res) => {
   // Get recent coach status changes
   const activities = await prisma.coach.findMany({
     where: {
-      OR: [
-        { approvedAt: { not: null } },
-        { rejectedAt: { not: null } }
-      ]
+      OR: [{ approvedAt: { not: null } }, { rejectedAt: { not: null } }],
     },
     include: {
       user: {
         select: {
           firstName: true,
           lastName: true,
-          email: true
-        }
+          email: true,
+        },
       },
       approvedByUser: {
         select: {
           firstName: true,
           lastName: true,
-          email: true
-        }
+          email: true,
+        },
       },
       rejectedByUser: {
         select: {
           firstName: true,
           lastName: true,
-          email: true
-        }
-      }
+          email: true,
+        },
+      },
     },
-    orderBy: [
-      { approvedAt: 'desc' },
-      { rejectedAt: 'desc' }
-    ],
+    orderBy: [{ approvedAt: "desc" }, { rejectedAt: "desc" }],
     skip,
-    take
+    take,
   });
 
   // Format activities for frontend
-  const formattedActivities = activities.map(coach => {
-    const isApproval = coach.status === 'APPROVED' && coach.approvedAt;
+  const formattedActivities = activities.map((coach) => {
+    const isApproval = coach.status === "APPROVED" && coach.approvedAt;
     return {
       id: coach.id,
-      type: isApproval ? 'APPROVAL' : 'REJECTION',
+      type: isApproval ? "APPROVAL" : "REJECTION",
       coachName: `${coach.user.firstName} ${coach.user.lastName}`,
       coachEmail: coach.user.email,
-      adminName: isApproval 
+      adminName: isApproval
         ? `${coach.approvedByUser?.firstName} ${coach.approvedByUser?.lastName}`
         : `${coach.rejectedByUser?.firstName} ${coach.rejectedByUser?.lastName}`,
       timestamp: isApproval ? coach.approvedAt : coach.rejectedAt,
       notes: coach.adminNotes,
-      reason: coach.rejectionReason
+      reason: coach.rejectionReason,
     };
   });
 
   res.json(
-    new ApiResponse(200, {
-      activities: formattedActivities,
-      pagination: {
-        currentPage: parseInt(page),
-        hasNextPage: activities.length === take
-      }
-    }, 'Admin activities retrieved successfully')
+    new ApiResponse(
+      200,
+      {
+        activities: formattedActivities,
+        pagination: {
+          currentPage: parseInt(page),
+          hasNextPage: activities.length === take,
+        },
+      },
+      "Admin activities retrieved successfully"
+    )
   );
 });
 
@@ -794,14 +844,14 @@ export const getAdminActivities = asyncHandler(async (req, res) => {
 // Get all courses for approval with filtering and pagination
 export const getCourses = asyncHandler(async (req, res) => {
   const {
-    status = 'all',
-    search = '',
+    status = "all",
+    search = "",
     page = 1,
     limit = 10,
-    sortBy = 'submittedAt',
-    sortOrder = 'desc',
-    category = '',
-    priceRange = ''
+    sortBy = "submittedAt",
+    sortOrder = "desc",
+    category = "",
+    priceRange = "",
   } = req.query;
 
   const skip = (parseInt(page) - 1) * parseInt(limit);
@@ -809,35 +859,38 @@ export const getCourses = asyncHandler(async (req, res) => {
   // Build where clause
   const where = {
     // Map status filter to existing fields
-    ...(status === 'approved' && { isActive: true }),
-    ...(status === 'pending' && { isActive: false }),
+    ...(status === "approved" && { isActive: true, status: "APPROVED" }),
+    ...(status === "pending" && { status: "PENDING" }),
+    ...(status === "rejected" && { status: "REJECTED" }),
+    ...(status === "frozen" && { status: "PENDING", isFrozen: true }),
+    ...(status === "deactivated" && { status: "APPROVED", isActive: false }),
     ...(search && {
       OR: [
-        { title: { contains: search, mode: 'insensitive' } },
-        { description: { contains: search, mode: 'insensitive' } },
-        { coach: { firstName: { contains: search, mode: 'insensitive' } } },
-        { coach: { lastName: { contains: search, mode: 'insensitive' } } },
-        { category: { contains: search, mode: 'insensitive' } }
-      ]
+        { title: { contains: search, mode: "insensitive" } },
+        { description: { contains: search, mode: "insensitive" } },
+        { coach: { firstName: { contains: search, mode: "insensitive" } } },
+        { coach: { lastName: { contains: search, mode: "insensitive" } } },
+        { category: { contains: search, mode: "insensitive" } },
+      ],
     }),
     ...(category && { category }),
     ...(priceRange && {
       price: {
-        gte: parseFloat(priceRange.split('-')[0]) || 0,
-        lte: parseFloat(priceRange.split('-')[1]) || 999999
-      }
-    })
+        gte: parseFloat(priceRange.split("-")[0]) || 0,
+        lte: parseFloat(priceRange.split("-")[1]) || 999999,
+      },
+    }),
   };
 
   // Build orderBy clause
   const orderBy = (() => {
-    if (sortBy === 'coachName') {
+    if (sortBy === "coachName") {
       return { coach: { firstName: sortOrder } };
     }
-    if (sortBy === 'courseTitle') {
+    if (sortBy === "courseTitle") {
       return { title: sortOrder };
     }
-    if (sortBy === 'submittedAt') {
+    if (sortBy === "submittedAt") {
       return { createdAt: sortOrder };
     }
     return { [sortBy]: sortOrder };
@@ -856,20 +909,20 @@ export const getCourses = asyncHandler(async (req, res) => {
             firstName: true,
             lastName: true,
             email: true,
-            profileImageUrl: true
-          }
-        }
-      }
+            profileImageUrl: true,
+          },
+        },
+      },
     }),
-    prisma.course.count({ where })
+    prisma.course.count({ where }),
   ]);
 
   // Transform data to match frontend expectations
-  const transformedCourses = courses.map(course => ({
+  const transformedCourses = courses.map((course) => ({
     id: course.id,
     coachName: `${course.coach.firstName} ${course.coach.lastName}`,
     coachEmail: course.coach.email,
-    coachPhoto: course.coach.profileImageUrl || '',
+    coachPhoto: course.coach.profileImageUrl || "",
     courseTitle: course.title,
     courseDescription: course.description,
     category: course.category,
@@ -877,27 +930,40 @@ export const getCourses = asyncHandler(async (req, res) => {
     creditCost: course.creditCost, // Add credit cost to response
     duration: course.duration,
     lessons: course.lessons || 0,
-    thumbnail: course.thumbnail || '',
-    videoUrl: course.videoUrl || '',
-    weeklySchedule: Array.isArray(course.weeklySchedule) ? course.weeklySchedule : [],
+    thumbnail: course.thumbnail || "",
+    videoUrl: course.videoUrl || "",
+    weeklySchedule: Array.isArray(course.weeklySchedule)
+      ? course.weeklySchedule
+      : [],
     submittedAt: course.createdAt,
-    status: course.status ? course.status.toLowerCase() : (course.isActive ? 'approved' : 'pending'),
-    rejectionReason: undefined
+    status: course.status
+      ? course.status.toLowerCase()
+      : course.isActive
+        ? "approved"
+        : "pending",
+    // Include isActive so FE can distinguish approved vs deactivated
+    isActive: !!course.isActive,
+    isFrozen: !!course.isFrozen,
+    rejectionReason: undefined,
   }));
 
   const totalPages = Math.ceil(total / parseInt(limit));
 
   res.json(
-    new ApiResponse(200, {
-      courses: transformedCourses,
-      pagination: {
-        currentPage: parseInt(page),
-        totalPages,
-        totalItems: total,
-        hasNextPage: parseInt(page) < totalPages,
-        hasPreviousPage: parseInt(page) > 1
-      }
-    }, 'Courses retrieved successfully')
+    new ApiResponse(
+      200,
+      {
+        courses: transformedCourses,
+        pagination: {
+          currentPage: parseInt(page),
+          totalPages,
+          totalItems: total,
+          hasNextPage: parseInt(page) < totalPages,
+          hasPreviousPage: parseInt(page) > 1,
+        },
+      },
+      "Courses retrieved successfully"
+    )
   );
 });
 
@@ -915,14 +981,14 @@ export const getCourseDetails = asyncHandler(async (req, res) => {
           lastName: true,
           email: true,
           phone: true,
-          profileImageUrl: true
-        }
-      }
-    }
+          profileImageUrl: true,
+        },
+      },
+    },
   });
 
   if (!course) {
-    throw new ApiError(404, 'Course not found');
+    throw new ApiError(404, "Course not found");
   }
 
   // Transform data to match frontend expectations
@@ -930,23 +996,34 @@ export const getCourseDetails = asyncHandler(async (req, res) => {
     id: course.id,
     coachName: `${course.coach.firstName} ${course.coach.lastName}`,
     coachEmail: course.coach.email,
-    coachPhoto: course.coach.profileImageUrl || '',
+    coachPhoto: course.coach.profileImageUrl || "",
     courseTitle: course.title,
     courseDescription: course.description,
     category: course.category,
     price: course.price,
     duration: course.duration,
     lessons: course.lessons || 0,
-    thumbnail: course.thumbnail || '',
-    videoUrl: course.videoUrl || '',
-    weeklySchedule: Array.isArray(course.weeklySchedule) ? course.weeklySchedule : [],
+    thumbnail: course.thumbnail || "",
+    videoUrl: course.videoUrl || "",
+    weeklySchedule: Array.isArray(course.weeklySchedule)
+      ? course.weeklySchedule
+      : [],
     submittedAt: course.createdAt,
-    status: course.isActive ? 'approved' : 'pending',
-    rejectionReason: undefined
+    status: course.status
+      ? course.status.toLowerCase()
+      : course.isActive
+        ? "approved"
+        : "pending",
+    isFrozen: !!course.isFrozen,
+    rejectionReason: undefined,
   };
 
   res.json(
-    new ApiResponse(200, transformedCourse, 'Course details retrieved successfully')
+    new ApiResponse(
+      200,
+      transformedCourse,
+      "Course details retrieved successfully"
+    )
   );
 });
 
@@ -963,29 +1040,29 @@ export const approveCourse = asyncHandler(async (req, res) => {
           id: true,
           firstName: true,
           lastName: true,
-          email: true
-        }
-      }
-    }
+          email: true,
+        },
+      },
+    },
   });
 
   if (!course) {
-    throw new ApiError(404, 'Course not found');
+    throw new ApiError(404, "Course not found");
   }
 
-  if (course.status === 'APPROVED') {
-    throw new ApiError(400, 'Course is already approved');
+  if (course.status === "APPROVED") {
+    throw new ApiError(400, "Course is already approved");
   }
 
   // Update course status
   const updatedCourse = await prisma.course.update({
     where: { id: Number(courseId) },
     data: {
-      status: 'APPROVED',
+      status: "APPROVED",
       isActive: true,
       approvedAt: new Date(),
-      adminNotes: adminNotes || course.adminNotes
-    }
+      adminNotes: adminNotes || course.adminNotes,
+    },
   });
 
   // Send approval email to coach
@@ -993,17 +1070,15 @@ export const approveCourse = asyncHandler(async (req, res) => {
     await emailService.sendCourseApprovalEmail({
       email: course.coach.email,
       firstName: course.coach.firstName,
-      courseTitle: course.title
+      courseTitle: course.title,
     });
   } catch (error) {
-    logger.error('Failed to send course approval email:', error);
+    logger.error("Failed to send course approval email:", error);
   }
 
   // Note: Admin activity model not available; skipping activity persistence
 
-  res.json(
-    new ApiResponse(200, updatedCourse, 'Course approved successfully')
-  );
+  res.json(new ApiResponse(200, updatedCourse, "Course approved successfully"));
 });
 
 // Reject a course
@@ -1019,30 +1094,30 @@ export const rejectCourse = asyncHandler(async (req, res) => {
           id: true,
           firstName: true,
           lastName: true,
-          email: true
-        }
-      }
-    }
+          email: true,
+        },
+      },
+    },
   });
 
   if (!course) {
-    throw new ApiError(404, 'Course not found');
+    throw new ApiError(404, "Course not found");
   }
 
-  if (course.status === 'REJECTED') {
-    throw new ApiError(400, 'Course is already rejected');
+  if (course.status === "REJECTED") {
+    throw new ApiError(400, "Course is already rejected");
   }
 
   // Update course status
   const updatedCourse = await prisma.course.update({
     where: { id: Number(courseId) },
     data: {
-      status: 'REJECTED',
+      status: "REJECTED",
       isActive: false,
       rejectedAt: new Date(),
       rejectionReason,
-      adminNotes: adminNotes || course.adminNotes
-    }
+      adminNotes: adminNotes || course.adminNotes,
+    },
   });
 
   // Send rejection email to coach
@@ -1051,15 +1126,190 @@ export const rejectCourse = asyncHandler(async (req, res) => {
       email: course.coach.email,
       firstName: course.coach.firstName,
       courseTitle: course.title,
-      rejectionReason
+      rejectionReason,
     });
   } catch (error) {
-    logger.error('Failed to send course rejection email:', error);
+    logger.error("Failed to send course rejection email:", error);
   }
 
   // Note: Admin activity model not available; skipping activity persistence
 
+  res.json(new ApiResponse(200, updatedCourse, "Course rejected successfully"));
+});
+
+// Deactivate an approved course (moves to inactive, status stays APPROVED)
+export const deactivateCourse = asyncHandler(async (req, res) => {
+  const { courseId } = req.params;
+  const { reason } = req.body || {};
+  const course = await prisma.course.findUnique({
+    where: { id: Number(courseId) },
+    include: {
+      coach: {
+        select: { firstName: true, email: true },
+      },
+    },
+  });
+  if (!course) throw new ApiError(404, "Course not found");
+  if (course.status !== "APPROVED")
+    throw new ApiError(400, "Only approved courses can be deactivated");
+  const updated = await prisma.course.update({
+    where: { id: Number(courseId) },
+    data: { isActive: false },
+  });
+  // Notify coach
+  try {
+    await emailService.sendCourseDeactivatedEmail({
+      email: course.coach.email,
+      firstName: course.coach.firstName,
+      courseTitle: course.title,
+      reason: reason || null,
+    });
+  } catch (error) {
+    logger.error("Failed to send course deactivated email:", error);
+  }
+  res.json(new ApiResponse(200, updated, "Course deactivated"));
+});
+
+// Activate a rejected or pending course (set to pending and inactive per requirement)
+export const activateRejectedCourse = asyncHandler(async (req, res) => {
+  const { courseId } = req.params;
+  const course = await prisma.course.findUnique({
+    where: { id: Number(courseId) },
+  });
+  if (!course) throw new ApiError(404, "Course not found");
+  if (course.status !== "REJECTED")
+    throw new ApiError(
+      400,
+      "Only rejected courses can be activated back to pending"
+    );
+  const updated = await prisma.course.update({
+    where: { id: Number(courseId) },
+    data: {
+      status: "PENDING",
+      isActive: false,
+      rejectedAt: null,
+      rejectionReason: null,
+    },
+  });
+  res.json(new ApiResponse(200, updated, "Course moved to pending"));
+});
+
+// Activate a deactivated (approved but inactive) course back to active state
+export const activateDeactivatedCourse = asyncHandler(async (req, res) => {
+  const { courseId } = req.params;
+  const { reason } = req.body || {};
+  const course = await prisma.course.findUnique({
+    where: { id: Number(courseId) },
+    include: { coach: { select: { firstName: true, email: true } } },
+  });
+  if (!course) throw new ApiError(404, "Course not found");
+  if (course.status !== "APPROVED" || course.isActive === true)
+    throw new ApiError(
+      400,
+      "Only deactivated approved courses can be activated"
+    );
+
+  const updated = await prisma.course.update({
+    where: { id: Number(courseId) },
+    data: { isActive: true },
+  });
+
+  // Notify coach
+  try {
+    await emailService.sendCourseActivatedEmail({
+      email: course.coach.email,
+      firstName: course.coach.firstName,
+      courseTitle: course.title,
+      reason: reason || null,
+    });
+  } catch (error) {
+    logger.error("Failed to send course activated email:", error);
+  }
+
+  res.json(new ApiResponse(200, updated, "Course activated"));
+});
+
+// Freeze a pending course (coach cannot edit further)
+export const freezePendingCourse = asyncHandler(async (req, res) => {
+  const { courseId } = req.params;
+  const course = await prisma.course.findUnique({
+    where: { id: Number(courseId) },
+  });
+  if (!course) throw new ApiError(404, "Course not found");
+  if (course.status !== "PENDING")
+    throw new ApiError(400, "Only pending courses can be frozen");
+  const updated = await prisma.course.update({
+    where: { id: Number(courseId) },
+    data: { isFrozen: true },
+  });
+  res.json(new ApiResponse(200, updated, "Course frozen"));
+});
+
+// Unfreeze a pending course
+export const unfreezePendingCourse = asyncHandler(async (req, res) => {
+  const { courseId } = req.params;
+  const course = await prisma.course.findUnique({
+    where: { id: Number(courseId) },
+  });
+  if (!course) throw new ApiError(404, "Course not found");
+  if (course.status !== "PENDING")
+    throw new ApiError(400, "Only pending courses can be unfrozen");
+  const updated = await prisma.course.update({
+    where: { id: Number(courseId) },
+    data: { isFrozen: false },
+  });
+  res.json(new ApiResponse(200, updated, "Course unfrozen"));
+});
+
+// Admin: change coach status between approved<->rejected and to pending from rejected
+export const deactivateApprovedCoach = asyncHandler(async (req, res) => {
+  const { coachId } = req.params;
+  const coach = await prisma.coach.findUnique({
+    where: { id: Number(coachId) },
+  });
+  if (!coach) throw new ApiError(404, "Coach not found");
+  if (coach.status !== "APPROVED")
+    throw new ApiError(400, "Only approved coaches can be deactivated");
+  const updated = await prisma.coach.update({
+    where: { id: Number(coachId) },
+    data: {
+      status: "REJECTED",
+      rejectedAt: new Date(),
+      approvedAt: null,
+      approvedBy: null,
+    },
+  });
   res.json(
-    new ApiResponse(200, updatedCourse, 'Course rejected successfully')
+    new ApiResponse(
+      200,
+      { id: updated.id, status: updated.status },
+      "Coach moved to rejected"
+    )
+  );
+});
+
+export const activateRejectedCoach = asyncHandler(async (req, res) => {
+  const { coachId } = req.params;
+  const coach = await prisma.coach.findUnique({
+    where: { id: Number(coachId) },
+  });
+  if (!coach) throw new ApiError(404, "Coach not found");
+  if (coach.status !== "REJECTED")
+    throw new ApiError(400, "Only rejected coaches can be activated");
+  const updated = await prisma.coach.update({
+    where: { id: Number(coachId) },
+    data: {
+      status: "PENDING",
+      rejectedAt: null,
+      rejectedBy: null,
+      rejectionReason: null,
+    },
+  });
+  res.json(
+    new ApiResponse(
+      200,
+      { id: updated.id, status: updated.status },
+      "Coach moved to pending"
+    )
   );
 });

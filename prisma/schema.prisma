@@ -11,194 +11,243 @@ datasource db {
 }
 
 model User {
-  id                        Int      @id @default(autoincrement())
-  email                     String   @unique
-  password                  String
-  firstName                 String   @map("first_name")
-  lastName                  String   @map("last_name")
-  phone                     String?
-  role                      UserRole @default(PARENT)
-  isVerified               Boolean  @default(false) @map("is_verified")
-  isActive                 Boolean  @default(true) @map("is_active")
-  emailVerificationToken   String?  @map("email_verification_token")
+  id                       Int       @id @default(autoincrement())
+  email                    String    @unique
+  password                 String
+  firstName                String    @map("first_name")
+  lastName                 String    @map("last_name")
+  phone                    String?
+  role                     UserRole  @default(PARENT)
+  isVerified               Boolean   @default(false) @map("is_verified")
+  isActive                 Boolean   @default(true) @map("is_active")
+  emailVerificationToken   String?   @map("email_verification_token")
   emailVerificationExpires DateTime? @map("email_verification_expires")
-  passwordResetToken       String?  @map("password_reset_token")
+  passwordResetToken       String?   @map("password_reset_token")
   passwordResetExpires     DateTime? @map("password_reset_expires")
-  refreshToken             String?  @map("refresh_token")
+  refreshToken             String?   @map("refresh_token")
   lastLogin                DateTime? @map("last_login")
-  loginAttempts            Int      @default(0) @map("login_attempts")
+  loginAttempts            Int       @default(0) @map("login_attempts")
   lockedUntil              DateTime? @map("locked_until")
-  profileImageUrl          String?  @map("profile_image_url")
-  timezone                 String   @default("UTC")
-  language                 String   @default("en")
-  preferences              Json     @default("{}")
-  createdAt                DateTime @default(now()) @map("created_at")
-  updatedAt                DateTime @updatedAt @map("updated_at")
+  profileImageUrl          String?   @map("profile_image_url")
+  timezone                 String    @default("UTC")
+  language                 String    @default("en")
+  preferences              Json      @default("{}")
+  createdAt                DateTime  @default(now()) @map("created_at")
+  updatedAt                DateTime  @updatedAt @map("updated_at")
 
   // Relations
   coach                    Coach?
-  courses                  Course[]    @relation("CoachCourses")
-  studentSessions          Session[]   @relation("StudentSessions")
-  coachSessions            Session[]   @relation("CoachSessions")
+  courses                  Course[]               @relation("CoachCourses")
+  studentSessions          Session[]              @relation("StudentSessions")
+  coachSessions            Session[]              @relation("CoachSessions")
   payments                 Payment[]
-  reviews                  Review[]    @relation("UserReviews")
-  coachReviews             Review[]    @relation("CoachReviews")
+  reviews                  Review[]               @relation("UserReviews")
+  coachReviews             Review[]               @relation("CoachReviews")
   notifications            Notification[]
-  approvedCoaches          Coach[]     @relation("CoachApprovals")
-  rejectedCoaches          Coach[]     @relation("CoachRejections")
+  approvedCoaches          Coach[]                @relation("CoachApprovals")
+  rejectedCoaches          Coach[]                @relation("CoachRejections")
   fileUploads              FileUpload[]
-  coachAvailabilities      CoachAvailability[] @relation("UserCoachAvailabilities")
-  coachScheduledSessions  ScheduledSession[] @relation("UserCoachScheduledSessions")
-  studentScheduledSessions ScheduledSession[] @relation("UserStudentScheduledSessions")
-  scheduleNotifications   ScheduleNotification[] @relation("UserScheduleNotifications")
-  sessionApprovals         ScheduledSession[] @relation("SessionApprovals")
-  sessionRejections        ScheduledSession[] @relation("SessionRejections")
+  coachAvailabilities      CoachAvailability[]    @relation("UserCoachAvailabilities")
+  coachScheduledSessions   ScheduledSession[]     @relation("UserCoachScheduledSessions")
+  studentScheduledSessions ScheduledSession[]     @relation("UserStudentScheduledSessions")
+  scheduleNotifications    ScheduleNotification[] @relation("UserScheduleNotifications")
+  sessionApprovals         ScheduledSession[]     @relation("SessionApprovals")
+  sessionRejections        ScheduledSession[]     @relation("SessionRejections")
   // Credit System Relations
   creditBalance            CreditBalance?
-  creditTransactions       CreditTransaction[] @relation("UserCreditTransactions")
-  creditPurchases          CreditPurchase[] @relation("UserCreditPurchases")
+  creditTransactions       CreditTransaction[]    @relation("UserCreditTransactions")
+  creditPurchases          CreditPurchase[]       @relation("UserCreditPurchases")
+  // Children relation (for PARENT role)
+  children                 Child[]
 
-  @@map("users")
   @@index([email])
   @@index([role])
   @@index([isVerified])
   @@index([isActive])
+  @@map("users")
 }
 
 model Coach {
-  id                    Int      @id @default(autoincrement())
-  userId                Int      @unique @map("user_id")
-  
+  id     Int @id @default(autoincrement())
+  userId Int @unique @map("user_id")
+
   // Professional Information (from frontend registration)
-  domain                String   // Teaching domain (e.g., Mathematics, Science)
+  domain                String // Teaching domain (e.g., Mathematics, Science)
   experienceDescription String   @map("experience_description") // Text description of experience
   address               String
   languages             String[] // Array of languages coach can teach in
-  
+
   // Optional Professional Details
-  hourlyRate            Decimal? @map("hourly_rate") @db.Decimal(10, 2)
-  bio                   String?
-  education             Json     @default("[]") // Array of education objects
-  certifications        Json     @default("[]") // Array of certification objects
-  specializations       Json     @default("[]") // Array of specializations
-  availability          Json     @default("{}") // Weekly availability schedule
-  
+  hourlyRate      Decimal? @map("hourly_rate") @db.Decimal(10, 2)
+  bio             String?
+  education       Json     @default("[]") // Array of education objects
+  certifications  Json     @default("[]") // Array of certification objects
+  specializations Json     @default("[]") // Array of specializations
+  availability    Json     @default("{}") // Weekly availability schedule
+
   // File Uploads (from frontend registration)
-  licenseFileUrl        String?  @map("license_file_url") // License proof upload
-  resumeFileUrl         String?  @map("resume_file_url") // Resume upload
-  introVideoUrl         String?  @map("intro_video_url") // Introduction video upload
-  
+  licenseFileUrl String? @map("license_file_url") // License proof upload
+  resumeFileUrl  String? @map("resume_file_url") // Resume upload
+  introVideoUrl  String? @map("intro_video_url") // Introduction video upload
+
   // Status and Approval (from admin workflow)
-  status                CoachStatus @default(PENDING)
-  adminNotes            String?  @map("admin_notes") // Admin notes for approval/rejection
-  approvedAt            DateTime? @map("approved_at")
-  approvedBy            Int?     @map("approved_by") // Admin user ID who approved
-  rejectedAt            DateTime? @map("rejected_at")
-  rejectedBy            Int?     @map("rejected_by") // Admin user ID who rejected
-  rejectionReason       String?  @map("rejection_reason")
-  
+  status          CoachStatus @default(PENDING)
+  adminNotes      String?     @map("admin_notes") // Admin notes for approval/rejection
+  approvedAt      DateTime?   @map("approved_at")
+  approvedBy      Int?        @map("approved_by") // Admin user ID who approved
+  rejectedAt      DateTime?   @map("rejected_at")
+  rejectedBy      Int?        @map("rejected_by") // Admin user ID who rejected
+  rejectionReason String?     @map("rejection_reason")
+
   // Performance Metrics
-  rating                Decimal? @default(0) @db.Decimal(3, 2)
-  totalReviews          Int      @default(0) @map("total_reviews")
-  totalStudents         Int      @default(0) @map("total_students")
-  totalEarnings         Decimal  @default(0) @map("total_earnings") @db.Decimal(12, 2)
-  
+  rating        Decimal? @default(0) @db.Decimal(3, 2)
+  totalReviews  Int      @default(0) @map("total_reviews")
+  totalStudents Int      @default(0) @map("total_students")
+  totalEarnings Decimal  @default(0) @map("total_earnings") @db.Decimal(12, 2)
+
   // Stripe Integration
-  stripeAccountId       String?  @map("stripe_account_id")
-  stripeCustomerId      String?  @map("stripe_customer_id")
-  
+  stripeAccountId  String? @map("stripe_account_id")
+  stripeCustomerId String? @map("stripe_customer_id")
+
   // Featured Coach
-  isFeatured            Boolean  @default(false) @map("is_featured")
-  featuredUntil         DateTime? @map("featured_until")
-  
-  createdAt             DateTime @default(now()) @map("created_at")
-  updatedAt             DateTime @updatedAt @map("updated_at")
+  isFeatured    Boolean   @default(false) @map("is_featured")
+  featuredUntil DateTime? @map("featured_until")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  approvedByUser        User?    @relation("CoachApprovals", fields: [approvedBy], references: [id])
-  rejectedByUser        User?    @relation("CoachRejections", fields: [rejectedBy], references: [id])
+  user           User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  approvedByUser User? @relation("CoachApprovals", fields: [approvedBy], references: [id])
+  rejectedByUser User? @relation("CoachRejections", fields: [rejectedBy], references: [id])
 
-
-  @@map("coaches")
   @@index([status])
   @@index([domain])
   @@index([rating])
   @@index([isFeatured])
   @@index([createdAt])
+  @@map("coaches")
 }
 
 model Course {
-  id          Int      @id @default(autoincrement())
-  coachId     Int      @map("coach_id")
-  title       String
-  description String?
-  benefits    String?
-  category    String
-  level       CourseLevel
-  status      CourseStatus @default(PENDING)
-  duration    Int      // in minutes
-  courseDuration String? @map("course_duration") // human-readable duration label (e.g., "12 weeks")
-  price       Decimal  @db.Decimal(10, 2) // Legacy field for backward compatibility
-  currency    String   @default("USD")
-  creditCost  Decimal  @default(0) @map("credit_cost") @db.Decimal(10, 2) // Credits required for enrollment
-  isActive    Boolean  @default(false) @map("is_active")
-  thumbnail   String?
-  thumbnailData Bytes?
-  thumbnailMimeType String? @map("thumbnail_mime_type")
-  videoUrl    String?  @map("video_url")
-  program     String?  // 'morning' | 'afternoon' | 'evening'
-  timezone    String?  @default("UTC")
-  weeklySchedule Json? @default("[]") @map("weekly_schedule") // Frontend weekly schedule structure
+  id                Int          @id @default(autoincrement())
+  coachId           Int          @map("coach_id")
+  title             String
+  description       String?
+  benefits          String?
+  category          String
+  level             CourseLevel
+  status            CourseStatus @default(PENDING)
+  duration          Int // in minutes
+  courseDuration    String?      @map("course_duration") // human-readable duration label (e.g., "12 weeks")
+  price             Decimal      @db.Decimal(10, 2) // Legacy field for backward compatibility
+  currency          String       @default("USD")
+  creditCost        Decimal      @default(0) @map("credit_cost") @db.Decimal(10, 2) // Credits required for enrollment
+  isActive          Boolean      @default(false) @map("is_active")
+  isFrozen          Boolean      @default(false) @map("is_frozen")
+  thumbnail         String?
+  thumbnailData     Bytes?
+  thumbnailMimeType String?      @map("thumbnail_mime_type")
+  videoUrl          String?      @map("video_url")
+  program           String? // 'morning' | 'afternoon' | 'evening'
+  timezone          String?      @default("UTC")
+  weeklySchedule    Json?        @default("[]") @map("weekly_schedule") // Frontend weekly schedule structure
   // Admin approval fields
-  approvedAt  DateTime? @map("approved_at")
-  rejectedAt  DateTime? @map("rejected_at")
-  rejectionReason String? @map("rejection_reason")
-  adminNotes  String?  @map("admin_notes")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  approvedAt        DateTime?    @map("approved_at")
+  rejectedAt        DateTime?    @map("rejected_at")
+  rejectionReason   String?      @map("rejection_reason")
+  adminNotes        String?      @map("admin_notes")
+  createdAt         DateTime     @default(now()) @map("created_at")
+  updatedAt         DateTime     @updatedAt @map("updated_at")
 
   // Relations
-  coach       User     @relation("CoachCourses", fields: [coachId], references: [id], onDelete: Cascade)
-  sessions    Session[]
+  coach             User               @relation("CoachCourses", fields: [coachId], references: [id], onDelete: Cascade)
+  sessions          Session[]
   scheduledSessions ScheduledSession[]
+  // Enrollments relation
+  enrollments       Enrollment[]
 
-  @@map("courses")
   @@index([coachId])
   @@index([category])
   @@index([level])
   @@index([isActive])
+  @@map("courses")
 }
 
 model Session {
-  id          Int           @id @default(autoincrement())
-  courseId    Int           @map("course_id")
-  coachId     Int           @map("coach_id")
-  studentId   Int           @map("student_id")
-  title       String
-  description String?
-  startTime   DateTime      @map("start_time")
-  endTime     DateTime      @map("end_time")
-  duration    Int           // in minutes
-  status      SessionStatus @default(SCHEDULED)
-  meetingUrl  String?       @map("meeting_url")
-  notes       String?
-  recordingUrl String?      @map("recording_url")
-  createdAt   DateTime      @default(now()) @map("created_at")
-  updatedAt   DateTime      @updatedAt @map("updated_at")
+  id           Int           @id @default(autoincrement())
+  courseId     Int           @map("course_id")
+  coachId      Int           @map("coach_id")
+  studentId    Int           @map("student_id")
+  title        String
+  description  String?
+  startTime    DateTime      @map("start_time")
+  endTime      DateTime      @map("end_time")
+  duration     Int // in minutes
+  status       SessionStatus @default(SCHEDULED)
+  meetingUrl   String?       @map("meeting_url")
+  notes        String?
+  recordingUrl String?       @map("recording_url")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
 
   // Relations
-  course      Course        @relation(fields: [courseId], references: [id], onDelete: Cascade)
-  coach       User          @relation("CoachSessions", fields: [coachId], references: [id], onDelete: Cascade)
-  student     User          @relation("StudentSessions", fields: [studentId], references: [id], onDelete: Cascade)
-  payment     Payment?
+  course  Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  coach   User     @relation("CoachSessions", fields: [coachId], references: [id], onDelete: Cascade)
+  student User     @relation("StudentSessions", fields: [studentId], references: [id], onDelete: Cascade)
+  payment Payment?
 
-  @@map("sessions")
   @@index([courseId])
   @@index([coachId])
   @@index([studentId])
   @@index([status])
   @@index([startTime])
+  @@map("sessions")
+}
+
+// Children and Enrollments
+model Child {
+  id           String   @id @default(cuid())
+  firstName    String   @map("first_name")
+  lastName     String   @map("last_name")
+  dateOfBirth  DateTime @map("date_of_birth")
+  gender       String
+  currentGrade String?  @map("current_grade")
+  schoolName   String?  @map("school_name")
+  specialNeeds String?  @map("special_needs")
+  interests    String[] @default([])
+  parentId     Int      @map("parent_id")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  parent      User         @relation(fields: [parentId], references: [id], onDelete: Cascade)
+  enrollments Enrollment[]
+
+  @@index([parentId])
+  @@index([lastName])
+  @@index([firstName])
+  @@map("children")
+}
+
+model Enrollment {
+  id         String           @id @default(cuid())
+  childId    String           @map("child_id")
+  courseId   Int              @map("course_id")
+  status     EnrollmentStatus @default(active)
+  enrolledAt DateTime         @default(now()) @map("enrolled_at")
+  createdAt  DateTime         @default(now()) @map("created_at")
+  updatedAt  DateTime         @updatedAt @map("updated_at")
+
+  // Relations
+  child  Child  @relation(fields: [childId], references: [id], onDelete: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  @@index([childId])
+  @@index([courseId])
+  @@index([status])
+  @@index([enrolledAt])
+  @@map("enrollments")
 }
 
 model Payment {
@@ -218,38 +267,38 @@ model Payment {
   updatedAt       DateTime      @updatedAt @map("updated_at")
 
   // Relations
-  session         Session?      @relation(fields: [sessionId], references: [id], onDelete: SetNull)
-  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  session           Session?           @relation(fields: [sessionId], references: [id], onDelete: SetNull)
+  user              User               @relation(fields: [userId], references: [id], onDelete: Cascade)
   scheduledSessions ScheduledSession[]
-  creditPurchases CreditPurchase[]
+  creditPurchases   CreditPurchase[]
 
-  @@map("payments")
   @@index([userId])
   @@index([status])
   @@index([stripePaymentId])
   @@index([createdAt])
+  @@map("payments")
 }
 
 model Review {
-  id        Int      @id @default(autoincrement())
-  coachId   Int      @map("coach_id")
-  reviewerId Int     @map("reviewer_id")
-  sessionId Int?     @map("session_id")
-  rating    Int
-  comment   String?
-  isPublic  Boolean  @default(true) @map("is_public")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id         Int      @id @default(autoincrement())
+  coachId    Int      @map("coach_id")
+  reviewerId Int      @map("reviewer_id")
+  sessionId  Int?     @map("session_id")
+  rating     Int
+  comment    String?
+  isPublic   Boolean  @default(true) @map("is_public")
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
 
   // Relations
-  coach     User     @relation("CoachReviews", fields: [coachId], references: [id], onDelete: Cascade)
-  reviewer  User     @relation("UserReviews", fields: [reviewerId], references: [id], onDelete: Cascade)
+  coach    User @relation("CoachReviews", fields: [coachId], references: [id], onDelete: Cascade)
+  reviewer User @relation("UserReviews", fields: [reviewerId], references: [id], onDelete: Cascade)
 
-  @@map("reviews")
   @@index([coachId])
   @@index([reviewerId])
   @@index([rating])
   @@index([createdAt])
+  @@map("reviews")
 }
 
 model Notification {
@@ -264,148 +313,148 @@ model Notification {
   updatedAt DateTime         @updatedAt @map("updated_at")
 
   // Relations
-  user      User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("notifications")
   @@index([userId])
   @@index([type])
   @@index([isRead])
   @@index([createdAt])
+  @@map("notifications")
 }
 
 // File Upload Model for tracking uploaded files
 model FileUpload {
-  id          Int      @id @default(autoincrement())
-  userId      Int      @map("user_id")
-  fileName    String   @map("file_name")
-  originalName String  @map("original_name")
-  fileType    String   @map("file_type") // resume, license, video, etc.
-  fileSize    Int      @map("file_size") // in bytes
-  mimeType    String   @map("mime_type")
-  url         String   // S3 or CDN URL
-  bucket      String   // S3 bucket name
-  key         String   // S3 object key
-  isPublic    Boolean  @default(false) @map("is_public")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  id           Int      @id @default(autoincrement())
+  userId       Int      @map("user_id")
+  fileName     String   @map("file_name")
+  originalName String   @map("original_name")
+  fileType     String   @map("file_type") // resume, license, video, etc.
+  fileSize     Int      @map("file_size") // in bytes
+  mimeType     String   @map("mime_type")
+  url          String // S3 or CDN URL
+  bucket       String // S3 bucket name
+  key          String // S3 object key
+  isPublic     Boolean  @default(false) @map("is_public")
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
 
   // Relations
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("file_uploads")
   @@index([userId])
   @@index([fileType])
   @@index([createdAt])
+  @@map("file_uploads")
 }
 
 // New models for Availability & Scheduling
 
 model CoachAvailability {
-  id          Int      @id @default(autoincrement())
-  coachId     Int      @map("coach_id")
-  dayOfWeek   Int      @map("day_of_week") // 0=Sunday, 1=Monday, etc.
-  isActive    Boolean  @default(true) @map("is_active")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  id        Int      @id @default(autoincrement())
+  coachId   Int      @map("coach_id")
+  dayOfWeek Int      @map("day_of_week") // 0=Sunday, 1=Monday, etc.
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   // Relations
-  coach       User     @relation("UserCoachAvailabilities", fields: [coachId], references: [id], onDelete: Cascade)
-  timeSlots   TimeSlot[]
+  coach     User       @relation("UserCoachAvailabilities", fields: [coachId], references: [id], onDelete: Cascade)
+  timeSlots TimeSlot[]
 
-  @@map("coach_availabilities")
+  @@unique([coachId, dayOfWeek])
   @@index([coachId])
   @@index([dayOfWeek])
-  @@unique([coachId, dayOfWeek])
+  @@map("coach_availabilities")
 }
 
 model TimeSlot {
-  id                    Int      @id @default(autoincrement())
-  availabilityId        Int      @map("availability_id")
-  startTime             String   @map("start_time") // Format: "HH:MM"
-  endTime               String   @map("end_time") // Format: "HH:MM"
-  isAvailable           Boolean  @default(true) @map("is_available")
-  maxBookings           Int      @default(1) @map("max_bookings")
-  currentBookings       Int      @default(0) @map("current_bookings")
-  price                 Decimal? @db.Decimal(10, 2)
-  sessionType           SessionType @default(ONE_ON_ONE)
-  createdAt             DateTime @default(now()) @map("created_at")
-  updatedAt             DateTime @updatedAt @map("updated_at")
+  id              Int         @id @default(autoincrement())
+  availabilityId  Int         @map("availability_id")
+  startTime       String      @map("start_time") // Format: "HH:MM"
+  endTime         String      @map("end_time") // Format: "HH:MM"
+  isAvailable     Boolean     @default(true) @map("is_available")
+  maxBookings     Int         @default(1) @map("max_bookings")
+  currentBookings Int         @default(0) @map("current_bookings")
+  price           Decimal?    @db.Decimal(10, 2)
+  sessionType     SessionType @default(ONE_ON_ONE)
+  createdAt       DateTime    @default(now()) @map("created_at")
+  updatedAt       DateTime    @updatedAt @map("updated_at")
 
   // Relations
-  availability          CoachAvailability @relation(fields: [availabilityId], references: [id], onDelete: Cascade)
-  scheduledSessions     ScheduledSession[]
+  availability      CoachAvailability  @relation(fields: [availabilityId], references: [id], onDelete: Cascade)
+  scheduledSessions ScheduledSession[]
 
-  @@map("time_slots")
   @@index([availabilityId])
   @@index([startTime])
   @@index([isAvailable])
+  @@map("time_slots")
 }
 
 model ScheduledSession {
-  id          Int      @id @default(autoincrement())
-  timeSlotId  Int      @map("time_slot_id")
-  coachId     Int      @map("coach_id")
-  studentId   Int      @map("student_id")
-  courseId    Int?     @map("course_id")
-  sessionDate DateTime @map("session_date")
-  title       String
-  description String?
-  duration    Int      // in minutes
-  sessionType SessionType @default(ONE_ON_ONE)
-  status      ScheduledSessionStatus @default(PENDING_APPROVAL)
-  price       Decimal  @db.Decimal(10, 2)
-  meetingUrl  String?  @map("meeting_url")
-  notes       String?
-  adminNotes  String?  @map("admin_notes")
-  approvedAt  DateTime? @map("approved_at")
-  approvedBy  Int?     @map("approved_by")
-  rejectedAt  DateTime? @map("rejected_at")
-  rejectedBy  Int?     @map("rejected_by")
-  rejectionReason String? @map("rejection_reason")
-  paymentId   Int?     @map("payment_id")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  id              Int                    @id @default(autoincrement())
+  timeSlotId      Int                    @map("time_slot_id")
+  coachId         Int                    @map("coach_id")
+  studentId       Int                    @map("student_id")
+  courseId        Int?                   @map("course_id")
+  sessionDate     DateTime               @map("session_date")
+  title           String
+  description     String?
+  duration        Int // in minutes
+  sessionType     SessionType            @default(ONE_ON_ONE)
+  status          ScheduledSessionStatus @default(PENDING_APPROVAL)
+  price           Decimal                @db.Decimal(10, 2)
+  meetingUrl      String?                @map("meeting_url")
+  notes           String?
+  adminNotes      String?                @map("admin_notes")
+  approvedAt      DateTime?              @map("approved_at")
+  approvedBy      Int?                   @map("approved_by")
+  rejectedAt      DateTime?              @map("rejected_at")
+  rejectedBy      Int?                   @map("rejected_by")
+  rejectionReason String?                @map("rejection_reason")
+  paymentId       Int?                   @map("payment_id")
+  createdAt       DateTime               @default(now()) @map("created_at")
+  updatedAt       DateTime               @updatedAt @map("updated_at")
 
   // Relations
-  timeSlot    TimeSlot @relation(fields: [timeSlotId], references: [id], onDelete: Cascade)
-  coach       User     @relation("UserCoachScheduledSessions", fields: [coachId], references: [id], onDelete: Cascade)
-  student     User     @relation("UserStudentScheduledSessions", fields: [studentId], references: [id], onDelete: Cascade)
-  course      Course?  @relation(fields: [courseId], references: [id], onDelete: SetNull)
-  approvedByUser User? @relation("SessionApprovals", fields: [approvedBy], references: [id])
-  rejectedByUser User? @relation("SessionRejections", fields: [rejectedBy], references: [id])
-  payment     Payment? @relation(fields: [paymentId], references: [id])
-  notifications ScheduleNotification[] @relation("SessionNotifications")
+  timeSlot       TimeSlot               @relation(fields: [timeSlotId], references: [id], onDelete: Cascade)
+  coach          User                   @relation("UserCoachScheduledSessions", fields: [coachId], references: [id], onDelete: Cascade)
+  student        User                   @relation("UserStudentScheduledSessions", fields: [studentId], references: [id], onDelete: Cascade)
+  course         Course?                @relation(fields: [courseId], references: [id], onDelete: SetNull)
+  approvedByUser User?                  @relation("SessionApprovals", fields: [approvedBy], references: [id])
+  rejectedByUser User?                  @relation("SessionRejections", fields: [rejectedBy], references: [id])
+  payment        Payment?               @relation(fields: [paymentId], references: [id])
+  notifications  ScheduleNotification[] @relation("SessionNotifications")
 
-  @@map("scheduled_sessions")
   @@index([timeSlotId])
   @@index([coachId])
   @@index([studentId])
   @@index([sessionDate])
   @@index([status])
+  @@map("scheduled_sessions")
 }
 
 model ScheduleNotification {
-  id          Int      @id @default(autoincrement())
-  userId      Int      @map("user_id")
-  sessionId   Int      @map("session_id")
+  id          Int                      @id @default(autoincrement())
+  userId      Int                      @map("user_id")
+  sessionId   Int                      @map("session_id")
   type        ScheduleNotificationType
   title       String
   message     String
-  isRead      Boolean  @default(false) @map("is_read")
-  scheduledAt DateTime @map("scheduled_at")
-  sentAt      DateTime? @map("sent_at")
-  createdAt   DateTime @default(now()) @map("created_at")
+  isRead      Boolean                  @default(false) @map("is_read")
+  scheduledAt DateTime                 @map("scheduled_at")
+  sentAt      DateTime?                @map("sent_at")
+  createdAt   DateTime                 @default(now()) @map("created_at")
 
   // Relations
-  user        User     @relation("UserScheduleNotifications", fields: [userId], references: [id], onDelete: Cascade)
-  session     ScheduledSession @relation("SessionNotifications", fields: [sessionId], references: [id], onDelete: Cascade)
+  user    User             @relation("UserScheduleNotifications", fields: [userId], references: [id], onDelete: Cascade)
+  session ScheduledSession @relation("SessionNotifications", fields: [sessionId], references: [id], onDelete: Cascade)
 
-  @@map("schedule_notifications")
   @@index([userId])
   @@index([sessionId])
   @@index([type])
   @@index([isRead])
   @@index([scheduledAt])
+  @@map("schedule_notifications")
 }
 
 // Credit System Models
@@ -420,77 +469,77 @@ model CreditBalance {
   updatedAt   DateTime @updatedAt @map("updated_at")
 
   // Relations
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("credit_balances")
   @@index([userId])
+  @@map("credit_balances")
 }
 
 model CreditTransaction {
-  id          Int      @id @default(autoincrement())
-  userId      Int      @map("user_id")
-  type        CreditTransactionType
-  amount      Decimal  @db.Decimal(12, 2)
-  balance     Decimal  @db.Decimal(12, 2) // Balance after transaction
-  description String
-  referenceId String?  @map("reference_id") // ID of related entity (course, session, etc.)
-  referenceType String? @map("reference_type") // Type of reference (COURSE, SESSION, PURCHASE, etc.)
-  metadata    Json     @default("{}") // Additional transaction data
-  createdAt   DateTime @default(now()) @map("created_at")
+  id            Int                   @id @default(autoincrement())
+  userId        Int                   @map("user_id")
+  type          CreditTransactionType
+  amount        Decimal               @db.Decimal(12, 2)
+  balance       Decimal               @db.Decimal(12, 2) // Balance after transaction
+  description   String
+  referenceId   String?               @map("reference_id") // ID of related entity (course, session, etc.)
+  referenceType String?               @map("reference_type") // Type of reference (COURSE, SESSION, PURCHASE, etc.)
+  metadata      Json                  @default("{}") // Additional transaction data
+  createdAt     DateTime              @default(now()) @map("created_at")
 
   // Relations
-  user        User     @relation("UserCreditTransactions", fields: [userId], references: [id], onDelete: Cascade)
+  user User @relation("UserCreditTransactions", fields: [userId], references: [id], onDelete: Cascade)
 
-  @@map("credit_transactions")
   @@index([userId])
   @@index([type])
   @@index([referenceId])
   @@index([createdAt])
+  @@map("credit_transactions")
 }
 
 model CreditPurchase {
-  id          Int      @id @default(autoincrement())
-  userId      Int      @map("user_id")
-  packageId   String   @map("package_id")
-  packageName String   @map("package_name")
-  credits     Decimal  @db.Decimal(12, 2)
-  amount      Decimal  @db.Decimal(10, 2) // Amount paid in currency
-  currency    String   @default("USD")
-  paymentId   Int?     @map("payment_id")
+  id          Int                  @id @default(autoincrement())
+  userId      Int                  @map("user_id")
+  packageId   String               @map("package_id")
+  packageName String               @map("package_name")
+  credits     Decimal              @db.Decimal(12, 2)
+  amount      Decimal              @db.Decimal(10, 2) // Amount paid in currency
+  currency    String               @default("USD")
+  paymentId   Int?                 @map("payment_id")
   status      CreditPurchaseStatus @default(PENDING)
-  purchasedAt DateTime @default(now()) @map("purchased_at")
-  expiresAt   DateTime? @map("expires_at")
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  purchasedAt DateTime             @default(now()) @map("purchased_at")
+  expiresAt   DateTime?            @map("expires_at")
+  createdAt   DateTime             @default(now()) @map("created_at")
+  updatedAt   DateTime             @updatedAt @map("updated_at")
 
   // Relations
-  user        User     @relation("UserCreditPurchases", fields: [userId], references: [id], onDelete: Cascade)
-  payment     Payment? @relation(fields: [paymentId], references: [id])
+  user    User     @relation("UserCreditPurchases", fields: [userId], references: [id], onDelete: Cascade)
+  payment Payment? @relation(fields: [paymentId], references: [id])
 
-  @@map("credit_purchases")
   @@index([userId])
   @@index([packageId])
   @@index([status])
   @@index([purchasedAt])
+  @@map("credit_purchases")
 }
 
 model CreditPackage {
-  id          String   @id @default(cuid())
-  name        String
-  description String
-  credits     Decimal  @db.Decimal(12, 2)
-  price       Decimal  @db.Decimal(10, 2)
-  currency    String   @default("USD")
-  isActive    Boolean  @default(true) @map("is_active")
-  isPopular   Boolean  @default(false) @map("is_popular")
-  bonusCredits Decimal @default(0) @map("bonus_credits") @db.Decimal(12, 2)
-  validDays   Int?     @map("valid_days") // Days until credits expire
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  id           String   @id @default(cuid())
+  name         String
+  description  String
+  credits      Decimal  @db.Decimal(12, 2)
+  price        Decimal  @db.Decimal(10, 2)
+  currency     String   @default("USD")
+  isActive     Boolean  @default(true) @map("is_active")
+  isPopular    Boolean  @default(false) @map("is_popular")
+  bonusCredits Decimal  @default(0) @map("bonus_credits") @db.Decimal(12, 2)
+  validDays    Int?     @map("valid_days") // Days until credits expire
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
 
-  @@map("credit_packages")
   @@index([isActive])
   @@index([isPopular])
+  @@map("credit_packages")
 }
 
 // Enums
@@ -591,4 +640,12 @@ enum CreditPurchaseStatus {
   FAILED
   CANCELLED
   REFUNDED
-} 
+}
+
+// Enrollment enum for child-course relationships
+enum EnrollmentStatus {
+  active
+  in_progress
+  completed
+  cancelled
+}

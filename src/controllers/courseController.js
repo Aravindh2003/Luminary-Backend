@@ -140,6 +140,8 @@ export const getCourses = asyncHandler(async (req, res) => {
     timezone: course.timezone,
     weeklySchedule: course.weeklySchedule,
     isActive: course.isActive,
+    status: course.status,
+    isFrozen: course.isFrozen,
     createdAt: course.createdAt,
     updatedAt: course.updatedAt,
     coach: {
@@ -257,6 +259,8 @@ export const getCourseById = asyncHandler(async (req, res) => {
     timezone: course.timezone,
     weeklySchedule: course.weeklySchedule,
     isActive: course.isActive,
+    status: course.status,
+    isFrozen: course.isFrozen,
     createdAt: course.createdAt,
     updatedAt: course.updatedAt,
     coach: {
@@ -399,6 +403,14 @@ export const updateCourse = asyncHandler(async (req, res) => {
 
   if (!existingCourse) {
     throw new ApiError(404, "Course not found or access denied");
+  }
+
+  // Prevent editing if pending and frozen
+  if (existingCourse.status === "PENDING" && existingCourse.isFrozen) {
+    throw new ApiError(
+      423,
+      "Course is frozen and cannot be edited while pending"
+    );
   }
 
   const {

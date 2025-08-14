@@ -1,11 +1,11 @@
-import express from 'express';
-import { body, query, param } from 'express-validator';
-import asyncHandler from '../utils/asyncHandler.js';
-import validate from '../middleware/validation.js';
-import { authenticate, requireAdmin } from '../middleware/auth.js';
-import * as adminController from '../controllers/adminController.js';
-import ApiResponse from '../utils/ApiResponse.js';
-import logger from '../utils/logger.js';
+import express from "express";
+import { body, query, param } from "express-validator";
+import asyncHandler from "../utils/asyncHandler.js";
+import validate from "../middleware/validation.js";
+import { authenticate, requireAdmin } from "../middleware/auth.js";
+import * as adminController from "../controllers/adminController.js";
+import ApiResponse from "../utils/ApiResponse.js";
+import logger from "../utils/logger.js";
 
 const router = express.Router();
 
@@ -15,65 +15,158 @@ router.use(requireAdmin);
 
 // Validation rules
 const coachIdValidation = [
-  param('coachId').isInt({ min: 1 }).toInt().withMessage('Invalid coach ID format')
+  param("coachId")
+    .isInt({ min: 1 })
+    .toInt()
+    .withMessage("Invalid coach ID format"),
 ];
 
 const approveCoachValidation = [
   ...coachIdValidation,
-  body('adminNotes').optional().isString().trim().isLength({ max: 1000 }).withMessage('Admin notes must be less than 1000 characters')
+  body("adminNotes")
+    .optional()
+    .isString()
+    .trim()
+    .isLength({ max: 1000 })
+    .withMessage("Admin notes must be less than 1000 characters"),
 ];
 
 const rejectCoachValidation = [
   ...coachIdValidation,
-  body('rejectionReason').optional().isString().trim().isLength({ max: 500 }).withMessage('Rejection reason must be less than 500 characters'),
-  body('adminNotes').optional().isString().trim().isLength({ max: 1000 }).withMessage('Admin notes must be less than 1000 characters')
+  body("rejectionReason")
+    .optional()
+    .isString()
+    .trim()
+    .isLength({ max: 500 })
+    .withMessage("Rejection reason must be less than 500 characters"),
+  body("adminNotes")
+    .optional()
+    .isString()
+    .trim()
+    .isLength({ max: 1000 })
+    .withMessage("Admin notes must be less than 1000 characters"),
 ];
 
 const suspendCoachValidation = [
   ...coachIdValidation,
-  body('reason').notEmpty().withMessage('Suspension reason is required'),
-  body('adminNotes').optional().isString().trim().isLength({ max: 1000 }).withMessage('Admin notes must be less than 1000 characters')
+  body("reason").notEmpty().withMessage("Suspension reason is required"),
+  body("adminNotes")
+    .optional()
+    .isString()
+    .trim()
+    .isLength({ max: 1000 })
+    .withMessage("Admin notes must be less than 1000 characters"),
 ];
 
 const updateNotesValidation = [
   ...coachIdValidation,
-  body('adminNotes').optional().isString().trim().isLength({ max: 1000 }).withMessage('Admin notes must be less than 1000 characters')
+  body("adminNotes")
+    .optional()
+    .isString()
+    .trim()
+    .isLength({ max: 1000 })
+    .withMessage("Admin notes must be less than 1000 characters"),
 ];
 
 // Course approval validation rules
 const courseIdValidation = [
-  param('courseId').isInt({ min: 1 }).toInt().withMessage('Invalid course ID format')
+  param("courseId")
+    .isInt({ min: 1 })
+    .toInt()
+    .withMessage("Invalid course ID format"),
 ];
 
 const approveCourseValidation = [
   ...courseIdValidation,
-  body('adminNotes').optional().isString().trim().isLength({ max: 1000 }).withMessage('Admin notes must be less than 1000 characters')
+  body("adminNotes")
+    .optional()
+    .isString()
+    .trim()
+    .isLength({ max: 1000 })
+    .withMessage("Admin notes must be less than 1000 characters"),
 ];
 
 const rejectCourseValidation = [
   ...courseIdValidation,
-  body('rejectionReason').notEmpty().withMessage('Rejection reason is required'),
-  body('adminNotes').optional().isString().trim().isLength({ max: 1000 }).withMessage('Admin notes must be less than 1000 characters')
+  body("rejectionReason")
+    .notEmpty()
+    .withMessage("Rejection reason is required"),
+  body("adminNotes")
+    .optional()
+    .isString()
+    .trim()
+    .isLength({ max: 1000 })
+    .withMessage("Admin notes must be less than 1000 characters"),
 ];
 
 const getCoursesValidation = [
-  query('status').optional().isIn(['all', 'pending', 'approved', 'rejected']).withMessage('Invalid status filter'),
-  query('search').optional().isString().trim().isLength({ max: 100 }).withMessage('Search term too long'),
-  query('page').optional().isInt({ min: 1 }).withMessage('Page must be a positive integer'),
-  query('limit').optional().isInt({ min: 1, max: 100 }).withMessage('Limit must be between 1 and 100'),
-  query('sortBy').optional().isIn(['submittedAt', 'courseTitle', 'coachName', 'category', 'price']).withMessage('Invalid sort field'),
-  query('sortOrder').optional().isIn(['asc', 'desc']).withMessage('Sort order must be asc or desc'),
-  query('category').optional().isString().trim().withMessage('Invalid category filter'),
-  query('priceRange').optional().isString().withMessage('Invalid price range filter')
+  query("status")
+    .optional()
+    .isIn(["all", "pending", "approved", "rejected", "frozen", "deactivated"])
+    .withMessage("Invalid status filter"),
+  query("search")
+    .optional()
+    .isString()
+    .trim()
+    .isLength({ max: 100 })
+    .withMessage("Search term too long"),
+  query("page")
+    .optional()
+    .isInt({ min: 1 })
+    .withMessage("Page must be a positive integer"),
+  query("limit")
+    .optional()
+    .isInt({ min: 1, max: 100 })
+    .withMessage("Limit must be between 1 and 100"),
+  query("sortBy")
+    .optional()
+    .isIn(["submittedAt", "courseTitle", "coachName", "category", "price"])
+    .withMessage("Invalid sort field"),
+  query("sortOrder")
+    .optional()
+    .isIn(["asc", "desc"])
+    .withMessage("Sort order must be asc or desc"),
+  query("category")
+    .optional()
+    .isString()
+    .trim()
+    .withMessage("Invalid category filter"),
+  query("priceRange")
+    .optional()
+    .isString()
+    .withMessage("Invalid price range filter"),
 ];
 
+// (duplicate removed)
+
+// Coaches listing validation rules
 const getCoachesValidation = [
-  query('status').optional().isIn(['all', 'pending', 'approved', 'rejected', 'suspended']).withMessage('Invalid status filter'),
-  query('search').optional().isString().trim().isLength({ max: 100 }).withMessage('Search term too long'),
-  query('page').optional().isInt({ min: 1 }).withMessage('Page must be a positive integer'),
-  query('limit').optional().isInt({ min: 1, max: 100 }).withMessage('Limit must be between 1 and 100'),
-  query('sortBy').optional().isIn(['createdAt', 'updatedAt', 'name', 'email', 'domain', 'status']).withMessage('Invalid sort field'),
-  query('sortOrder').optional().isIn(['asc', 'desc']).withMessage('Sort order must be asc or desc')
+  query("status")
+    .optional()
+    .isIn(["all", "pending", "approved", "rejected", "suspended"])
+    .withMessage("Invalid status filter"),
+  query("search")
+    .optional()
+    .isString()
+    .trim()
+    .isLength({ max: 100 })
+    .withMessage("Search term too long"),
+  query("page")
+    .optional()
+    .isInt({ min: 1 })
+    .withMessage("Page must be a positive integer"),
+  query("limit")
+    .optional()
+    .isInt({ min: 1, max: 100 })
+    .withMessage("Limit must be between 1 and 100"),
+  query("sortBy")
+    .optional()
+    .isIn(["createdAt", "updatedAt", "name", "email", "domain", "status"])
+    .withMessage("Invalid sort field"),
+  query("sortOrder")
+    .optional()
+    .isIn(["asc", "desc"])
+    .withMessage("Sort order must be asc or desc"),
 ];
 
 /**
@@ -216,7 +309,7 @@ const getCoachesValidation = [
  *       403:
  *         description: Admin access required
  */
-router.get('/dashboard', asyncHandler(adminController.getDashboard));
+router.get("/dashboard", asyncHandler(adminController.getDashboard));
 
 /**
  * @swagger
@@ -245,7 +338,7 @@ router.get('/dashboard', asyncHandler(adminController.getDashboard));
  *       403:
  *         description: Admin access required
  */
-router.get('/dashboard/stats', asyncHandler(adminController.getDashboardStats));
+router.get("/dashboard/stats", asyncHandler(adminController.getDashboardStats));
 
 /**
  * @swagger
@@ -334,7 +427,12 @@ router.get('/dashboard/stats', asyncHandler(adminController.getDashboardStats));
  *       403:
  *         description: Admin access required
  */
-router.get('/coaches', getCoachesValidation, validate, asyncHandler(adminController.getCoaches));
+router.get(
+  "/coaches",
+  getCoachesValidation,
+  validate,
+  asyncHandler(adminController.getCoaches)
+);
 
 /**
  * @swagger
@@ -373,7 +471,12 @@ router.get('/coaches', getCoachesValidation, validate, asyncHandler(adminControl
  *       404:
  *         description: Coach not found
  */
-router.get('/coaches/:coachId', coachIdValidation, validate, asyncHandler(adminController.getCoachDetails));
+router.get(
+  "/coaches/:coachId",
+  coachIdValidation,
+  validate,
+  asyncHandler(adminController.getCoachDetails)
+);
 
 /**
  * @swagger
@@ -436,7 +539,12 @@ router.get('/coaches/:coachId', coachIdValidation, validate, asyncHandler(adminC
  *       404:
  *         description: Coach not found
  */
-router.post('/coaches/:coachId/approve', approveCoachValidation, validate, asyncHandler(adminController.approveCoach));
+router.post(
+  "/coaches/:coachId/approve",
+  approveCoachValidation,
+  validate,
+  asyncHandler(adminController.approveCoach)
+);
 
 /**
  * @swagger
@@ -505,7 +613,12 @@ router.post('/coaches/:coachId/approve', approveCoachValidation, validate, async
  *       404:
  *         description: Coach not found
  */
-router.post('/coaches/:coachId/reject', rejectCoachValidation, validate, asyncHandler(adminController.rejectCoach));
+router.post(
+  "/coaches/:coachId/reject",
+  rejectCoachValidation,
+  validate,
+  asyncHandler(adminController.rejectCoach)
+);
 
 /**
  * @swagger
@@ -551,7 +664,12 @@ router.post('/coaches/:coachId/reject', rejectCoachValidation, validate, asyncHa
  *       404:
  *         description: Coach not found
  */
-router.post('/coaches/:coachId/suspend', suspendCoachValidation, validate, asyncHandler(adminController.suspendCoach));
+router.post(
+  "/coaches/:coachId/suspend",
+  suspendCoachValidation,
+  validate,
+  asyncHandler(adminController.suspendCoach)
+);
 
 /**
  * @swagger
@@ -591,7 +709,12 @@ router.post('/coaches/:coachId/suspend', suspendCoachValidation, validate, async
  *       404:
  *         description: Coach not found
  */
-router.post('/coaches/:coachId/reactivate', updateNotesValidation, validate, asyncHandler(adminController.reactivateCoach));
+router.post(
+  "/coaches/:coachId/reactivate",
+  updateNotesValidation,
+  validate,
+  asyncHandler(adminController.reactivateCoach)
+);
 
 /**
  * @swagger
@@ -630,7 +753,12 @@ router.post('/coaches/:coachId/reactivate', updateNotesValidation, validate, asy
  *       404:
  *         description: Coach not found
  */
-router.put('/coaches/:coachId/notes', updateNotesValidation, validate, asyncHandler(adminController.updateCoachNotes));
+router.put(
+  "/coaches/:coachId/notes",
+  updateNotesValidation,
+  validate,
+  asyncHandler(adminController.updateCoachNotes)
+);
 
 /**
  * @swagger
@@ -706,10 +834,17 @@ router.put('/coaches/:coachId/notes', updateNotesValidation, validate, asyncHand
  *       403:
  *         description: Admin access required
  */
-router.get('/activities', 
+router.get(
+  "/activities",
   [
-    query('page').optional().isInt({ min: 1 }).withMessage('Page must be a positive integer'),
-    query('limit').optional().isInt({ min: 1, max: 100 }).withMessage('Limit must be between 1 and 100')
+    query("page")
+      .optional()
+      .isInt({ min: 1 })
+      .withMessage("Page must be a positive integer"),
+    query("limit")
+      .optional()
+      .isInt({ min: 1, max: 100 })
+      .withMessage("Limit must be between 1 and 100"),
   ],
   validate,
   asyncHandler(adminController.getAdminActivities)
@@ -752,45 +887,133 @@ router.get('/activities',
  *                     messageId:
  *                       type: string
  */
-router.post('/test-email', 
-  authenticate, 
+router.post(
+  "/test-email",
+  authenticate,
   requireAdmin,
   asyncHandler(async (req, res) => {
     const { email } = req.body;
-    
+
     if (!email) {
-      return res.status(400).json(
-        new ApiResponse(400, null, 'Email address is required')
-      );
+      return res
+        .status(400)
+        .json(new ApiResponse(400, null, "Email address is required"));
     }
 
     try {
-      const resendEmailService = (await import('../services/resendEmailService.js')).default;
-      
+      const resendEmailService = (
+        await import("../services/resendEmailService.js")
+      ).default;
+
       // Send a test email
       const result = await resendEmailService.sendWelcomeEmail({
         email,
-        firstName: 'Test',
-        lastName: 'User',
-        emailVerificationToken: 'test-token'
+        firstName: "Test",
+        lastName: "User",
+        emailVerificationToken: "test-token",
       });
 
-      return res.status(200).json(
-        new ApiResponse(200, { messageId: result?.id }, 'Test email sent successfully')
-      );
+      return res
+        .status(200)
+        .json(
+          new ApiResponse(
+            200,
+            { messageId: result?.id },
+            "Test email sent successfully"
+          )
+        );
     } catch (error) {
-      logger.error('Test email failed:', error);
-      return res.status(500).json(
-        new ApiResponse(500, null, 'Failed to send test email: ' + error.message)
-      );
+      logger.error("Test email failed:", error);
+      return res
+        .status(500)
+        .json(
+          new ApiResponse(
+            500,
+            null,
+            "Failed to send test email: " + error.message
+          )
+        );
     }
   })
 );
 
 // Course Approval Routes
-router.get('/courses', getCoursesValidation, validate, asyncHandler(adminController.getCourses));
-router.get('/courses/:courseId', courseIdValidation, validate, asyncHandler(adminController.getCourseDetails));
-router.post('/courses/:courseId/approve', approveCourseValidation, validate, asyncHandler(adminController.approveCourse));
-router.post('/courses/:courseId/reject', rejectCourseValidation, validate, asyncHandler(adminController.rejectCourse));
+router.get(
+  "/courses",
+  getCoursesValidation,
+  validate,
+  asyncHandler(adminController.getCourses)
+);
+router.get(
+  "/courses/:courseId",
+  courseIdValidation,
+  validate,
+  asyncHandler(adminController.getCourseDetails)
+);
+router.post(
+  "/courses/:courseId/approve",
+  approveCourseValidation,
+  validate,
+  asyncHandler(adminController.approveCourse)
+);
+router.post(
+  "/courses/:courseId/reject",
+  rejectCourseValidation,
+  validate,
+  asyncHandler(adminController.rejectCourse)
+);
+// Additional course status actions
+router.post(
+  "/courses/:courseId/deactivate",
+  courseIdValidation,
+  validate,
+  asyncHandler(adminController.deactivateCourse)
+);
+router.post(
+  "/courses/:courseId/activate-deactivated",
+  [
+    ...courseIdValidation,
+    body("reason")
+      .optional()
+      .isString()
+      .trim()
+      .isLength({ max: 500 })
+      .withMessage("Reason must be less than 500 characters"),
+  ],
+  validate,
+  asyncHandler(adminController.activateDeactivatedCourse)
+);
+router.post(
+  "/courses/:courseId/activate-from-rejected",
+  courseIdValidation,
+  validate,
+  asyncHandler(adminController.activateRejectedCourse)
+);
+router.post(
+  "/courses/:courseId/freeze",
+  courseIdValidation,
+  validate,
+  asyncHandler(adminController.freezePendingCourse)
+);
+router.post(
+  "/courses/:courseId/unfreeze",
+  courseIdValidation,
+  validate,
+  asyncHandler(adminController.unfreezePendingCourse)
+);
+
+// Coach status transitions
+router.post(
+  "/coaches/:coachId/deactivate",
+  coachIdValidation,
+  validate,
+  asyncHandler(adminController.deactivateApprovedCoach)
+);
+router.post(
+  "/coaches/:coachId/activate-from-rejected",
+  coachIdValidation,
+  validate,
+  asyncHandler(adminController.activateRejectedCoach)
+);
 
 export default router;
