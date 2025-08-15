@@ -954,6 +954,7 @@ export const getCourses = asyncHandler(async (req, res) => {
     price: course.price,
     creditCost: course.creditCost, // Add credit cost to response
     duration: course.duration,
+    courseDuration: course.courseDuration,
     lessons: course.lessons || 0,
     thumbnail: course.thumbnail || "",
     videoUrl: course.videoUrl || "",
@@ -1027,6 +1028,7 @@ export const getCourseDetails = asyncHandler(async (req, res) => {
     category: course.category,
     price: course.price,
     duration: course.duration,
+    courseDuration: course.courseDuration,
     lessons: course.lessons || 0,
     thumbnail: course.thumbnail || "",
     videoUrl: course.videoUrl || "",
