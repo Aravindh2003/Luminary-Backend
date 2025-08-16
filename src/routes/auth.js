@@ -259,6 +259,37 @@ router.post(
 
 /**
  * @swagger
+ * /auth/cancel-registration:
+ *   post:
+ *     summary: Cancel registration and delete unverified account
+ *     tags: [Authentication]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [email]
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *     responses:
+ *       200:
+ *         description: Unverified account deleted
+ */
+router.post(
+  "/cancel-registration",
+  [
+    body("email").isEmail().normalizeEmail(),
+    body("userType").optional().isIn(["parent", "coach"]),
+  ],
+  validate,
+  asyncHandler(emailVerificationController.cancelRegistration)
+);
+
+/**
+ * @swagger
  * /auth/register/coach:
  *   post:
  *     summary: Register a new coach with file uploads
@@ -389,6 +420,21 @@ router.post(
   loginValidation,
   validate,
   asyncHandler(authController.login)
+);
+
+// Get available roles for the current email
+router.get("/me/roles", authenticate, asyncHandler(authController.getMyRoles));
+
+// Switch role by re-entering password
+router.post(
+  "/switch-role",
+  authenticate,
+  [
+    body("targetRole").isIn(["PARENT", "COACH"]),
+    body("password").isString().notEmpty(),
+  ],
+  validate,
+  asyncHandler(authController.switchRole)
 );
 
 /**
@@ -818,6 +864,12 @@ router.post(
   ],
   validate,
   asyncHandler(emailVerificationController.resendVerificationCode)
+);
+
+// Maintenance route (protect in production via auth or admin guard if needed)
+router.post(
+  "/cleanup-expired-unverified",
+  asyncHandler(emailVerificationController.cleanupExpiredUnverified)
 );
 
 /**

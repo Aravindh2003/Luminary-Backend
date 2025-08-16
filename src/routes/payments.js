@@ -1,13 +1,15 @@
-import express from 'express';
-import { body, query, param } from 'express-validator';
-import asyncHandler from '../utils/asyncHandler.js';
-import validate from '../middleware/validation.js';
-import { authenticate, authorize } from '../middleware/auth.js';
-import * as paymentController from '../controllers/paymentController.js';
-import Stripe from 'stripe';
-import { prisma } from '../config/database.js';
+import express from "express";
+import { body, query, param } from "express-validator";
+import asyncHandler from "../utils/asyncHandler.js";
+import validate from "../middleware/validation.js";
+import { authenticate, authorize } from "../middleware/auth.js";
+import * as paymentController from "../controllers/paymentController.js";
+import Stripe from "stripe";
+import { prisma } from "../config/database.js";
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2023-10-16' });
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+  apiVersion: "2023-10-16",
+});
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 // Stripe webhook endpoint
@@ -15,86 +17,108 @@ const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 const router = express.Router();
 
 // Get Stripe publishable key
-router.get('/config', (req, res) => {
+router.get("/config", (req, res) => {
   res.json({
     success: true,
     data: {
-      publishableKey: process.env.STRIPE_PUBLISHABLE_KEY
+      publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
     },
-    message: 'Stripe configuration retrieved successfully'
+    message: "Stripe configuration retrieved successfully",
   });
 });
 
-router.post('/webhook/stripe', express.raw({ type: 'application/json' }), async (req, res) => {
-  const sig = req.headers['stripe-signature'];
-  let event;
-  try {
-    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-  } catch (err) {
-    console.error('Stripe webhook signature verification failed:', err.message);
-    return res.status(400).send(`Webhook Error: ${err.message}`);
-  }
-
-  // Handle the event
-  switch (event.type) {
-    case 'payment_intent.succeeded': {
-      const paymentIntent = event.data.object;
-      // Update payment record in DB
-      await prisma.payment.updateMany({
-        where: { stripePaymentId: paymentIntent.id },
-        data: { status: 'SUCCEEDED' }
-      });
-      // Optionally, update session status, send email, etc.
-      break;
+router.post(
+  "/webhook/stripe",
+  express.raw({ type: "application/json" }),
+  async (req, res) => {
+    const sig = req.headers["stripe-signature"];
+    let event;
+    try {
+      event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+    } catch (err) {
+      console.error(
+        "Stripe webhook signature verification failed:",
+        err.message
+      );
+      return res.status(400).send(`Webhook Error: ${err.message}`);
     }
-    case 'payment_intent.payment_failed': {
-      const paymentIntent = event.data.object;
-      await prisma.payment.updateMany({
-        where: { stripePaymentId: paymentIntent.id },
-        data: { status: 'FAILED' }
-      });
-      break;
-    }
-    // Add more event types as needed
-    default:
-      console.log(`Unhandled Stripe event type: ${event.type}`);
-  }
 
-  res.json({ received: true });
-});
+    // Handle the event
+    switch (event.type) {
+      case "payment_intent.succeeded": {
+        const paymentIntent = event.data.object;
+        // Update payment record in DB
+        await prisma.payment.updateMany({
+          where: { stripePaymentId: paymentIntent.id },
+          data: { status: "SUCCEEDED" },
+        });
+        // Optionally, update session status, send email, etc.
+        break;
+      }
+      case "payment_intent.payment_failed": {
+        const paymentIntent = event.data.object;
+        await prisma.payment.updateMany({
+          where: { stripePaymentId: paymentIntent.id },
+          data: { status: "FAILED" },
+        });
+        break;
+      }
+      // Add more event types as needed
+      default:
+        console.log(`Unhandled Stripe event type: ${event.type}`);
+    }
+
+    res.json({ received: true });
+  }
+);
 
 // Validation rules
 const createPaymentValidation = [
-  body('courseId')
-    .isInt()
-    .withMessage('Invalid course ID format'),
-  body('sessionId')
+  body("courseId").isInt().withMessage("Invalid course ID format"),
+  body("sessionId")
     .optional({ nullable: true })
     .isInt({ min: 1 })
-    .withMessage('Invalid session ID format'),
-  body('amount')
+    .withMessage("Invalid session ID format"),
+  body("amount")
     .isFloat({ min: 0.01 })
-    .withMessage('Amount must be greater than 0'),
-  body('currency')
-    .isIn(['USD', 'EUR', 'GBP', 'CAD'])
-    .withMessage('Currency must be USD, EUR, GBP, or CAD'),
-  body('paymentMethodId')
+    .withMessage("Amount must be greater than 0"),
+  body("currency")
+    .isIn(["USD", "EUR", "GBP", "CAD"])
+    .withMessage("Currency must be USD, EUR, GBP, or CAD"),
+  body("paymentMethodId")
     .isString()
     .trim()
     .notEmpty()
-    .withMessage('Payment method ID is required')
+    .withMessage("Payment method ID is required"),
+];
+
+// Validation for credit package payments
+const createCreditPaymentValidation = [
+  body("packageId")
+    .isString()
+    .trim()
+    .notEmpty()
+    .withMessage("Package ID is required"),
+  body("paymentMethodId")
+    .isString()
+    .trim()
+    .notEmpty()
+    .withMessage("Payment method ID is required"),
+  body("description").optional().isString().isLength({ max: 500 }),
 ];
 
 const getPaymentsValidation = [
-  query('status').optional().isIn(['PENDING', 'SUCCEEDED', 'FAILED', 'REFUNDED', 'CANCELLED']),
-  query('courseId').optional().isInt({ min: 1 }),
-  query('sessionId').optional().isInt({ min: 1 }),
-  query('startDate').optional().isISO8601(),
-  query('endDate').optional().isISO8601(),
-  query('page').optional().isInt({ min: 1 }),
-  query('limit').optional().isInt({ min: 1, max: 100 }),
-  query('sortBy').optional().isIn(['createdAt', 'amount', 'status']),
-  query('sortOrder').optional().isIn(['asc', 'desc'])
+  query("status")
+    .optional()
+    .isIn(["PENDING", "SUCCEEDED", "FAILED", "REFUNDED", "CANCELLED"]),
+  query("courseId").optional().isInt({ min: 1 }),
+  query("sessionId").optional().isInt({ min: 1 }),
+  query("startDate").optional().isISO8601(),
+  query("endDate").optional().isISO8601(),
+  query("page").optional().isInt({ min: 1 }),
+  query("limit").optional().isInt({ min: 1, max: 100 }),
+  query("sortBy").optional().isIn(["createdAt", "amount", "status"]),
+  query("sortOrder").optional().isIn(["asc", "desc"]),
 ];
 
 /**
@@ -200,7 +224,12 @@ const getPaymentsValidation = [
  *       401:
  *         description: Unauthorized
  */
-router.get('/', getPaymentsValidation, validate, asyncHandler(paymentController.getPayments));
+router.get(
+  "/",
+  getPaymentsValidation,
+  validate,
+  asyncHandler(paymentController.getPayments)
+);
 
 /**
  * @swagger
@@ -235,8 +264,13 @@ router.get('/', getPaymentsValidation, validate, asyncHandler(paymentController.
  *       404:
  *         description: Payment not found
  */
-router.get('/:paymentId',
-  [param('paymentId').isInt({ min: 1 }).withMessage('Invalid payment ID format')],
+router.get(
+  "/:paymentId",
+  [
+    param("paymentId")
+      .isInt({ min: 1 })
+      .withMessage("Invalid payment ID format"),
+  ],
   validate,
   asyncHandler(paymentController.getPaymentById)
 );
@@ -306,12 +340,23 @@ router.get('/:paymentId',
  *       403:
  *         description: Parent access required
  */
-router.post('/',
+router.post(
+  "/",
   authenticate,
-  authorize('PARENT'),
+  authorize("PARENT"),
   createPaymentValidation,
   validate,
   asyncHandler(paymentController.createPayment)
+);
+
+// Create credit package payment (Parent only)
+router.post(
+  "/credits",
+  authenticate,
+  authorize("PARENT"),
+  createCreditPaymentValidation,
+  validate,
+  asyncHandler(paymentController.createCreditPayment)
 );
 
 /**
@@ -354,12 +399,19 @@ router.post('/',
  *       404:
  *         description: Payment not found
  */
-router.post('/:paymentId/confirm',
+router.post(
+  "/:paymentId/confirm",
   authenticate,
-  authorize('PARENT'),
+  authorize("PARENT"),
   [
-    param('paymentId').isInt({ min: 1 }).withMessage('Invalid payment ID format'),
-    body('paymentIntentId').isString().trim().notEmpty().withMessage('Payment intent ID is required')
+    param("paymentId")
+      .isInt({ min: 1 })
+      .withMessage("Invalid payment ID format"),
+    body("paymentIntentId")
+      .isString()
+      .trim()
+      .notEmpty()
+      .withMessage("Payment intent ID is required"),
   ],
   validate,
   asyncHandler(paymentController.confirmPayment)
@@ -411,13 +463,23 @@ router.post('/:paymentId/confirm',
  *       404:
  *         description: Payment not found
  */
-router.post('/:paymentId/refund',
+router.post(
+  "/:paymentId/refund",
   authenticate,
-  authorize('ADMIN', 'COACH'),
+  authorize("ADMIN", "COACH"),
   [
-    param('paymentId').isInt({ min: 1 }).withMessage('Invalid payment ID format'),
-    body('reason').isString().trim().isLength({ min: 10, max: 500 }).withMessage('Reason must be between 10 and 500 characters'),
-    body('amount').optional().isFloat({ min: 0.01 }).withMessage('Refund amount must be greater than 0')
+    param("paymentId")
+      .isInt({ min: 1 })
+      .withMessage("Invalid payment ID format"),
+    body("reason")
+      .isString()
+      .trim()
+      .isLength({ min: 10, max: 500 })
+      .withMessage("Reason must be between 10 and 500 characters"),
+    body("amount")
+      .optional()
+      .isFloat({ min: 0.01 })
+      .withMessage("Refund amount must be greater than 0"),
   ],
   validate,
   asyncHandler(paymentController.processRefund)
@@ -451,10 +513,15 @@ router.post('/:paymentId/refund',
  *       404:
  *         description: Payment not found
  */
-router.post('/:paymentId/cancel',
+router.post(
+  "/:paymentId/cancel",
   authenticate,
-  authorize('PARENT'),
-  [param('paymentId').isInt({ min: 1 }).withMessage('Invalid payment ID format')],
+  authorize("PARENT"),
+  [
+    param("paymentId")
+      .isInt({ min: 1 })
+      .withMessage("Invalid payment ID format"),
+  ],
   validate,
   asyncHandler(paymentController.cancelPayment)
 );
@@ -499,9 +566,10 @@ router.post('/:paymentId/cancel',
  *       401:
  *         description: Unauthorized
  */
-router.post('/setup-intent',
+router.post(
+  "/setup-intent",
   authenticate,
-  authorize('PARENT'),
+  authorize("PARENT"),
   asyncHandler(paymentController.createSetupIntent)
 );
 
@@ -548,9 +616,10 @@ router.post('/setup-intent',
  *       401:
  *         description: Unauthorized
  */
-router.get('/payment-methods',
+router.get(
+  "/payment-methods",
   authenticate,
-  authorize('PARENT'),
+  authorize("PARENT"),
   asyncHandler(paymentController.getPaymentMethods)
 );
 
@@ -577,10 +646,17 @@ router.get('/payment-methods',
  *       404:
  *         description: Payment method not found
  */
-router.delete('/payment-methods/:paymentMethodId',
+router.delete(
+  "/payment-methods/:paymentMethodId",
   authenticate,
-  authorize('PARENT'),
-  [param('paymentMethodId').isString().trim().notEmpty().withMessage('Payment method ID is required')],
+  authorize("PARENT"),
+  [
+    param("paymentMethodId")
+      .isString()
+      .trim()
+      .notEmpty()
+      .withMessage("Payment method ID is required"),
+  ],
   validate,
   asyncHandler(paymentController.removePaymentMethod)
 );
@@ -612,9 +688,14 @@ router.delete('/payment-methods/:paymentMethodId',
  *       404:
  *         description: Payment not found
  */
-router.get('/invoice/:paymentId',
+router.get(
+  "/invoice/:paymentId",
   authenticate,
-  [param('paymentId').isInt({ min: 1 }).withMessage('Invalid payment ID format')],
+  [
+    param("paymentId")
+      .isInt({ min: 1 })
+      .withMessage("Invalid payment ID format"),
+  ],
   validate,
   asyncHandler(paymentController.generateInvoice)
 );
@@ -655,16 +736,17 @@ router.get('/invoice/:paymentId',
  *       403:
  *         description: Admin access required
  */
-router.get('/analytics',
+router.get(
+  "/analytics",
   authenticate,
-  authorize('ADMIN'),
+  authorize("ADMIN"),
   [
-    query('period').optional().isIn(['day', 'week', 'month', 'year']),
-    query('startDate').optional().isISO8601(),
-    query('endDate').optional().isISO8601()
+    query("period").optional().isIn(["day", "week", "month", "year"]),
+    query("startDate").optional().isISO8601(),
+    query("endDate").optional().isISO8601(),
   ],
   validate,
   asyncHandler(paymentController.getPaymentAnalytics)
 );
 
-export default router; 
+export default router;

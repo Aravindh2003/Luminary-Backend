@@ -19,9 +19,19 @@ export const registerParent = asyncHandler(async (req, res) => {
   const { email, password, firstName, lastName, phone } = req.body;
 
   // Check if user already exists
-  const existingUser = await prisma.user.findUnique({
-    where: { email },
+  const existingUser = await prisma.user.findFirst({
+    where: { email, role: "PARENT" },
   });
+
+  // Also check other roles for diagnostics
+  const existingAnyRoles = await prisma.user.findMany({
+    where: { email },
+    select: { role: true },
+  });
+  if (existingAnyRoles.length > 0) {
+    const roles = existingAnyRoles.map((r) => r.role).join(", ");
+    logger.info(`[RegisterParent] Email already present for roles: ${roles}`);
+  }
 
   if (existingUser) {
     throw new ApiError(409, "User with this email already exists");
@@ -31,18 +41,40 @@ export const registerParent = asyncHandler(async (req, res) => {
   const hashedPassword = await bcrypt.hash(password, 12);
 
   // Create user (not verified initially)
-  const user = await prisma.user.create({
-    data: {
-      email,
-      password: hashedPassword,
-      firstName,
-      lastName,
-      phone,
-      role: "PARENT",
-      isVerified: false, // Will be verified via email code
-      preferences: {},
-    },
-  });
+  let user;
+  try {
+    user = await prisma.user.create({
+      data: {
+        email,
+        password: hashedPassword,
+        firstName,
+        lastName,
+        phone,
+        role: "PARENT",
+        isVerified: false, // Will be verified via email code
+        emailVerificationExpires: new Date(Date.now() + 10 * 60 * 1000),
+        preferences: {},
+      },
+    });
+  } catch (e) {
+    if (
+      e?.code === "P2002" &&
+      Array.isArray(e?.meta?.target) &&
+      e.meta.target.includes("email")
+    ) {
+      const roles = (
+        await prisma.user.findMany({ where: { email }, select: { role: true } })
+      )
+        .map((r) => r.role)
+        .join(", ");
+      logger.error(
+        "[RegisterParent] Duplicate email constraint hit. Existing roles:",
+        { email, roles }
+      );
+      throw new ApiError(409, `Email already used by role(s): ${roles}`);
+    }
+    throw e;
+  }
 
   // Send email verification code using Brevo
   try {
@@ -119,9 +151,22 @@ export const registerCoach = asyncHandler(async (req, res) => {
   }
 
   // Check if user already exists
-  const existingUser = await prisma.user.findUnique({
-    where: { email },
+  logger.info(
+    `[RegisterCoach] Checking existing user for email=${email}, role=COACH`
+  );
+  const existingUser = await prisma.user.findFirst({
+    where: { email, role: "COACH" },
   });
+  // Also log other roles present for this email for diagnostics
+  const existingRoles = await prisma.user.findMany({
+    where: { email },
+    select: { role: true },
+  });
+  if (existingRoles.length > 0) {
+    logger.info(
+      `[RegisterCoach] Existing roles for email ${email}: ${existingRoles.map((r) => r.role).join(", ")}`
+    );
+  }
 
   if (existingUser) {
     throw new ApiError(409, "User with this email already exists");
@@ -163,40 +208,68 @@ export const registerCoach = asyncHandler(async (req, res) => {
   }
 
   // Create user and coach in a transaction
-  const result = await prisma.$transaction(async (tx) => {
-    const user = await tx.user.create({
-      data: {
-        email,
-        password: hashedPassword,
-        firstName,
-        lastName,
-        phone,
-        role: "COACH",
-        isVerified: false, // Will be verified via email code
-        preferences: {},
-      },
-    });
+  let result;
+  try {
+    result = await prisma.$transaction(async (tx) => {
+      const user = await tx.user.create({
+        data: {
+          email,
+          password: hashedPassword,
+          firstName,
+          lastName,
+          phone,
+          role: "COACH",
+          isVerified: false, // Will be verified via email code
+          emailVerificationExpires: new Date(Date.now() + 10 * 60 * 1000),
+          preferences: {},
+        },
+      });
 
-    const coach = await tx.coach.create({
-      data: {
-        userId: user.id,
-        domain,
-        experienceDescription: experience, // Map frontend 'experience' to 'experienceDescription'
-        address,
-        languages: parsedLanguages, // Use parsed languages array
-        licenseFileUrl,
-        resumeFileUrl,
-        introVideoUrl,
-        status: "PENDING", // Default status for admin approval
-        availability: {},
-        education: [],
-        certifications: [],
-        specializations: [],
-      },
-    });
+      const coach = await tx.coach.create({
+        data: {
+          userId: user.id,
+          domain,
+          experienceDescription: experience, // Map frontend 'experience' to 'experienceDescription'
+          address,
+          languages: parsedLanguages, // Use parsed languages array
+          licenseFileUrl,
+          resumeFileUrl,
+          introVideoUrl,
+          status: "PENDING", // Default status for admin approval
+          availability: {},
+          education: [],
+          certifications: [],
+          specializations: [],
+        },
+      });
 
-    return { user, coach };
-  });
+      return { user, coach };
+    });
+  } catch (e) {
+    // Capture Prisma error codes
+    logger.error("[RegisterCoach] Transaction failed", {
+      code: e?.code,
+      message: e?.message,
+      meta: e?.meta,
+    });
+    if (
+      e?.code === "P2002" &&
+      Array.isArray(e?.meta?.target) &&
+      e.meta.target.includes("email")
+    ) {
+      const roles = (
+        await prisma.user.findMany({ where: { email }, select: { role: true } })
+      )
+        .map((r) => r.role)
+        .join(", ");
+      // Bubble a clearer conflict: legacy unique(email) still present
+      throw new ApiError(
+        409,
+        `Email already used by role(s): ${roles}. Database must allow same email per role.`
+      );
+    }
+    throw e;
+  }
 
   // Send email verification code using Brevo
   try {
@@ -237,16 +310,31 @@ export const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   // Find user with coach relation if exists
-  const user = await prisma.user.findUnique({
+  // Fetch all accounts for this email (could be PARENT and/or COACH)
+  const users = await prisma.user.findMany({
     where: { email },
-    include: {
-      coach: true,
-    },
+    include: { coach: true },
   });
 
-  if (!user) {
+  if (users.length === 0) {
     throw new ApiError(401, "Invalid email or password");
   }
+
+  // If multiple, prefer role from request if provided
+  const requestedRole = req.body.role; // optional: 'PARENT' or 'COACH'
+  let user = users[0];
+  if (requestedRole) {
+    const match = users.find((u) => u.role === requestedRole);
+    if (match) user = match;
+  } else if (users.length > 1) {
+    // Ask client to choose role
+    const roles = users.map((u) => u.role);
+    throw new ApiError(409, `Multiple roles found. Please select role.`, {
+      roles,
+    });
+  }
+
+  // user selected above
 
   // Verify password
   const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -328,6 +416,98 @@ export const login = asyncHandler(async (req, res) => {
   logger.info(`User logged in: ${user.email} (${user.role})`);
 
   res.json(new ApiResponse(200, responseData, "Login successful"));
+});
+
+// List roles available for the current user's email
+export const getMyRoles = asyncHandler(async (req, res) => {
+  const email = req.user.email;
+  const accounts = await prisma.user.findMany({
+    where: { email },
+    select: { id: true, role: true, isVerified: true },
+  });
+  const roles = accounts.map((a) => ({
+    role: a.role,
+    isVerified: a.isVerified,
+  }));
+  res.json(new ApiResponse(200, { email, roles }, "Available roles fetched"));
+});
+
+// Switch role: require password re-entry, issue tokens for target role account
+export const switchRole = asyncHandler(async (req, res) => {
+  const { targetRole, password } = req.body;
+  const currentUser = req.user;
+
+  if (!targetRole || !["PARENT", "COACH"].includes(targetRole)) {
+    throw new ApiError(400, "targetRole must be PARENT or COACH");
+  }
+  if (!password) {
+    throw new ApiError(400, "Password is required to switch role");
+  }
+  if (targetRole === currentUser.role) {
+    throw new ApiError(400, "You are already using this role");
+  }
+
+  // Find target account by same email + role
+  const targetAccount = await prisma.user.findFirst({
+    where: { email: currentUser.email, role: targetRole },
+    include: { coach: true },
+  });
+  if (!targetAccount) {
+    throw new ApiError(404, `No ${targetRole} account found for this email`);
+  }
+
+  // Verify password against target account
+  const valid = await bcrypt.compare(password, targetAccount.password);
+  if (!valid) {
+    throw new ApiError(401, "Invalid password");
+  }
+
+  if (!targetAccount.isVerified) {
+    throw new ApiError(
+      403,
+      "Please verify email for the target role before switching"
+    );
+  }
+
+  // Update last login and issue tokens for target account
+  await prisma.user.update({
+    where: { id: targetAccount.id },
+    data: { lastLogin: new Date() },
+  });
+  const accessToken = generateToken(targetAccount.id, targetAccount.role);
+  const refreshToken = generateRefreshToken(targetAccount.id);
+  await prisma.user.update({
+    where: { id: targetAccount.id },
+    data: { refreshToken },
+  });
+
+  const responseData = {
+    user: {
+      id: targetAccount.id,
+      email: targetAccount.email,
+      firstName: targetAccount.firstName,
+      lastName: targetAccount.lastName,
+      role: targetAccount.role,
+      isVerified: targetAccount.isVerified,
+      lastLogin: targetAccount.lastLogin,
+    },
+    accessToken,
+    refreshToken,
+  };
+  if (targetAccount.role === "COACH" && targetAccount.coach) {
+    responseData.coach = {
+      id: targetAccount.coach.id,
+      domain: targetAccount.coach.domain,
+      status: targetAccount.coach.status,
+      languages: targetAccount.coach.languages,
+      rating: targetAccount.coach.rating,
+      totalReviews: targetAccount.coach.totalReviews,
+    };
+  }
+  logger.info(
+    `Role switched to ${targetAccount.role} for ${targetAccount.email}`
+  );
+  res.json(new ApiResponse(200, responseData, "Switched role successfully"));
 });
 
 // Admin Login - separate endpoint for admin authentication

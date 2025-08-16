@@ -12,7 +12,7 @@ datasource db {
 
 model User {
   id                       Int       @id @default(autoincrement())
-  email                    String    @unique
+  email                    String
   password                 String
   firstName                String    @map("first_name")
   lastName                 String    @map("last_name")
@@ -60,6 +60,7 @@ model User {
   // Children relation (for PARENT role)
   children                 Child[]
 
+  @@unique([email, role])
   @@index([email])
   @@index([role])
   @@index([isVerified])

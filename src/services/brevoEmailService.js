@@ -1,145 +1,171 @@
-import SibApiV3Sdk from 'sib-api-v3-sdk';
-import crypto from 'crypto';
-import logger from '../utils/logger.js';
-import { prisma } from '../config/database.js';
+import SibApiV3Sdk from "sib-api-v3-sdk";
+import crypto from "crypto";
+import logger from "../utils/logger.js";
+import { prisma } from "../config/database.js";
 
-const {
-  BREVO_API_KEY,
-  FROM_EMAIL,
-  FROM_NAME,
-  FRONTEND_URL
-} = process.env;
+const { BREVO_API_KEY, FROM_EMAIL, FROM_NAME, FRONTEND_URL } = process.env;
 
 // Initialize Brevo API client
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
-const apiKey = defaultClient.authentications['api-key'];
+const apiKey = defaultClient.authentications["api-key"];
 apiKey.apiKey = BREVO_API_KEY;
 
 const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 
 // Email verification token model (in-memory store with expiration)
+// Keyed by `${email}:${role}` so the same email can verify per role
 const emailVerificationTokens = new Map();
 
 // Clean up expired tokens every 10 minutes
-setInterval(() => {
-  const now = Date.now();
-  for (const [email, data] of emailVerificationTokens.entries()) {
-    if (data.expiresAt < now) {
-      emailVerificationTokens.delete(email);
+setInterval(
+  () => {
+    const now = Date.now();
+    for (const [key, data] of emailVerificationTokens.entries()) {
+      if (data.expiresAt < now) {
+        emailVerificationTokens.delete(key);
+      }
     }
-  }
-}, 10 * 60 * 1000);
+  },
+  10 * 60 * 1000
+);
 
 const brevoEmailService = {
+  // Invalidate any existing verification code for an email (used on cancel)
+  invalidateVerification(email, role = "PARENT") {
+    try {
+      const hadToken = emailVerificationTokens.delete(`${email}:${role}`);
+      if (hadToken) {
+        logger.info(
+          `Invalidated email verification code for: ${email} (${role})`
+        );
+      }
+      return true;
+    } catch (error) {
+      logger.error("Failed to invalidate verification token:", error);
+      return false;
+    }
+  },
   // Generate and store email verification code
-  async generateVerificationCode(email) {
+  async generateVerificationCode(email, role = "PARENT") {
     try {
       // Generate a 6-digit verification code
       const verificationCode = crypto.randomInt(100000, 999999).toString();
-      
+
       // Store in memory with 10-minute expiration
-      const expiresAt = Date.now() + (10 * 60 * 1000); // 10 minutes
-      
-      emailVerificationTokens.set(email, {
+      const expiresAt = Date.now() + 10 * 60 * 1000; // 10 minutes
+
+      emailVerificationTokens.set(`${email}:${role}`, {
         code: verificationCode,
         expiresAt,
         attempts: 0,
-        maxAttempts: 3
+        maxAttempts: 3,
       });
 
-      logger.info(`Email verification code generated for: ${email}`);
+      logger.info(`Email verification code generated for: ${email} (${role})`);
       return verificationCode;
     } catch (error) {
-      logger.error('Failed to generate verification code:', error);
+      logger.error("Failed to generate verification code:", error);
       throw error;
     }
   },
 
   // Verify email verification code
-  async verifyCode(email, code) {
+  async verifyCode(email, code, role = "PARENT") {
     try {
-      const tokenData = emailVerificationTokens.get(email);
-      
+      const tokenData = emailVerificationTokens.get(`${email}:${role}`);
+
       if (!tokenData) {
-        return { success: false, message: 'No verification code found for this email' };
+        return {
+          success: false,
+          message: "No verification code found for this email",
+        };
       }
 
       if (tokenData.expiresAt < Date.now()) {
-        emailVerificationTokens.delete(email);
-        return { success: false, message: 'Verification code has expired' };
+        emailVerificationTokens.delete(`${email}:${role}`);
+        return { success: false, message: "Verification code has expired" };
       }
 
       if (tokenData.attempts >= tokenData.maxAttempts) {
-        emailVerificationTokens.delete(email);
-        return { success: false, message: 'Maximum verification attempts exceeded' };
+        emailVerificationTokens.delete(`${email}:${role}`);
+        return {
+          success: false,
+          message: "Maximum verification attempts exceeded",
+        };
       }
 
       if (tokenData.code !== code) {
         tokenData.attempts++;
-        return { success: false, message: 'Invalid verification code' };
+        return { success: false, message: "Invalid verification code" };
       }
 
       // Code is valid, remove from store
-      emailVerificationTokens.delete(email);
-      return { success: true, message: 'Email verified successfully' };
+      emailVerificationTokens.delete(`${email}:${role}`);
+      return { success: true, message: "Email verified successfully" };
     } catch (error) {
-      logger.error('Failed to verify code:', error);
+      logger.error("Failed to verify code:", error);
       throw error;
     }
   },
 
   // Send email verification code
-  async sendVerificationCode(email, firstName, userType = 'parent') {
+  async sendVerificationCode(email, firstName, userType = "parent") {
     try {
-      const verificationCode = await this.generateVerificationCode(email);
-      
+      const role = userType === "coach" ? "COACH" : "PARENT";
+      const verificationCode = await this.generateVerificationCode(email, role);
+
       const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
-      
-      sendSmtpEmail.subject = 'Verify Your Luminary Email Address ✉️';
-      sendSmtpEmail.htmlContent = this.getVerificationEmailTemplate(firstName, verificationCode, userType);
-      sendSmtpEmail.sender = { 
-        name: FROM_NAME || 'Luminary', 
-        email: FROM_EMAIL 
+
+      sendSmtpEmail.subject = "Verify Your Luminary Email Address ✉️";
+      sendSmtpEmail.htmlContent = this.getVerificationEmailTemplate(
+        firstName,
+        verificationCode,
+        userType
+      );
+      sendSmtpEmail.sender = {
+        name: FROM_NAME || "Luminary",
+        email: FROM_EMAIL,
       };
       sendSmtpEmail.to = [{ email, name: firstName }];
-      sendSmtpEmail.replyTo = { 
-        email: FROM_EMAIL, 
-        name: FROM_NAME || 'Luminary' 
+      sendSmtpEmail.replyTo = {
+        email: FROM_EMAIL,
+        name: FROM_NAME || "Luminary",
       };
 
       const result = await apiInstance.sendTransacEmail(sendSmtpEmail);
-      
-      logger.info(`Email verification code sent to ${email}`, { 
+
+      logger.info(`Email verification code sent to ${email}`, {
         messageId: result.messageId,
-        code: verificationCode // Remove this in production
+        code: verificationCode, // Remove this in production
       });
-      
+
       return { success: true, messageId: result.messageId };
     } catch (error) {
-      logger.error('Failed to send verification email:', error);
+      logger.error("Failed to send verification email:", error);
       throw error;
     }
   },
 
   // Resend verification code
-  async resendVerificationCode(email, firstName, userType = 'parent') {
+  async resendVerificationCode(email, firstName, userType = "parent") {
     try {
       // Remove existing code if any
-      emailVerificationTokens.delete(email);
-      
+      const role = userType === "coach" ? "COACH" : "PARENT";
+      emailVerificationTokens.delete(`${email}:${role}`);
+
       // Send new code
       return await this.sendVerificationCode(email, firstName, userType);
     } catch (error) {
-      logger.error('Failed to resend verification code:', error);
+      logger.error("Failed to resend verification code:", error);
       throw error;
     }
   },
 
   // Get email verification template
   getVerificationEmailTemplate(firstName, verificationCode, userType) {
-    const baseUrl = FRONTEND_URL || 'http://localhost:5173';
-    const userTypeText = userType === 'coach' ? 'Coach' : 'Parent';
-    
+    const baseUrl = FRONTEND_URL || "http://localhost:5173";
+    const userTypeText = userType === "coach" ? "Coach" : "Parent";
+
     return `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8fafc;">
         <div style="background: linear-gradient(135deg, #4299e1 0%, #3182ce 100%); padding: 30px; border-radius: 10px; text-align: center; margin-bottom: 30px;">
@@ -189,44 +215,45 @@ const brevoEmailService = {
   },
 
   // Send welcome email after successful verification
-  async sendWelcomeEmail(user, userType = 'parent') {
+  async sendWelcomeEmail(user, userType = "parent") {
     try {
       const sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();
-      
-      sendSmtpEmail.subject = userType === 'coach' 
-        ? 'Welcome to Luminary - Coach Application Received! 🎓'
-        : 'Welcome to Luminary - Your Learning Journey Begins! 🎓';
-      
+
+      sendSmtpEmail.subject =
+        userType === "coach"
+          ? "Welcome to Luminary - Coach Application Received! 🎓"
+          : "Welcome to Luminary - Your Learning Journey Begins! 🎓";
+
       sendSmtpEmail.htmlContent = this.getWelcomeEmailTemplate(user, userType);
-      sendSmtpEmail.sender = { 
-        name: FROM_NAME || 'Luminary', 
-        email: FROM_EMAIL 
+      sendSmtpEmail.sender = {
+        name: FROM_NAME || "Luminary",
+        email: FROM_EMAIL,
       };
       sendSmtpEmail.to = [{ email: user.email, name: user.firstName }];
-      sendSmtpEmail.replyTo = { 
-        email: FROM_EMAIL, 
-        name: FROM_NAME || 'Luminary' 
+      sendSmtpEmail.replyTo = {
+        email: FROM_EMAIL,
+        name: FROM_NAME || "Luminary",
       };
 
       const result = await apiInstance.sendTransacEmail(sendSmtpEmail);
-      
-      logger.info(`Welcome email sent to ${user.email}`, { 
+
+      logger.info(`Welcome email sent to ${user.email}`, {
         messageId: result.messageId,
-        userType
+        userType,
       });
-      
+
       return { success: true, messageId: result.messageId };
     } catch (error) {
-      logger.error('Failed to send welcome email:', error);
+      logger.error("Failed to send welcome email:", error);
       throw error;
     }
   },
 
   // Get welcome email template
   getWelcomeEmailTemplate(user, userType) {
-    const baseUrl = FRONTEND_URL || 'http://localhost:5173';
-    
-    if (userType === 'coach') {
+    const baseUrl = FRONTEND_URL || "http://localhost:5173";
+
+    if (userType === "coach") {
       return `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f8fafc;">
           <div style="background: linear-gradient(135deg, #48bb78 0%, #38a169 100%); padding: 30px; border-radius: 10px; text-align: center; margin-bottom: 30px;">
@@ -315,18 +342,18 @@ const brevoEmailService = {
     try {
       const accountApi = new SibApiV3Sdk.AccountApi();
       const account = await accountApi.getAccount();
-      
-      logger.info('Brevo configuration is valid', {
+
+      logger.info("Brevo configuration is valid", {
         email: account.email,
-        plan: account.plan
+        plan: account.plan,
       });
-      
+
       return { success: true, account };
     } catch (error) {
-      logger.error('Brevo configuration test failed:', error);
+      logger.error("Brevo configuration test failed:", error);
       throw error;
     }
-  }
+  },
 };
 
 export default brevoEmailService;
